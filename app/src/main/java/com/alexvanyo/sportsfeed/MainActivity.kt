@@ -21,9 +21,9 @@ class TextViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 }
 
-class TextAdapter : ListAdapter<String, TextViewHolder>(diffCallback) {
+class TextAdapter : ListAdapter<String, TextViewHolder>(DIFF_CALLBACK) {
     companion object {
-        val diffCallback = object : DiffUtil.ItemCallback<String>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<String>() {
             override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
                 return oldItem == newItem
             }
@@ -55,7 +55,6 @@ class MainActivity : AppCompatActivity() {
 
         this.recycler_view.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = textAdapter
         }
     }
