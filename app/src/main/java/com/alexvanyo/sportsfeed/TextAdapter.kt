@@ -42,7 +42,14 @@ class TextAdapter : RecyclerView.Adapter<TextAdapter.DataBoundViewHolder<GameIte
     override fun getItemCount() = sortedList.size()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataBoundViewHolder<GameItemBinding> {
-        return DataBoundViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.game_item, parent, false))
+        return DataBoundViewHolder(
+            DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
+                R.layout.game_item,
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: DataBoundViewHolder<GameItemBinding>, position: Int) {
