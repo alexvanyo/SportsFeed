@@ -1,17 +1,15 @@
 package com.alexvanyo.sportsfeed
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.alexvanyo.sportsfeed.api.ESPNService
 import com.alexvanyo.sportsfeed.api.ScoreboardData
 import dagger.android.support.DaggerFragment
+import io.reactivex.Observable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.feed_fragment.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import javax.inject.Inject
 
 class FeedFragment : DaggerFragment() {
@@ -31,18 +29,11 @@ class FeedFragment : DaggerFragment() {
             adapter = textAdapter
         }
 
-        val gamesCall: Call<ScoreboardData> = espnService.getMLBGames()
-        gamesCall.enqueue(object : Callback<ScoreboardData> {
-            override fun onFailure(call: Call<ScoreboardData>?, t: Throwable?) {
-                Log.d("FeedFragment", "API call failed")
-                throw t!!
+        val gamesObservable: Observable<ScoreboardData> = espnService.getMLBGames()
+        gamesObservable
+            .subscribeOn(Schedulers.io())
+            .subscribe {
+                textAdapter.sortedList.addAll(it.events.map { event -> event.name })
             }
-
-            override fun onResponse(call: Call<ScoreboardData>, response: Response<ScoreboardData>) {
-                Log.d("FeedFragment", "Response ${response!!.body().toString()}")
-                textAdapter.sortedList.addAll(response.body()!!.events.map { event -> event.name })
-            }
-
-        })
     }
 }
