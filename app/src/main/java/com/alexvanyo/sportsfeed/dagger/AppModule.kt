@@ -33,7 +33,7 @@ class AppModule {
         httpClient: OkHttpClient
     ): ESPNService {
         return Retrofit.Builder()
-            .baseUrl("http://site.api.espn.com/apis/site/v2/")
+            .baseUrl("https://site.api.espn.com/apis/site/v2/")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(httpClient)
