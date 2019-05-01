@@ -1,25 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="text"
-            type="String" />
+            name="event"
+            type="com.alexvanyo.sportsfeed.api.Event" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
         android:padding="10dp">
 
+        <ImageView
+            android:id="@+id/leftLogo"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            tools:srcCompat="@tools:sample/avatars" />
+
         <TextView
-            android:id="@+id/text_view"
-            android:layout_width="match_parent"
+            android:id="@+id/leftAbbr"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{text}"
-            android:textSize="20sp" />
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@{event.competitions[0].competitors[0].team.abbreviation}"
+            android:textSize="20sp"
+            tools:text="MIN" />
+
+        <TextView
+            android:id="@+id/leftScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@{event.competitions[0].competitors[0].score}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            tools:text="3" />
+
+        <TextView
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="-"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+        <TextView
+            android:id="@+id/rightScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@{event.competitions[0].competitors[1].score}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            tools:text="2" />
+
+        <TextView
+            android:id="@+id/rightAbbr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@{event.competitions[0].competitors[1].team.abbreviation}"
+            android:textSize="20sp"
+            tools:text="MIN" />
+
+        <ImageView
+            android:id="@+id/rightLogo"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            tools:srcCompat="@tools:sample/avatars" />
 
     </LinearLayout>
 </layout>

@@ -55,7 +55,7 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.DataBoundViewHolder<Event
     }
 
     override fun onBindViewHolder(holder: DataBoundViewHolder<EventItemBinding>, position: Int) {
-        holder.binding.text = sortedList.get(position).name
+        holder.binding.event = sortedList.get(position)
         holder.binding.executePendingBindings()
     }
 
