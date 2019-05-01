@@ -1,9 +1,10 @@
-package com.alexvanyo.sportsfeed
+package com.alexvanyo.sportsfeed.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.alexvanyo.sportsfeed.R
 import com.alexvanyo.sportsfeed.api.ESPNService
 import com.alexvanyo.sportsfeed.api.ScoreboardData
 import dagger.android.support.DaggerFragment
@@ -22,7 +23,7 @@ class FeedFragment : DaggerFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val textAdapter = TextAdapter()
+        val textAdapter = EventAdapter()
 
         this.recycler_view.apply {
             setHasFixedSize(true)
@@ -33,7 +34,7 @@ class FeedFragment : DaggerFragment() {
         gamesObservable
             .subscribeOn(Schedulers.io())
             .subscribe {
-                textAdapter.sortedList.addAll(it.events.map { event -> event.name })
+                textAdapter.sortedList.addAll(it.events)
             }
     }
 }

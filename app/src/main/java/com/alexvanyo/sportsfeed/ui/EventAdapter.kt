@@ -1,4 +1,4 @@
-package com.alexvanyo.sportsfeed
+package com.alexvanyo.sportsfeed.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,15 +7,17 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SortedList
 import androidx.recyclerview.widget.SortedListAdapterCallback
-import com.alexvanyo.sportsfeed.databinding.GameItemBinding
+import com.alexvanyo.sportsfeed.R
+import com.alexvanyo.sportsfeed.api.Event
+import com.alexvanyo.sportsfeed.databinding.EventItemBinding
 
-class TextAdapter : RecyclerView.Adapter<TextAdapter.DataBoundViewHolder<GameItemBinding>>() {
+class EventAdapter : RecyclerView.Adapter<EventAdapter.DataBoundViewHolder<EventItemBinding>>() {
 
-    val sortedList: SortedList<String>
+    val sortedList: SortedList<Event>
 
     init {
-        sortedList = SortedList(String::class.java, object : SortedListAdapterCallback<String>(this) {
-            override fun compare(o1: String?, o2: String?): Int {
+        sortedList = SortedList(Event::class.java, object : SortedListAdapterCallback<Event>(this) {
+            override fun compare(o1: Event?, o2: Event?): Int {
                 // Sort lexicographically, with null coming first
                 return if (o1 == null && o2 == null) {
                     0
@@ -24,15 +26,15 @@ class TextAdapter : RecyclerView.Adapter<TextAdapter.DataBoundViewHolder<GameIte
                 } else if (o2 == null) {
                     1
                 } else {
-                    o1.compareTo(o2)
+                    o1.name.compareTo(o2.name)
                 }
             }
 
-            override fun areContentsTheSame(oldItem: String?, newItem: String?): Boolean {
+            override fun areContentsTheSame(oldItem: Event?, newItem: Event?): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areItemsTheSame(item1: String?, item2: String?): Boolean {
+            override fun areItemsTheSame(item1: Event?, item2: Event?): Boolean {
                 return false
             }
 
@@ -41,19 +43,19 @@ class TextAdapter : RecyclerView.Adapter<TextAdapter.DataBoundViewHolder<GameIte
 
     override fun getItemCount() = sortedList.size()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataBoundViewHolder<GameItemBinding> {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataBoundViewHolder<EventItemBinding> {
         return DataBoundViewHolder(
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
-                R.layout.game_item,
+                R.layout.event_item,
                 parent,
                 false
             )
         )
     }
 
-    override fun onBindViewHolder(holder: DataBoundViewHolder<GameItemBinding>, position: Int) {
-        holder.binding.text = sortedList.get(position)
+    override fun onBindViewHolder(holder: DataBoundViewHolder<EventItemBinding>, position: Int) {
+        holder.binding.text = sortedList.get(position).name
         holder.binding.executePendingBindings()
     }
 

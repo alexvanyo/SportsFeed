@@ -1,6 +1,6 @@
 package com.alexvanyo.sportsfeed.dagger
 
-import com.alexvanyo.sportsfeed.FeedFragment
+import com.alexvanyo.sportsfeed.ui.FeedFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

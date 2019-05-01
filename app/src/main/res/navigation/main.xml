@@ -5,6 +5,6 @@
 
     <fragment
         android:id="@+id/feedFragment"
-        android:name="com.alexvanyo.sportsfeed.FeedFragment"
+        android:name="com.alexvanyo.sportsfeed.ui.FeedFragment"
         android:label="FeedFragment" />
 </navigation>
