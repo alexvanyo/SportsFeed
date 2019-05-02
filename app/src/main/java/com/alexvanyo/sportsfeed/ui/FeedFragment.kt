@@ -24,9 +24,9 @@ class FeedFragment : DaggerFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val textAdapter = EventAdapter()
+        val textAdapter = EventAdapter(this)
 
-        this.recycler_view.apply {
+        this.recyclerView.apply {
             setHasFixedSize(true)
             adapter = textAdapter
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))

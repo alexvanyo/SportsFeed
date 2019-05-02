@@ -4,14 +4,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SortedList
 import androidx.recyclerview.widget.SortedListAdapterCallback
 import com.alexvanyo.sportsfeed.R
 import com.alexvanyo.sportsfeed.api.Event
 import com.alexvanyo.sportsfeed.databinding.EventItemBinding
+import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.event_item.view.*
 
-class EventAdapter : RecyclerView.Adapter<EventAdapter.DataBoundViewHolder<EventItemBinding>>() {
+class EventAdapter(var fragment: Fragment) : RecyclerView.Adapter<EventAdapter.DataBoundViewHolder<EventItemBinding>>() {
 
     val sortedList: SortedList<Event>
 
@@ -35,7 +38,7 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.DataBoundViewHolder<Event
             }
 
             override fun areItemsTheSame(item1: Event?, item2: Event?): Boolean {
-                return false
+                return item1?.uid == item2?.uid
             }
 
         })
@@ -56,6 +59,8 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.DataBoundViewHolder<Event
 
     override fun onBindViewHolder(holder: DataBoundViewHolder<EventItemBinding>, position: Int) {
         holder.binding.event = sortedList.get(position)
+        Glide.with(fragment).load(sortedList.get(position).competitions[0].competitors[0].team.logo).into(holder.itemView.leftLogo)
+        Glide.with(fragment).load(sortedList.get(position).competitions[0].competitors[1].team.logo).into(holder.itemView.rightLogo)
         holder.binding.executePendingBindings()
     }
 
