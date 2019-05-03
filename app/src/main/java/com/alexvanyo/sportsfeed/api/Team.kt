@@ -6,6 +6,12 @@ data class Team (
     @SerializedName("abbreviation")
     val abbreviation: String,
 
+    @SerializedName("displayName")
+    val displayName: String,
+
+    @SerializedName("shortDisplayName")
+    val shortDisplayName: String,
+
     @SerializedName("logo")
     val logo: String
 )

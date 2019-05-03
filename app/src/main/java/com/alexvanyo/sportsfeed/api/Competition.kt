@@ -4,5 +4,8 @@ import com.google.gson.annotations.SerializedName
 
 data class Competition (
     @SerializedName("competitors")
-    val competitors: List<Competitor>
+    val competitors: List<Competitor>,
+
+    @SerializedName("status")
+    val status: Status
 )

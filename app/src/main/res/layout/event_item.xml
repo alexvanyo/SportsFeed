@@ -41,6 +41,7 @@
             android:text="@{event.competitions[0].competitors[0].team.abbreviation}"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/leftLogo"
             app:layout_constraintStart_toStartOf="@+id/leftLogo"
             tools:text="MIN" />
 
@@ -100,6 +101,7 @@
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/rightLogo"
+            app:layout_constraintStart_toStartOf="@+id/rightLogo"
             tools:text="MIN" />
 
         <ImageView
@@ -112,6 +114,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@sample/logos" />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@{event.competitions[0].status.type.detail}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Final Time" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
