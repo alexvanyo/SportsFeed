@@ -14,6 +14,9 @@ import javax.inject.Inject
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.alexvanyo.sportsfeed.R
 
+/**
+ * Fragment that contains the main competition feed, a list of competitions
+ */
 class FeedFragment : DaggerFragment() {
 
     @Inject
@@ -24,11 +27,11 @@ class FeedFragment : DaggerFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val textAdapter = EventAdapter(this)
+        val competitionAdapter = CompetitionAdapter(this)
 
         this.recyclerView.apply {
             setHasFixedSize(true)
-            adapter = textAdapter
+            adapter = competitionAdapter
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
 
@@ -36,7 +39,7 @@ class FeedFragment : DaggerFragment() {
         gamesObservable
             .subscribeOn(Schedulers.io())
             .subscribe {
-                textAdapter.sortedList.addAll(it.events)
+                competitionAdapter.sortedList.addAll(it.events.flatMap { event -> event.competitions })
             }
     }
 }

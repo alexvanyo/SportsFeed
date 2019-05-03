@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="event"
-            type="com.alexvanyo.sportsfeed.api.Event" />
+            name="competition"
+            type="com.alexvanyo.sportsfeed.api.Competition" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:text="@{event.competitions[0].competitors[0].team.abbreviation}"
+            android:text="@{competition.competitors[0].team.abbreviation}"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/leftLogo"
@@ -53,7 +53,7 @@
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:text="@{event.competitions[0].competitors[0].score}"
+            android:text="@{competition.competitors[0].score}"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/divider"
@@ -84,7 +84,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:text="@{event.competitions[0].competitors[1].score}"
+            android:text="@{competition.competitors[1].score}"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/divider"
@@ -97,7 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:text="@{event.competitions[0].competitors[1].team.abbreviation}"
+            android:text="@{competition.competitors[1].team.abbreviation}"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/rightLogo"
@@ -122,7 +122,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="@{event.competitions[0].status.type.detail}"
+            android:text="@{competition.status.type.detail}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

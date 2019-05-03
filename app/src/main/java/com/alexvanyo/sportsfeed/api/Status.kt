@@ -11,6 +11,15 @@ data class Status (
         val completed: Boolean,
 
         @SerializedName("detail")
-        val detail: String
-    )
+        val detail: String,
+
+        @SerializedName("state")
+        val state: State
+    ) {
+        enum class State {
+            @SerializedName("pre") PRE,
+            @SerializedName("in") IN,
+            @SerializedName("post") POST
+        }
+    }
 }
