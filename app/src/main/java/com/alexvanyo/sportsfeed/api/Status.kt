@@ -17,9 +17,9 @@ data class Status (
         val state: State
     ) {
         enum class State {
-            @SerializedName("pre") PRE,
+            @SerializedName("post") POST,
             @SerializedName("in") IN,
-            @SerializedName("post") POST
+            @SerializedName("pre") PRE,
         }
     }
 }

@@ -16,11 +16,23 @@ data class Competition (
     @SerializedName("uid")
     val uid: String,
 
-    @SerializedName("date")
-    val date: Date
+    @SerializedName("startDate")
+    val startDate: Date
 
 ) : Comparable<Competition> {
+    /**
+     * A competition is "less" than another competition if it should appear earlier in a list of games that have
+     * finished, are in progress, and have yet to start.
+     */
     override fun compareTo(other: Competition): Int {
-        return this.date.compareTo(other.date)
+        // Finished competitions should come before in progress competitions,
+        // which should come before schedule competitions
+        val stateComparison = this.status.type.state.compareTo(other.status.type.state)
+        if (stateComparison != 0) {
+            return stateComparison
+        }
+
+        // Competitions in the same state should be order by start time
+        return this.startDate.compareTo(other.startDate)
     }
 }
