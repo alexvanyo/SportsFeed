@@ -19,7 +19,7 @@ class AppModule {
         val logging = HttpLoggingInterceptor()
 
         if (BuildConfig.DEBUG) {
-            logging.level = HttpLoggingInterceptor.Level.BODY
+            logging.level = HttpLoggingInterceptor.Level.BASIC
         }
 
         return OkHttpClient.Builder()
