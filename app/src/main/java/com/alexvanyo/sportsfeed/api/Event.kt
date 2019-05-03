@@ -3,10 +3,9 @@ package com.alexvanyo.sportsfeed.api
 import com.google.gson.annotations.SerializedName
 
 /**
- * Data class that corresponds to a single event. This usually contains a single game between two teams, with
- * information about the game status and the teams playing.
+ * Data class that corresponds to a single event.
  */
-data class Event (
+data class Event(
     @SerializedName("name")
     val name: String,
 
@@ -15,4 +14,8 @@ data class Event (
 
     @SerializedName("competitions")
     val competitions: List<Competition>
-)
+) : Comparable<Event> {
+    override fun compareTo(other: Event): Int {
+        return this.name.compareTo(other.name)
+    }
+}

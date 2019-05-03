@@ -14,33 +14,16 @@ import com.alexvanyo.sportsfeed.databinding.EventItemBinding
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.event_item.view.*
 
-class EventAdapter(var fragment: Fragment) : RecyclerView.Adapter<EventAdapter.DataBoundViewHolder<EventItemBinding>>() {
+class EventAdapter(var fragment: Fragment) :
+    RecyclerView.Adapter<EventAdapter.DataBoundViewHolder<EventItemBinding>>() {
 
     val sortedList: SortedList<Event>
 
     init {
         sortedList = SortedList(Event::class.java, object : SortedListAdapterCallback<Event>(this) {
-            override fun compare(o1: Event?, o2: Event?): Int {
-                // Sort lexicographically, with null coming first
-                return if (o1 == null && o2 == null) {
-                    0
-                } else if (o1 == null) {
-                    -1
-                } else if (o2 == null) {
-                    1
-                } else {
-                    o1.name.compareTo(o2.name)
-                }
-            }
-
-            override fun areContentsTheSame(oldItem: Event?, newItem: Event?): Boolean {
-                return oldItem == newItem
-            }
-
-            override fun areItemsTheSame(item1: Event?, item2: Event?): Boolean {
-                return item1?.uid == item2?.uid
-            }
-
+            override fun compare(o1: Event, o2: Event): Int = o1.compareTo(o2)
+            override fun areContentsTheSame(oldItem: Event, newItem: Event): Boolean = oldItem == newItem
+            override fun areItemsTheSame(item1: Event, item2: Event): Boolean = item1.uid == item2.uid
         })
     }
 
@@ -59,8 +42,10 @@ class EventAdapter(var fragment: Fragment) : RecyclerView.Adapter<EventAdapter.D
 
     override fun onBindViewHolder(holder: DataBoundViewHolder<EventItemBinding>, position: Int) {
         holder.binding.event = sortedList.get(position)
-        Glide.with(fragment).load(sortedList.get(position).competitions[0].competitors[0].team.logo).into(holder.itemView.leftLogo)
-        Glide.with(fragment).load(sortedList.get(position).competitions[0].competitors[1].team.logo).into(holder.itemView.rightLogo)
+        Glide.with(fragment).load(sortedList.get(position).competitions[0].competitors[0].team.logo)
+            .into(holder.itemView.leftLogo)
+        Glide.with(fragment).load(sortedList.get(position).competitions[0].competitors[1].team.logo)
+            .into(holder.itemView.rightLogo)
         holder.binding.executePendingBindings()
     }
 
