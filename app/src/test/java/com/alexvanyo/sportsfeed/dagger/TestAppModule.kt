@@ -1,4 +1,4 @@
-package com.alexvanyo.sportsfeed
+package com.alexvanyo.sportsfeed.dagger
 
 import com.alexvanyo.sportsfeed.api.ESPNService
 import dagger.Module

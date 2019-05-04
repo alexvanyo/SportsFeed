@@ -1,8 +1,6 @@
-package com.alexvanyo.sportsfeed
+package com.alexvanyo.sportsfeed.dagger
 
-import com.alexvanyo.sportsfeed.dagger.AppModule
-import com.alexvanyo.sportsfeed.dagger.FragmentBuildersModule
-import com.alexvanyo.sportsfeed.dagger.MainActivityModule
+import com.alexvanyo.sportsfeed.TestSportsFeedApp
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
@@ -12,11 +10,11 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AndroidSupportInjectionModule::class,
-        AppModule::class,
+        FragmentBuildersModule::class,
         MainActivityModule::class,
-        FragmentBuildersModule::class]
+        TestAppModule::class]
 )
 interface TestAppComponent : AndroidInjector<TestSportsFeedApp> {
     @Component.Builder
-    abstract class Builder: AndroidInjector.Builder<TestSportsFeedApp>()
+    abstract class Builder : AndroidInjector.Builder<TestSportsFeedApp>()
 }

@@ -6,10 +6,10 @@ import java.util.*
 object TestUtil {
     fun createCompetition(
         competitors: List<Competitor> = emptyList(),
+        startDate: Date = Date(),
         status: Status = createStatus(),
-        uid: String = "abc",
-        startDate: Date = Date()
-    ) = Competition (competitors, status, uid, startDate)
+        uid: String = "abc"
+    ) = Competition(competitors, startDate, status, uid)
 
     fun createStatus(
         type: Status.Type = createStatusType()
