@@ -11,10 +11,10 @@ import javax.inject.Singleton
     modules = [
         AndroidSupportInjectionModule::class,
         AppModule::class,
-        MainActivityModule::class,
-        FragmentBuildersModule::class]
+        FragmentBuildersModule::class,
+        MainActivityModule::class]
 )
 interface AppComponent : AndroidInjector<SportsFeedApp> {
     @Component.Builder
-    abstract class Builder: AndroidInjector.Builder<SportsFeedApp>()
+    abstract class Builder : AndroidInjector.Builder<SportsFeedApp>()
 }

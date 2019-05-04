@@ -38,6 +38,6 @@ class AppModule {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(httpClient)
             .build()
-            .create(com.alexvanyo.sportsfeed.api.ESPNService::class.java)
+            .create(ESPNService::class.java)
     }
 }

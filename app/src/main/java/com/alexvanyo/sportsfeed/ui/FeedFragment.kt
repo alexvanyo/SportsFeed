@@ -4,16 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
+import com.alexvanyo.sportsfeed.R
 import com.alexvanyo.sportsfeed.api.ESPNService
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.feed_fragment.*
-import javax.inject.Inject
-import androidx.recyclerview.widget.DividerItemDecoration
-import com.alexvanyo.sportsfeed.R
-import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 /**
  * Fragment that contains the main competition feed, a list of competitions.
@@ -31,7 +31,7 @@ class FeedFragment : DaggerFragment() {
         super.onResume()
 
         compositeDisposable
-            .add(Observable.interval(0,1, TimeUnit.MINUTES)
+            .add(Observable.interval(0, 1, TimeUnit.MINUTES)
                 .flatMap { espnService.getMLBGames() }
                 .subscribeOn(Schedulers.io())
                 .subscribe {

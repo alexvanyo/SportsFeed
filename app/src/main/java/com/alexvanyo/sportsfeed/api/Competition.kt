@@ -6,19 +6,18 @@ import java.util.*
 /**
  * Data class that corresponds to a single competition, which is usually a game played between two teams.
  */
-data class Competition (
+data class Competition(
     @SerializedName("competitors")
     val competitors: List<Competitor>,
+
+    @SerializedName("startDate")
+    val startDate: Date,
 
     @SerializedName("status")
     val status: Status,
 
     @SerializedName("uid")
-    val uid: String,
-
-    @SerializedName("startDate")
-    val startDate: Date
-
+    val uid: String
 ) : Comparable<Competition> {
     /**
      * A competition is "less" than another competition if it should appear earlier in a list of games that have

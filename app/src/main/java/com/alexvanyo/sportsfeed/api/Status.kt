@@ -2,11 +2,11 @@ package com.alexvanyo.sportsfeed.api
 
 import com.google.gson.annotations.SerializedName
 
-data class Status (
+data class Status(
     @SerializedName("type")
     val type: Type
 ) {
-    data class Type (
+    data class Type(
         @SerializedName("completed")
         val completed: Boolean,
 
@@ -17,9 +17,12 @@ data class Status (
         val state: State
     ) {
         enum class State {
-            @SerializedName("post") POST,
-            @SerializedName("in") IN,
-            @SerializedName("pre") PRE,
+            @SerializedName("post")
+            POST,
+            @SerializedName("in")
+            IN,
+            @SerializedName("pre")
+            PRE,
         }
     }
 }
