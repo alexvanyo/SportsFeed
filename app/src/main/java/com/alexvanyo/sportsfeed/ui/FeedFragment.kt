@@ -35,7 +35,7 @@ class FeedFragment : DaggerFragment() {
                 .flatMap { espnService.getMLBGames() }
                 .subscribeOn(Schedulers.io())
                 .subscribe {
-                    competitionAdapter.sortedList.addAll(it.events.flatMap { event -> event.competitions })
+                    competitionAdapter.sortedList.replaceAll(it.events.flatMap { event -> event.competitions })
                 })
     }
 
