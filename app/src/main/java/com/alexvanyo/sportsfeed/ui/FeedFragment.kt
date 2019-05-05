@@ -4,15 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.alexvanyo.sportsfeed.R
-import com.alexvanyo.sportsfeed.api.ESPNService
+import com.alexvanyo.sportsfeed.viewmodel.FeedViewModel
+import com.alexvanyo.sportsfeed.viewmodel.InjectableViewModelFactory
 import dagger.android.support.DaggerFragment
-import io.reactivex.Observable
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.feed_fragment.*
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 /**
@@ -21,35 +21,26 @@ import javax.inject.Inject
 class FeedFragment : DaggerFragment() {
 
     @Inject
-    lateinit var espnService: ESPNService
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private lateinit var model: FeedViewModel
 
     private val competitionAdapter = CompetitionAdapter(this)
-
-    private val compositeDisposable = CompositeDisposable()
-
-    override fun onResume() {
-        super.onResume()
-
-        compositeDisposable
-            .add(Observable.interval(0, 1, TimeUnit.MINUTES)
-                .flatMap { espnService.getMLBGames() }
-                .subscribeOn(Schedulers.io())
-                .subscribe {
-                    competitionAdapter.sortedList.replaceAll(it.events.flatMap { event -> event.competitions })
-                })
-    }
-
-    override fun onPause() {
-        super.onPause()
-
-        compositeDisposable.clear()
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.feed_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        model = activity?.run {
+            ViewModelProviders.of(this, viewModelFactory).get(FeedViewModel::class.java)
+        } ?: throw Exception("Invalid Activity")
+
+        model.mlbData.observe(
+            this,
+            Observer { competitionAdapter.sortedList.replaceAll(it.events.flatMap { event -> event.competitions }) })
+
         this.recyclerView.apply {
             setHasFixedSize(true)
             adapter = competitionAdapter

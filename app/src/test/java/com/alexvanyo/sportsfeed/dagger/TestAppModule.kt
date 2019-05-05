@@ -6,7 +6,7 @@ import dagger.Provides
 import org.mockito.Mockito
 import javax.inject.Singleton
 
-@Module
+@Module(includes = [TestViewModelModule::class])
 class TestAppModule {
     @Singleton
     @Provides

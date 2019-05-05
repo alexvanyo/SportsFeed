@@ -1,7 +1,9 @@
 package com.alexvanyo.sportsfeed.ui
 
+import TestUtil
 import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragmentInContainer
+import androidx.lifecycle.MutableLiveData
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -11,26 +13,32 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.alexvanyo.sportsfeed.R
 import com.alexvanyo.sportsfeed.TestSportsFeedApp
 import com.alexvanyo.sportsfeed.api.ScoreboardData
-import io.reactivex.subjects.PublishSubject
+import com.alexvanyo.sportsfeed.viewmodel.FeedViewModel
 import kotlinx.android.synthetic.main.feed_fragment.*
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
 @Config(application = TestSportsFeedApp::class)
 class FeedFragmentTest {
+    @Mock
+    private val mockFeedViewModel = Mockito.mock(FeedViewModel::class.java)
 
-    private val mlbGamesObservable: PublishSubject<ScoreboardData> = PublishSubject.create()
     private lateinit var feedFragmentScenario: FragmentScenario<FeedFragment>
+
+    private val mlbData = MutableLiveData<ScoreboardData>()
 
     @Before
     fun setUp() {
         val app = ApplicationProvider.getApplicationContext<TestSportsFeedApp>()
-        `when`(app.espnService.getMLBGames()).thenReturn(mlbGamesObservable)
+        `when`(app.viewModelFactory.create(FeedViewModel::class.java)).thenReturn(mockFeedViewModel)
+        `when`(mockFeedViewModel.mlbData).thenReturn(mlbData)
         feedFragmentScenario = launchFragmentInContainer<FeedFragment>()
     }
 
@@ -43,6 +51,19 @@ class FeedFragmentTest {
     fun `recyclerView is initially empty`() {
         feedFragmentScenario.onFragment {
             assertEquals(0, it.recyclerView.adapter!!.itemCount)
+        }
+    }
+
+    @Test
+    fun `recyclerView is populated when data is available`() {
+        mlbData.postValue(
+            TestUtil.createScoreboardData(
+                listOf(TestUtil.createEvent())
+            )
+        )
+
+        feedFragmentScenario.onFragment {
+            assertEquals(1, it.recyclerView.adapter!!.itemCount)
         }
     }
 }
