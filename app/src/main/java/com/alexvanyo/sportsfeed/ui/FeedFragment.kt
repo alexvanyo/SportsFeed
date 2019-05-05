@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.alexvanyo.sportsfeed.R
 import com.alexvanyo.sportsfeed.viewmodel.FeedViewModel
@@ -25,7 +26,7 @@ class FeedFragment : DaggerFragment() {
 
     private lateinit var model: FeedViewModel
 
-    private val competitionAdapter = CompetitionAdapter(this)
+    private val competitionAdapter = CompetitionAdapter(this, ::competitionClickListener)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.feed_fragment, container, false)
@@ -46,5 +47,9 @@ class FeedFragment : DaggerFragment() {
             adapter = competitionAdapter
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
+    }
+
+    private fun competitionClickListener() {
+        findNavController().navigate(FeedFragmentDirections.actionFeedFragmentToCompetitionFragment())
     }
 }

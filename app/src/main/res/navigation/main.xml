@@ -6,5 +6,17 @@
     <fragment
         android:id="@+id/feedFragment"
         android:name="com.alexvanyo.sportsfeed.ui.FeedFragment"
-        android:label="FeedFragment" />
+        android:label="FeedFragment" >
+        <action
+            android:id="@+id/action_feedFragment_to_competitionFragment"
+            app:destination="@id/competitionFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/competitionFragment"
+        android:name="com.alexvanyo.sportsfeed.ui.CompetitionFragment"
+        android:label="CompetitionFragment" />
 </navigation>
