@@ -14,7 +14,7 @@ class PausableIntervalTest {
     private val pausableInterval = PausableInterval({ timeInMillis }, TEST_PERIOD, TimeUnit.SECONDS)
     private val testObserver = pausableInterval.observable.test()
 
-    fun advanceTime(duration: Long) {
+    private fun advanceTime(duration: Long) {
         // The artificial time must be updated first, so that it will be seen
         timeInMillis += TimeUnit.MILLISECONDS.convert(duration, TimeUnit.SECONDS)
         testSchedulerRule.testScheduler.advanceTimeBy(duration, TimeUnit.SECONDS)
