@@ -13,20 +13,20 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.alexvanyo.sportsfeed.R
 import com.alexvanyo.sportsfeed.TestSportsFeedApp
 import com.alexvanyo.sportsfeed.api.ScoreboardData
+import com.alexvanyo.sportsfeed.util.mock
 import com.alexvanyo.sportsfeed.viewmodel.FeedViewModel
 import kotlinx.android.synthetic.main.feed_fragment.*
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
 @Config(application = TestSportsFeedApp::class)
 class FeedFragmentTest {
-    private val mockFeedViewModel = Mockito.mock(FeedViewModel::class.java)
+    private val mockFeedViewModel: FeedViewModel = mock()
 
     private lateinit var feedFragmentScenario: FragmentScenario<FeedFragment>
 

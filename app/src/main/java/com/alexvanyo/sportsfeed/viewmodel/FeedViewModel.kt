@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.alexvanyo.sportsfeed.api.ESPNService
 import com.alexvanyo.sportsfeed.api.ScoreboardData
 import com.alexvanyo.sportsfeed.util.PausableInterval
+import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
@@ -21,7 +22,7 @@ class FeedViewModel @Inject constructor(private val espnService: ESPNService) : 
 
     init {
         compositeDisposable.add(pausableInterval.observable
-            .flatMap { espnService.getMLBGames() }
+            .flatMap { espnService.getMLBGames().onErrorResumeNext(Observable.empty()) }
             .subscribeOn(Schedulers.io())
             // TODO: Add error handler
             .subscribe { _mlbData.postValue(it) })
