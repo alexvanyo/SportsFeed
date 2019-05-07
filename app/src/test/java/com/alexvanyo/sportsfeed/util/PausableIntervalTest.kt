@@ -1,11 +1,7 @@
 package com.alexvanyo.sportsfeed.util
 
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.mockito.Mockito
-import org.mockito.Mockito.`when`
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 private const val TEST_PERIOD = 60L
@@ -14,20 +10,14 @@ class PausableIntervalTest {
     @get:Rule
     val testSchedulerRule = TestSchedulerRule()
 
-    private val calendar = Mockito.mock(Calendar::class.java)
-    private var timeInMillis = Calendar.getInstance().timeInMillis
-    private val pausableInterval = PausableInterval(calendar, TEST_PERIOD, TimeUnit.SECONDS)
+    private var timeInMillis = System.currentTimeMillis()
+    private val pausableInterval = PausableInterval({ timeInMillis }, TEST_PERIOD, TimeUnit.SECONDS)
     private val testObserver = pausableInterval.observable.test()
 
     fun advanceTime(duration: Long) {
         // The artificial time must be updated first, so that it will be seen
         timeInMillis += TimeUnit.MILLISECONDS.convert(duration, TimeUnit.SECONDS)
         testSchedulerRule.testScheduler.advanceTimeBy(duration, TimeUnit.SECONDS)
-    }
-
-    @Before
-    fun setUp() {
-        `when`(calendar.timeInMillis).thenAnswer { timeInMillis }
     }
 
     @Test

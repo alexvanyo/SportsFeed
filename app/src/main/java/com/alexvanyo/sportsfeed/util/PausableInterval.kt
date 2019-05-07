@@ -2,7 +2,6 @@ package com.alexvanyo.sportsfeed.util
 
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import java.util.*
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicLong
@@ -15,20 +14,20 @@ import java.util.concurrent.atomic.AtomicLong
  * Upon resuming (via [resume]), the interval will resume emitting ticks, and reset the interval if a tick was missed
  * during suspension.
  */
-class PausableInterval(private val calendar: Calendar, private val period: Long, private val unit: TimeUnit) {
+class PausableInterval(private val systemTime: () -> Long, private val period: Long, private val unit: TimeUnit) {
 
     private val lastExecution = AtomicLong()
     private val shouldTick = AtomicBoolean()
     private val newIntervalNotifier = PublishSubject.create<Unit>()
 
-    val observable = newIntervalNotifier
+    val observable: Observable<Long> = newIntervalNotifier
         .switchMap { Observable.interval(0, period, unit) }
         .filter {
             shouldTick.get()
         }
         .map {
             // Intercept the tick to update the last execution
-            it.also { lastExecution.set(calendar.timeInMillis) }
+            it.also { lastExecution.set(systemTime()) }
         }
 
     init {
@@ -48,7 +47,7 @@ class PausableInterval(private val calendar: Calendar, private val period: Long,
         shouldTick.set(true)
 
         // Check if we missed a scheduled tick
-        if (unit.convert(calendar.timeInMillis - lastExecution.get(), TimeUnit.MILLISECONDS) > period) {
+        if (unit.convert(systemTime() - lastExecution.get(), TimeUnit.MILLISECONDS) > period) {
             // If we did, restart the interval with an immediate event
             newIntervalNotifier.onNext(Unit)
         }

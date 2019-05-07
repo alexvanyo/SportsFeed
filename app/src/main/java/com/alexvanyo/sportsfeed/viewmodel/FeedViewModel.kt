@@ -6,12 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.alexvanyo.sportsfeed.api.ESPNService
 import com.alexvanyo.sportsfeed.api.ScoreboardData
 import com.alexvanyo.sportsfeed.util.PausableInterval
-import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.util.*
 import java.util.concurrent.TimeUnit
-import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 /**
@@ -20,7 +17,7 @@ import javax.inject.Inject
 class FeedViewModel @Inject constructor(private val espnService: ESPNService) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
-    private val pausableInterval = PausableInterval(Calendar.getInstance(), 10, TimeUnit.SECONDS)
+    private val pausableInterval = PausableInterval({ System.currentTimeMillis() }, 10, TimeUnit.SECONDS)
 
     init {
         compositeDisposable.add(pausableInterval.observable
