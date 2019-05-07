@@ -19,7 +19,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.robolectric.annotation.Config
@@ -27,7 +26,6 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 @Config(application = TestSportsFeedApp::class)
 class FeedFragmentTest {
-    @Mock
     private val mockFeedViewModel = Mockito.mock(FeedViewModel::class.java)
 
     private lateinit var feedFragmentScenario: FragmentScenario<FeedFragment>

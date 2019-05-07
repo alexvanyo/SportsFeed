@@ -5,9 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alexvanyo.sportsfeed.api.ESPNService
 import com.alexvanyo.sportsfeed.api.ScoreboardData
+import com.alexvanyo.sportsfeed.util.PausableInterval
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
@@ -17,15 +19,11 @@ import javax.inject.Inject
  */
 class FeedViewModel @Inject constructor(private val espnService: ESPNService) : ViewModel() {
 
-    private val shouldPoll = AtomicBoolean()
-
     private val compositeDisposable = CompositeDisposable()
+    private val pausableInterval = PausableInterval(Calendar.getInstance(), 10, TimeUnit.SECONDS)
 
     init {
-        shouldPoll.set(true)
-
-        compositeDisposable.add(Observable.interval(0, 10, TimeUnit.SECONDS)
-            .filter { shouldPoll.get() }
+        compositeDisposable.add(pausableInterval.observable
             .flatMap { espnService.getMLBGames() }
             .subscribeOn(Schedulers.io())
             .subscribe { _mlbData.postValue(it) })
@@ -41,16 +39,13 @@ class FeedViewModel @Inject constructor(private val espnService: ESPNService) : 
     private val _mlbData = object: MutableLiveData<ScoreboardData>() {
         override fun onInactive() {
             super.onInactive()
-
-            shouldPoll.set(false)
+            pausableInterval.pause()
         }
 
         override fun onActive() {
             super.onActive()
-
-            shouldPoll.set(true)
+            pausableInterval.resume()
         }
-
     }
 
     val mlbData: LiveData<ScoreboardData>
