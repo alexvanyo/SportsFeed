@@ -1,0 +1,30 @@
+{
+  "comment": "Sample Team Data",
+  "data": [
+    {
+      "abbreviation": "MIN",
+      "shortDisplayName": "Twins",
+      "displayName": "Minnesota Twins"
+    },
+    {
+      "abbreviation": "TOR",
+      "shortDisplayName": "Blue Jays",
+      "displayName": "Toronto Blue Jays"
+    },
+    {
+      "abbreviation": "BOS",
+      "shortDisplayName": "Red Sox",
+      "displayName": "Boston Red Sox"
+    },
+    {
+      "abbreviation": "BAL",
+      "shortDisplayName": "Orioles",
+      "displayName": "Baltimore Orioles"
+    },
+    {
+      "abbreviation": "TB",
+      "shortDisplayName": "Rays",
+      "displayName": "Tampa Bay Rays"
+    }
+  ]
+}

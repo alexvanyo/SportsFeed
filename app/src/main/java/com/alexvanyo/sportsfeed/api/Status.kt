@@ -13,6 +13,9 @@ data class Status(
         @SerializedName("detail")
         val detail: String,
 
+        @SerializedName("shortDetail")
+        val shortDetail: String,
+
         @SerializedName("state")
         val state: State
     ) {

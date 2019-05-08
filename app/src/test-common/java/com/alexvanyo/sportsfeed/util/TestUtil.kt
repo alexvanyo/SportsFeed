@@ -36,7 +36,8 @@ object TestUtil {
 
     fun createStatusType(
         completed: Boolean = false,
-        detail: String = "detail",
+        detail: String = "Potentially Long Detail",
+        shortDetail: String = "Detail",
         state: Status.Type.State = Status.Type.State.POST
-    ) = Status.Type(completed, detail, state)
+    ) = Status.Type(completed, detail, shortDetail, state)
 }

@@ -12,7 +12,10 @@ import com.alexvanyo.sportsfeed.R
 import com.alexvanyo.sportsfeed.api.Competition
 import com.alexvanyo.sportsfeed.databinding.CompetitionFragmentBinding
 import com.alexvanyo.sportsfeed.viewmodel.FeedViewModel
+import com.bumptech.glide.Glide
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.competition_fragment.*
+import kotlinx.android.synthetic.main.competition_item.view.*
 import javax.inject.Inject
 
 /**
@@ -42,6 +45,10 @@ class CompetitionFragment : DaggerFragment() {
             ViewModelProviders.of(this, viewModelFactory).get(FeedViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
-        model.selectedCompetition.observe(this, Observer { binding.competition = it })
+        model.selectedCompetition.observe(this, Observer {
+            binding.competition = it
+            Glide.with(this).load(it.competitors[1].team.logo).into(leftLogo)
+            Glide.with(this).load(it.competitors[0].team.logo).into(rightLogo)
+        })
     }
 }

@@ -11,7 +11,6 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
@@ -23,110 +22,90 @@
 
         <ImageView
             android:id="@+id/leftLogo"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/leftAbbr"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@sample/logos" />
+            tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/leftAbbr"
-            android:layout_width="wrap_content"
+            android:layout_width="64dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:text="@{competition.competitors[0].team.abbreviation}"
+            android:text="@{competition.competitors[1].team.abbreviation}"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/leftLogo"
-            app:layout_constraintStart_toStartOf="@+id/leftLogo"
-            tools:text="MIN" />
+            app:layout_constraintBottom_toBottomOf="@+id/leftLogo"
+            app:layout_constraintStart_toEndOf="@+id/leftLogo"
+            app:layout_constraintTop_toTopOf="@+id/leftLogo"
+            tools:text="@sample/teams.json/data/abbreviation" />
 
         <TextView
             android:id="@+id/leftScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:text="@{competition.competitors[0].score}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@{competition.competitors[1].score}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintBottom_toBottomOf="@+id/divider"
             app:layout_constraintEnd_toStartOf="@+id/divider"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="3" />
+            tools:text="@sample/competitions.json/data/score2" />
 
         <TextView
             android:id="@+id/divider"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
             android:gravity="center"
             android:text="-"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/rightScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:text="@{competition.competitors[1].score}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@{competition.competitors[0].score}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintBottom_toBottomOf="@+id/divider"
             app:layout_constraintStart_toEndOf="@+id/divider"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="2" />
+            tools:text="@sample/competitions.json/data/score1" />
 
         <TextView
             android:id="@+id/rightAbbr"
-            android:layout_width="wrap_content"
+            android:layout_width="64dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:text="@{competition.competitors[1].team.abbreviation}"
+            android:text="@{competition.competitors[0].team.abbreviation}"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/rightLogo"
-            app:layout_constraintStart_toStartOf="@+id/rightLogo"
-            tools:text="MIN" />
+            app:layout_constraintBottom_toBottomOf="@+id/rightLogo"
+            app:layout_constraintEnd_toStartOf="@+id/rightLogo"
+            app:layout_constraintTop_toTopOf="@+id/rightLogo"
+            tools:text="@sample/teams.json/data/abbreviation" />
 
         <ImageView
             android:id="@+id/rightLogo"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/rightAbbr"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@sample/logos" />
+            tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="@{competition.status.type.detail}"
+            android:text="@{competition.status.type.shortDetail}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Final Time" />
+            tools:text="@sample/competitions.json/data/shortDetail" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
