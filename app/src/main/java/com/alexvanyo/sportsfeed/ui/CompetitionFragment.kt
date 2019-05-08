@@ -1,9 +1,16 @@
 package com.alexvanyo.sportsfeed.ui
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.alexvanyo.sportsfeed.R
+import com.alexvanyo.sportsfeed.api.Competition
+import com.alexvanyo.sportsfeed.databinding.CompetitionFragmentBinding
 import com.alexvanyo.sportsfeed.viewmodel.FeedViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -18,10 +25,23 @@ class CompetitionFragment : DaggerFragment() {
 
     private lateinit var model: FeedViewModel
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    private lateinit var binding: CompetitionFragmentBinding
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.competition_fragment,
+            container,
+            false
+        )
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         model = activity?.run {
             ViewModelProviders.of(this, viewModelFactory).get(FeedViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
+
+        model.selectedCompetition.observe(this, Observer { binding.competition = it })
     }
 }

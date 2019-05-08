@@ -15,7 +15,7 @@ import com.alexvanyo.sportsfeed.databinding.CompetitionItemBinding
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.competition_item.view.*
 
-class CompetitionAdapter(val fragment: Fragment, val clickListener: () -> Unit) :
+class CompetitionAdapter(val fragment: Fragment, val clickListener: (String) -> Unit) :
     RecyclerView.Adapter<CompetitionAdapter.DataBoundViewHolder<CompetitionItemBinding>>() {
 
     val sortedList: SortedList<Competition>
@@ -43,7 +43,7 @@ class CompetitionAdapter(val fragment: Fragment, val clickListener: () -> Unit) 
 
     override fun onBindViewHolder(holder: DataBoundViewHolder<CompetitionItemBinding>, position: Int) {
         holder.binding.competition = sortedList.get(position)
-        holder.itemView.setOnClickListener{ clickListener() }
+        holder.itemView.setOnClickListener{ clickListener(sortedList.get(position).uid) }
         Glide.with(fragment).load(sortedList.get(position).competitors[0].team.logo)
             .into(holder.itemView.leftLogo)
         Glide.with(fragment).load(sortedList.get(position).competitors[1].team.logo)

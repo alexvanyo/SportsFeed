@@ -14,13 +14,14 @@ import java.util.concurrent.atomic.AtomicLong
  * Upon resuming (via [resume]), the interval will resume emitting ticks, and reset the interval if a tick was missed
  * during suspension.
  */
-class PausableInterval(private val systemTime: () -> Long, private val period: Long, private val unit: TimeUnit) {
+class PausableInterval(private val systemTime: () -> Long, private val period: Long, private val unit: TimeUnit) :
+    PausableObservable<Long> {
 
     private val lastExecution = AtomicLong()
     private val shouldTick = AtomicBoolean()
     private val newIntervalNotifier = PublishSubject.create<Unit>()
 
-    val observable: Observable<Long> = newIntervalNotifier
+    override val observable: Observable<Long> = newIntervalNotifier
         .switchMap { Observable.interval(0, period, unit) }
         .filter {
             shouldTick.get()
@@ -38,12 +39,12 @@ class PausableInterval(private val systemTime: () -> Long, private val period: L
     /**
      * Pauses the interval.
      */
-    fun pause() = shouldTick.set(false)
+    override fun pause() = shouldTick.set(false)
 
     /**
      * Resumes the interval. If the pause caused a tick to be skipped, the interval is reset to start immediately.
      */
-    fun resume() {
+    override fun resume() {
         shouldTick.set(true)
 
         // Check if we missed a scheduled tick

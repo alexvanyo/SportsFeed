@@ -46,7 +46,9 @@ class FeedFragment : DaggerFragment() {
         }
     }
 
-    private fun competitionClickListener() {
+    private fun competitionClickListener(uid: String) {
+        model.selectCompetition(uid)
+
         findNavController().navigate(FeedFragmentDirections.actionFeedFragmentToCompetitionFragment())
     }
 }

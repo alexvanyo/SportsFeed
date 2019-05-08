@@ -1,7 +1,9 @@
 package com.alexvanyo.sportsfeed.dagger
 
+import android.content.Context
 import com.alexvanyo.sportsfeed.SportsFeedApp
 import dagger.Component
+import dagger.Provides
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton

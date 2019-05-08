@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.alexvanyo.sportsfeed.dagger
+package com.alexvanyo.sportsfeed.dagger.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -25,7 +25,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Suppress("unused")
-@Module
+@Module(includes = [FeedViewModelModule::class])
 abstract class ViewModelModule {
     @Binds
     @IntoMap

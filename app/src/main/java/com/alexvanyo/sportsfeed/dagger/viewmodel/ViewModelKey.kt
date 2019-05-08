@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.alexvanyo.sportsfeed.dagger
+package com.alexvanyo.sportsfeed.dagger.viewmodel
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey
