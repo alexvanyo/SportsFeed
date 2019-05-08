@@ -12,7 +12,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.alexvanyo.sportsfeed.R
 import com.alexvanyo.sportsfeed.TestSportsFeedApp
-import com.alexvanyo.sportsfeed.api.ScoreboardData
+import com.alexvanyo.sportsfeed.api.Competition
 import com.alexvanyo.sportsfeed.util.mock
 import com.alexvanyo.sportsfeed.viewmodel.FeedViewModel
 import kotlinx.android.synthetic.main.feed_fragment.*
@@ -30,13 +30,13 @@ class FeedFragmentTest {
 
     private lateinit var feedFragmentScenario: FragmentScenario<FeedFragment>
 
-    private val mlbData = MutableLiveData<ScoreboardData>()
+    private val competitions = MutableLiveData<List<Competition>>()
 
     @Before
     fun setUp() {
         val app = ApplicationProvider.getApplicationContext<TestSportsFeedApp>()
         `when`(app.viewModelFactory.create(FeedViewModel::class.java)).thenReturn(mockFeedViewModel)
-        `when`(mockFeedViewModel.mlbData).thenReturn(mlbData)
+        `when`(mockFeedViewModel.competitions).thenReturn(competitions)
         feedFragmentScenario = launchFragmentInContainer<FeedFragment>()
     }
 
@@ -54,11 +54,7 @@ class FeedFragmentTest {
 
     @Test
     fun `recyclerView is populated when data is available`() {
-        mlbData.postValue(
-            TestUtil.createScoreboardData(
-                listOf(TestUtil.createEvent())
-            )
-        )
+        competitions.postValue(listOf(TestUtil.createCompetition()))
 
         feedFragmentScenario.onFragment {
             assertEquals(1, it.recyclerView.adapter!!.itemCount)

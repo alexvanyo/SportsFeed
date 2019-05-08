@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.alexvanyo.sportsfeed.R
 import com.alexvanyo.sportsfeed.viewmodel.FeedViewModel
-import com.alexvanyo.sportsfeed.viewmodel.InjectableViewModelFactory
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.feed_fragment.*
 import javax.inject.Inject
@@ -38,9 +37,7 @@ class FeedFragment : DaggerFragment() {
             ViewModelProviders.of(this, viewModelFactory).get(FeedViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
-        model.mlbData.observe(
-            this,
-            Observer { competitionAdapter.sortedList.replaceAll(it.events.flatMap { event -> event.competitions }) })
+        model.competitions.observe(this, Observer { competitionAdapter.sortedList.replaceAll(it) })
 
         this.recyclerView.apply {
             setHasFixedSize(true)

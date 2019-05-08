@@ -3,8 +3,8 @@ package com.alexvanyo.sportsfeed.viewmodel
 import TestUtil
 import androidx.lifecycle.Observer
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.alexvanyo.sportsfeed.api.Competition
 import com.alexvanyo.sportsfeed.api.ESPNService
-import com.alexvanyo.sportsfeed.api.ScoreboardData
 import com.alexvanyo.sportsfeed.util.TestSchedulerRule
 import com.alexvanyo.sportsfeed.util.mock
 import io.reactivex.Observable
@@ -21,7 +21,7 @@ class FeedViewModelTest {
     val testSchedulerRule = TestSchedulerRule()
 
     private val mockEspnService: ESPNService = mock()
-    private val mockObserver: Observer<ScoreboardData> = mock()
+    private val mockObserver: Observer<List<Competition>> = mock()
     private val feedViewModel = FeedViewModel(mockEspnService)
     private val testScoreboardData = TestUtil.createScoreboardData(listOf(TestUtil.createEvent()))
 
@@ -29,18 +29,18 @@ class FeedViewModelTest {
     fun `data is updated on first subscribe`() {
         `when`(mockEspnService.getMLBGames()).thenReturn(Observable.just(testScoreboardData))
 
-        feedViewModel.mlbData.observeForever(mockObserver)
+        feedViewModel.competitions.observeForever(mockObserver)
 
         testSchedulerRule.testScheduler.triggerActions()
 
-        verify(mockObserver).onChanged(testScoreboardData)
+        verify(mockObserver).onChanged(testScoreboardData.events.flatMap { it.competitions })
     }
 
     @Test
     fun `data isn't updated on error`() {
         `when`(mockEspnService.getMLBGames()).thenReturn(Observable.error(IOException()))
 
-        feedViewModel.mlbData.observeForever(mockObserver)
+        feedViewModel.competitions.observeForever(mockObserver)
 
         testSchedulerRule.testScheduler.triggerActions()
 
