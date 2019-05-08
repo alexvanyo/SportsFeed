@@ -24,7 +24,6 @@ class FeedViewModel @Inject constructor(private val espnService: ESPNService) : 
         compositeDisposable.add(pausableInterval.observable
             .flatMap { espnService.getMLBGames().onErrorResumeNext(Observable.empty()) }
             .subscribeOn(Schedulers.io())
-            // TODO: Add error handler
             .subscribe { _mlbData.postValue(it) })
     }
 
