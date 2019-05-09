@@ -33,6 +33,7 @@ class CompetitionFragment : DaggerFragment() {
     private lateinit var binding: CompetitionFragmentBinding
 
     private val statisticAdapter = StatisticAdapter()
+    private val headlineAdapter = HeadlineAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(
@@ -49,6 +50,9 @@ class CompetitionFragment : DaggerFragment() {
             ViewModelProviders.of(this, viewModelFactory).get(FeedViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
+        headlinesRecyclerView.apply {
+            adapter = headlineAdapter
+        }
         statisticsRecyclerView.apply {
             adapter = statisticAdapter
         }
@@ -58,6 +62,7 @@ class CompetitionFragment : DaggerFragment() {
             Glide.with(this).load(it.getLeftTeam().team.logo).into(leftLogo)
             Glide.with(this).load(it.getRightTeam().team.logo).into(rightLogo)
 
+            headlineAdapter.submitList(it.headlines.orEmpty())
             statisticAdapter.submitList(it.getPairedStatistics())
 
             if (it is BaseballCompetition) {

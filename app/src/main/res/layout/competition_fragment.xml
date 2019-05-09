@@ -121,9 +121,6 @@
                 android:id="@+id/customDetailContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="@+id/rightName"
                 app:layout_constraintStart_toStartOf="@+id/leftName"
                 app:layout_constraintTop_toBottomOf="@+id/rightName">
@@ -139,14 +136,24 @@
             </FrameLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/statisticsRecyclerView"
+                android:id="@+id/headlinesRecyclerView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="@+id/customDetailContainer"
                 app:layout_constraintStart_toStartOf="@+id/customDetailContainer"
                 app:layout_constraintTop_toBottomOf="@+id/customDetailContainer"
+                tools:itemCount="1"
+                tools:listitem="@layout/headline_item" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/statisticsRecyclerView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="@+id/headlinesRecyclerView"
+                app:layout_constraintStart_toStartOf="@+id/headlinesRecyclerView"
+                app:layout_constraintTop_toBottomOf="@+id/headlinesRecyclerView"
                 tools:itemCount="5"
                 tools:listitem="@layout/statistic_item" />
         </androidx.constraintlayout.widget.ConstraintLayout>

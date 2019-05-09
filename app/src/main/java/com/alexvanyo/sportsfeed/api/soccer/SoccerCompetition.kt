@@ -1,9 +1,6 @@
 package com.alexvanyo.sportsfeed.api.soccer
 
-import com.alexvanyo.sportsfeed.api.Competition
-import com.alexvanyo.sportsfeed.api.Competitor
-import com.alexvanyo.sportsfeed.api.DefaultCompetitor
-import com.alexvanyo.sportsfeed.api.Status
+import com.alexvanyo.sportsfeed.api.*
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
@@ -13,6 +10,9 @@ import java.util.*
 data class SoccerCompetition(
     @SerializedName("competitors")
     override val competitors: List<DefaultCompetitor>,
+
+    @SerializedName("headlines")
+    override val headlines: List<Headline>,
 
     @SerializedName("startDate")
     override val startDate: Date,

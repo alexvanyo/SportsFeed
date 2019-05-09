@@ -8,6 +8,7 @@ import java.util.*
  */
 interface Competition : Comparable<Competition> {
     val competitors: List<Competitor>
+    val headlines: List<Headline>?
     val startDate: Date
     val status: Status
     val uid: String
@@ -84,6 +85,9 @@ interface Competition : Comparable<Competition> {
 data class DefaultCompetition(
     @SerializedName("competitors")
     override val competitors: List<DefaultCompetitor>,
+
+    @SerializedName("headlines")
+    override val headlines: List<Headline>,
 
     @SerializedName("startDate")
     override val startDate: Date,

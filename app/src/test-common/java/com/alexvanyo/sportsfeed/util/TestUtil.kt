@@ -41,30 +41,33 @@ object TestUtil {
             createDefaultCompetitor(homeAway = Competitor.HomeAway.HOME),
             createDefaultCompetitor(homeAway = Competitor.HomeAway.AWAY)
         ),
+        headlines: List<Headline> = emptyList(),
         startDate: Date = Date(),
         status: Status = createStatus(),
         uid: String = "abc"
-    ) = DefaultCompetition(competitors, startDate, status, uid)
+    ) = DefaultCompetition(competitors, headlines, startDate, status, uid)
 
     fun createBaseballCompetition(
         competitors: List<BaseballCompetitor> = listOf(
             createBaseballCompetitor(homeAway = Competitor.HomeAway.HOME),
             createBaseballCompetitor(homeAway = Competitor.HomeAway.AWAY)
         ),
+        headlines: List<Headline> = emptyList(),
         startDate: Date = Date(),
         status: Status = createStatus(),
         uid: String = "abc"
-    ) = BaseballCompetition(competitors, startDate, status, uid)
+    ) = BaseballCompetition(competitors, headlines, startDate, status, uid)
 
     fun createSoccerCompetition(
         competitors: List<DefaultCompetitor> = listOf(
             createDefaultCompetitor(homeAway = Competitor.HomeAway.HOME),
             createDefaultCompetitor(homeAway = Competitor.HomeAway.AWAY)
         ),
+        headlines: List<Headline> = emptyList(),
         startDate: Date = Date(),
         status: Status = createStatus(),
         uid: String = "abc"
-    ) = SoccerCompetition(competitors, startDate, status, uid)
+    ) = SoccerCompetition(competitors, headlines, startDate, status, uid)
 
     fun createDefaultCompetitor(
         homeAway: Competitor.HomeAway = Competitor.HomeAway.HOME,
