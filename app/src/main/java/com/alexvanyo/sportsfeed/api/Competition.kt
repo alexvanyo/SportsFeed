@@ -1,8 +1,10 @@
 package com.alexvanyo.sportsfeed.api
 
+import com.google.gson.annotations.SerializedName
 import java.util.*
+
 /**
- * Data class that corresponds to a single competition, which is usually a game played between two teams.
+ * Interface that corresponds to a single competition, which is a game played between two teams.
  */
 interface Competition: Comparable<Competition> {
     val competitors: List<Competitor>
@@ -26,3 +28,20 @@ interface Competition: Comparable<Competition> {
         return this.startDate.compareTo(other.startDate)
     }
 }
+
+/**
+ * Default data class that can represent any competition
+ */
+data class DefaultCompetition(
+    @SerializedName("competitors")
+    override val competitors: List<DefaultCompetitor>,
+
+    @SerializedName("startDate")
+    override val startDate: Date,
+
+    @SerializedName("status")
+    override val status: Status,
+
+    @SerializedName("uid")
+    override val uid: String
+) : Competition

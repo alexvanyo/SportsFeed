@@ -1,13 +1,9 @@
 import com.alexvanyo.sportsfeed.api.*
-import com.alexvanyo.sportsfeed.api.Competition
-import com.alexvanyo.sportsfeed.api.Competitor
-import com.alexvanyo.sportsfeed.api.Event
-import com.alexvanyo.sportsfeed.api.ScoreboardData
 import com.alexvanyo.sportsfeed.api.baseball.BaseballCompetition
 import com.alexvanyo.sportsfeed.api.baseball.BaseballCompetitor
 import com.alexvanyo.sportsfeed.api.baseball.BaseballScoreboardData
-import com.alexvanyo.sportsfeed.api.defaultimpl.DefaultCompetition
-import com.alexvanyo.sportsfeed.api.defaultimpl.DefaultCompetitor
+import com.alexvanyo.sportsfeed.api.DefaultCompetition
+import com.alexvanyo.sportsfeed.api.DefaultCompetitor
 import java.util.*
 
 object TestUtil {
