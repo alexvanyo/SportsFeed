@@ -1,6 +1,7 @@
 package com.alexvanyo.sportsfeed.ui
 
 import TestUtil
+import android.view.View
 import androidx.core.view.get
 import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragmentInContainer
@@ -85,6 +86,7 @@ class FeedFragmentTest {
         competitions.postValue(listOf(testDisplayingCompetition))
 
         feedFragmentScenario.onFragment {
+            assertEquals(View.VISIBLE, it.recyclerView[0].leftAbbr.visibility)
             assertEquals(testDisplayingCompetition.getLeftTeam().team.abbreviation, it.recyclerView[0].leftAbbr.text)
         }
     }
@@ -94,7 +96,17 @@ class FeedFragmentTest {
         competitions.postValue(listOf(testDisplayingCompetition))
 
         feedFragmentScenario.onFragment {
+            assertEquals(View.VISIBLE, it.recyclerView[0].leftScore.visibility)
             assertEquals(testDisplayingCompetition.getLeftTeam().score, it.recyclerView[0].leftScore.text)
+        }
+    }
+
+    @Test
+    fun `divider is visible`() {
+        competitions.postValue(listOf(testDisplayingCompetition))
+
+        feedFragmentScenario.onFragment {
+            assertEquals(View.VISIBLE, it.recyclerView[0].divider.visibility)
         }
     }
 
@@ -103,6 +115,7 @@ class FeedFragmentTest {
         competitions.postValue(listOf(testDisplayingCompetition))
 
         feedFragmentScenario.onFragment {
+            assertEquals(View.VISIBLE, it.recyclerView[0].rightAbbr.visibility)
             assertEquals(testDisplayingCompetition.getRightTeam().team.abbreviation, it.recyclerView[0].rightAbbr.text)
         }
     }
@@ -112,6 +125,7 @@ class FeedFragmentTest {
         competitions.postValue(listOf(testDisplayingCompetition))
 
         feedFragmentScenario.onFragment {
+            assertEquals(View.VISIBLE, it.recyclerView[0].rightScore.visibility)
             assertEquals(testDisplayingCompetition.getRightTeam().score, it.recyclerView[0].rightScore.text)
         }
     }
@@ -121,6 +135,7 @@ class FeedFragmentTest {
         competitions.postValue(listOf(testDisplayingCompetition))
 
         feedFragmentScenario.onFragment {
+            assertEquals(View.VISIBLE, it.recyclerView[0].status.visibility)
             assertEquals(testDisplayingCompetition.status.type.shortDetail, it.recyclerView[0].status.text)
         }
     }
@@ -173,6 +188,25 @@ class FeedFragmentTest {
             assertEquals(postCompetition.status.type.shortDetail, it.recyclerView[0].status.text)
             assertEquals(inCompetition.status.type.shortDetail, it.recyclerView[1].status.text)
             assertEquals(preCompetition.status.type.shortDetail, it.recyclerView[2].status.text)
+        }
+    }
+
+    @Test
+    fun `scheduled events hide the score views`() {
+        val postCompetition = TestUtil.createDefaultCompetition(
+            status = TestUtil.createStatus(
+                TestUtil.createStatusType(
+                    state = Status.Type.State.PRE
+                )
+            )
+        )
+
+        competitions.postValue(listOf(postCompetition))
+
+        feedFragmentScenario.onFragment {
+            assertEquals(View.INVISIBLE, it.recyclerView[0].leftScore.visibility)
+            assertEquals(View.INVISIBLE, it.recyclerView[0].divider.visibility)
+            assertEquals(View.INVISIBLE, it.recyclerView[0].rightScore.visibility)
         }
     }
 }

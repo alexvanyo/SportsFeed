@@ -5,6 +5,10 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <import type="com.alexvanyo.sportsfeed.api.Status.Type.State" />
+
         <variable
             name="competition"
             type="com.alexvanyo.sportsfeed.api.Competition" />
@@ -50,6 +54,7 @@
                 android:gravity="center"
                 android:text="@{competition.leftTeam.score}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:visibility="@{competition.status.type.state == State.PRE ? View.INVISIBLE : View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="@+id/leftLogo"
                 app:layout_constraintEnd_toStartOf="@+id/divider"
                 tools:text="@sample/competitions.json/data/score1" />
@@ -61,6 +66,7 @@
                 android:gravity="center"
                 android:text="-"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:visibility="@{competition.status.type.state == State.PRE ? View.INVISIBLE : View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="@+id/leftScore"
                 app:layout_constraintEnd_toStartOf="@+id/centerGuideline"
                 app:layout_constraintStart_toStartOf="@+id/centerGuideline" />
@@ -73,6 +79,7 @@
                 android:gravity="center"
                 android:text="@{competition.rightTeam.score}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:visibility="@{competition.status.type.state == State.PRE ? View.INVISIBLE : View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="@+id/divider"
                 app:layout_constraintStart_toEndOf="@+id/divider"
                 tools:text="@sample/competitions.json/data/score2" />

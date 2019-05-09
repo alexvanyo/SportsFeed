@@ -5,107 +5,122 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <import type="com.alexvanyo.sportsfeed.api.Status.Type.State" />
+
         <variable
             name="competition"
             type="com.alexvanyo.sportsfeed.api.Competition" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="10dp">
+        android:background="@{competition.status.type.completed ? @drawable/finishedGameBackground : null}">
 
-        <ImageView
-            android:id="@+id/leftLogo"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
-
-        <TextView
-            android:id="@+id/leftAbbr"
-            android:layout_width="64dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clickable"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center"
-            android:text="@{competition.leftTeam.team.abbreviation}"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/leftLogo"
-            app:layout_constraintStart_toEndOf="@+id/leftLogo"
-            app:layout_constraintTop_toTopOf="@+id/leftLogo"
-            tools:text="@sample/teams.json/data/abbreviation" />
+            android:orientation="horizontal"
+            android:padding="10dp">
 
-        <TextView
-            android:id="@+id/leftScore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:gravity="center"
-            android:text="@{competition.leftTeam.score}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:layout_constraintBottom_toBottomOf="@+id/divider"
-            app:layout_constraintEnd_toStartOf="@+id/divider"
-            tools:text="@sample/competitions.json/data/score2" />
+            <ImageView
+                android:id="@+id/leftLogo"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
 
-        <TextView
-            android:id="@+id/divider"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:gravity="center"
-            android:text="-"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/leftAbbr"
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@{competition.leftTeam.team.abbreviation}"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/leftLogo"
+                app:layout_constraintStart_toEndOf="@+id/leftLogo"
+                app:layout_constraintTop_toTopOf="@+id/leftLogo"
+                tools:text="@sample/teams.json/data/abbreviation" />
 
-        <TextView
-            android:id="@+id/rightScore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:gravity="center"
-            android:text="@{competition.rightTeam.score}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:layout_constraintBottom_toBottomOf="@+id/divider"
-            app:layout_constraintStart_toEndOf="@+id/divider"
-            tools:text="@sample/competitions.json/data/score1" />
+            <TextView
+                android:id="@+id/leftScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:gravity="center"
+                android:text="@{competition.leftTeam.score}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:visibility="@{competition.status.type.state == State.PRE ? View.INVISIBLE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="@+id/divider"
+                app:layout_constraintEnd_toStartOf="@+id/divider"
+                tools:text="@sample/competitions.json/data/score2" />
 
-        <TextView
-            android:id="@+id/rightAbbr"
-            android:layout_width="64dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@{competition.rightTeam.team.abbreviation}"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/rightLogo"
-            app:layout_constraintEnd_toStartOf="@+id/rightLogo"
-            app:layout_constraintTop_toTopOf="@+id/rightLogo"
-            tools:text="@sample/teams.json/data/abbreviation" />
+            <TextView
+                android:id="@+id/divider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="center"
+                android:text="-"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:visibility="@{competition.status.type.state == State.PRE ? View.INVISIBLE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-        <ImageView
-            android:id="@+id/rightLogo"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
+            <TextView
+                android:id="@+id/rightScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:gravity="center"
+                android:text="@{competition.rightTeam.score}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:visibility="@{competition.status.type.state == State.PRE ? View.INVISIBLE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="@+id/divider"
+                app:layout_constraintStart_toEndOf="@+id/divider"
+                tools:text="@sample/competitions.json/data/score1" />
 
-        <TextView
-            android:id="@+id/status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{competition.status.type.shortDetail}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@sample/competitions.json/data/shortDetail" />
+            <TextView
+                android:id="@+id/rightAbbr"
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@{competition.rightTeam.team.abbreviation}"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/rightLogo"
+                app:layout_constraintEnd_toStartOf="@+id/rightLogo"
+                app:layout_constraintTop_toTopOf="@+id/rightLogo"
+                tools:text="@sample/teams.json/data/abbreviation" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/rightLogo"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{competition.status.type.shortDetail}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@sample/competitions.json/data/shortDetail" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
 </layout>
