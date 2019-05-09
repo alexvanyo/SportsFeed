@@ -53,6 +53,29 @@ interface Competition : Comparable<Competition> {
      * For most American sports, this is the home team, which is the default implementation.
      */
     fun getRightTeam() = getHomeTeam()
+
+    /**
+     * Returns a list of paired statistics for the competition.
+     */
+    fun getPairedStatistics(): List<PairedStatistic> {
+        return getLeftTeam().statistics?.associateBy { it.name }.orEmpty().let { leftStatisticMap ->
+            getRightTeam().statistics.orEmpty()
+                .filter { leftStatisticMap.containsKey(it.name) }
+                .map {
+                    PairedStatistic(
+                        leftStatisticMap.getValue(it.name).displayValue,
+                        it.abbreviation,
+                        it.displayValue
+                    )
+                }
+        }
+    }
+
+    data class PairedStatistic(
+        val leftDisplayValue: String,
+        val name: String,
+        val rightDisplayValue: String
+    )
 }
 
 /**

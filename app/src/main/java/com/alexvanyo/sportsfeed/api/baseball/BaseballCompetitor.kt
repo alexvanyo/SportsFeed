@@ -1,6 +1,7 @@
 package com.alexvanyo.sportsfeed.api.baseball
 
 import com.alexvanyo.sportsfeed.api.Competitor
+import com.alexvanyo.sportsfeed.api.Statistic
 import com.alexvanyo.sportsfeed.api.Team
 import com.google.gson.annotations.SerializedName
 
@@ -19,6 +20,9 @@ data class BaseballCompetitor(
 
     @SerializedName("score")
     override val score: String,
+
+    @SerializedName("statistics")
+    override val statistics: List<Statistic>,
 
     @SerializedName("team")
     override val team: Team

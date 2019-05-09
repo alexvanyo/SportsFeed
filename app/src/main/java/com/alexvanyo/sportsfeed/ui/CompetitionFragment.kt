@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -31,6 +32,8 @@ class CompetitionFragment : DaggerFragment() {
 
     private lateinit var binding: CompetitionFragmentBinding
 
+    private val statisticAdapter = StatisticAdapter()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(
             inflater,
@@ -46,10 +49,16 @@ class CompetitionFragment : DaggerFragment() {
             ViewModelProviders.of(this, viewModelFactory).get(FeedViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
+        statisticsRecyclerView.apply {
+            adapter = statisticAdapter
+        }
+
         model.selectedCompetition.observe(this, Observer {
             binding.competition = it
             Glide.with(this).load(it.getLeftTeam().team.logo).into(leftLogo)
             Glide.with(this).load(it.getRightTeam().team.logo).into(rightLogo)
+
+            statisticAdapter.submitList(it.getPairedStatistics())
 
             if (it is BaseballCompetition) {
 
