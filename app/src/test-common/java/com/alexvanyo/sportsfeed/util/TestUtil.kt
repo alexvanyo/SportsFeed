@@ -69,8 +69,9 @@ object TestUtil {
     fun createDefaultCompetitor(
         homeAway: Competitor.HomeAway = Competitor.HomeAway.HOME,
         score: String = "0",
+        statistics: List<Statistic> = emptyList(),
         team: Team = createTeam()
-    ) = DefaultCompetitor(homeAway, score, team)
+    ) = DefaultCompetitor(homeAway, score, statistics, team)
 
     fun createBaseballCompetitor(
         errors: Int = 0,
@@ -78,8 +79,9 @@ object TestUtil {
         homeAway: Competitor.HomeAway = Competitor.HomeAway.HOME,
         linescores: List<BaseballCompetitor.LineScoreValue>? = null,
         score: String = "0",
+        statistics: List<Statistic> = emptyList(),
         team: Team = createTeam()
-    ) = BaseballCompetitor(errors, hits, homeAway, linescores, score, team)
+    ) = BaseballCompetitor(errors, hits, homeAway, linescores, score, statistics, team)
 
     fun createTeam(
         abbreviation: String = "ABC",

@@ -39,14 +39,14 @@ class FeedFragmentTest {
     private val testDisplayingCompetition = TestUtil.createDefaultCompetition(
         listOf(
             TestUtil.createDefaultCompetitor(
-                Competitor.HomeAway.HOME,
-                "1",
-                TestUtil.createTeam("H", "Home Long Display Name", "Home Name")
+                homeAway = Competitor.HomeAway.HOME,
+                score = "1",
+                team = TestUtil.createTeam("H", "Home Long Display Name", "Home Name")
             ),
             TestUtil.createDefaultCompetitor(
-                Competitor.HomeAway.AWAY,
-                "2",
-                TestUtil.createTeam("A", "Home Long Display Name", "Home Name")
+                homeAway = Competitor.HomeAway.AWAY,
+                score = "2",
+                team = TestUtil.createTeam("A", "Home Long Display Name", "Home Name")
             )
         ), status = TestUtil.createStatus(TestUtil.createStatusType(shortDetail = "Short Detail"))
     )
