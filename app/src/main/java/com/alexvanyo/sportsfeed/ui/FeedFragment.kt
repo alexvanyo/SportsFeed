@@ -37,7 +37,7 @@ class FeedFragment : DaggerFragment() {
             ViewModelProviders.of(this, viewModelFactory).get(FeedViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
-        model.competitions.observe(this, Observer { competitionAdapter.sortedList.addAll(it) })
+        model.competitions.observe(this, Observer { competitionAdapter.sortedList.replaceAll(it) })
 
         this.recyclerView.apply {
             setHasFixedSize(true)

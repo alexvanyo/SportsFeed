@@ -1,6 +1,5 @@
 package com.alexvanyo.sportsfeed.api.baseball
 
-import com.alexvanyo.sportsfeed.api.BaseballEvent
 import com.alexvanyo.sportsfeed.api.ScoreboardData
 import com.google.gson.annotations.SerializedName
 

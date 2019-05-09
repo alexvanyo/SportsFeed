@@ -11,6 +11,9 @@ import kotlin.math.max
  */
 const val NUMBER_INNINGS = 9
 
+/**
+ * Data class for a baseball game.
+ */
 data class BaseballCompetition(
     @SerializedName("competitors")
     override val competitors: List<BaseballCompetitor>,
@@ -32,7 +35,7 @@ data class BaseballCompetition(
     )
 
     /**
-     * Generates the data for the box score for the baseball competition.
+     * Generates the data for the box score for the baseball game.
      */
     fun getBoxScore(): List<Inning> {
 

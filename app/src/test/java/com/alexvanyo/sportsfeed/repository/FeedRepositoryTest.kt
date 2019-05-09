@@ -17,7 +17,7 @@ class FeedRepositoryTest {
     @Before
     fun setUp() {
         `when`(mockESPNService.getMLBGames()).thenReturn(Observable.just(TestUtil.createBaseballScoreboardData()))
-        `when`(mockESPNService.getMLSGames()).thenReturn(Observable.just(TestUtil.createDefaultScoreboardData()))
+        `when`(mockESPNService.getMLSGames()).thenReturn(Observable.just(TestUtil.createSoccerScoreboardData()))
         `when`(mockESPNService.getNHLGames()).thenReturn(Observable.just(TestUtil.createDefaultScoreboardData()))
         `when`(mockESPNService.getNBAGames()).thenReturn(Observable.just(TestUtil.createDefaultScoreboardData()))
     }

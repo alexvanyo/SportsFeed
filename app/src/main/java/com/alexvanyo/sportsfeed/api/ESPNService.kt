@@ -1,6 +1,7 @@
 package com.alexvanyo.sportsfeed.api
 
 import com.alexvanyo.sportsfeed.api.baseball.BaseballScoreboardData
+import com.alexvanyo.sportsfeed.api.soccer.SoccerScoreboardData
 import io.reactivex.Observable
 import retrofit2.http.GET
 
@@ -12,7 +13,7 @@ interface ESPNService {
     fun getMLBGames(): Observable<BaseballScoreboardData>
 
     @GET("sports/soccer/usa.1/scoreboard")
-    fun getMLSGames(): Observable<DefaultScoreboardData>
+    fun getMLSGames(): Observable<SoccerScoreboardData>
 
     @GET("sports/hockey/nhl/scoreboard")
     fun getNHLGames(): Observable<DefaultScoreboardData>

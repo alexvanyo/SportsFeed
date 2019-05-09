@@ -43,9 +43,9 @@ class CompetitionAdapter(val fragment: Fragment, val clickListener: (String) -> 
     override fun onBindViewHolder(holder: DataBoundViewHolder<CompetitionItemBinding>, position: Int) {
         holder.binding.competition = sortedList.get(position)
         holder.itemView.setOnClickListener{ clickListener(sortedList.get(position).uid) }
-        Glide.with(fragment).load(sortedList.get(position).competitors[1].team.logo)
+        Glide.with(fragment).load(sortedList.get(position).getLeftTeam().team.logo)
             .into(holder.itemView.leftLogo)
-        Glide.with(fragment).load(sortedList.get(position).competitors[0].team.logo)
+        Glide.with(fragment).load(sortedList.get(position).getRightTeam().team.logo)
             .into(holder.itemView.rightLogo)
         holder.binding.executePendingBindings()
     }

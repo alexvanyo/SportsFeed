@@ -1,7 +1,11 @@
 import com.alexvanyo.sportsfeed.api.*
 import com.alexvanyo.sportsfeed.api.baseball.BaseballCompetition
 import com.alexvanyo.sportsfeed.api.baseball.BaseballCompetitor
+import com.alexvanyo.sportsfeed.api.baseball.BaseballEvent
 import com.alexvanyo.sportsfeed.api.baseball.BaseballScoreboardData
+import com.alexvanyo.sportsfeed.api.soccer.SoccerCompetition
+import com.alexvanyo.sportsfeed.api.soccer.SoccerEvent
+import com.alexvanyo.sportsfeed.api.soccer.SoccerScoreboardData
 import java.util.*
 
 object TestUtil {
@@ -13,6 +17,10 @@ object TestUtil {
         events: List<BaseballEvent> = emptyList()
     ) = BaseballScoreboardData(events)
 
+    fun createSoccerScoreboardData(
+        events: List<SoccerEvent> = emptyList()
+    ) = SoccerScoreboardData(events)
+
     fun createDefaultEvent(
         competitions: List<DefaultCompetition> = listOf(createDefaultCompetition()),
         name: String = "Test Event"
@@ -22,6 +30,11 @@ object TestUtil {
         competitions: List<BaseballCompetition> = listOf(createBaseballCompetition()),
         name: String = "Test Event"
     ) = BaseballEvent(competitions, name)
+
+    fun createSoccerEvent(
+        competitions: List<SoccerCompetition> = listOf(createSoccerCompetition()),
+        name: String = "Test Event"
+    ) = SoccerEvent(competitions, name)
 
     fun createDefaultCompetition(
         competitors: List<DefaultCompetitor> = listOf(
@@ -42,6 +55,16 @@ object TestUtil {
         status: Status = createStatus(),
         uid: String = "abc"
     ) = BaseballCompetition(competitors, startDate, status, uid)
+
+    fun createSoccerCompetition(
+        competitors: List<DefaultCompetitor> = listOf(
+            createDefaultCompetitor(homeAway = Competitor.HomeAway.HOME),
+            createDefaultCompetitor(homeAway = Competitor.HomeAway.AWAY)
+        ),
+        startDate: Date = Date(),
+        status: Status = createStatus(),
+        uid: String = "abc"
+    ) = SoccerCompetition(competitors, startDate, status, uid)
 
     fun createDefaultCompetitor(
         homeAway: Competitor.HomeAway = Competitor.HomeAway.HOME,

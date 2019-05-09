@@ -1,6 +1,7 @@
 package com.alexvanyo.sportsfeed.ui
 
 import TestUtil
+import androidx.core.view.get
 import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.MutableLiveData
@@ -13,8 +14,11 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.alexvanyo.sportsfeed.R
 import com.alexvanyo.sportsfeed.TestSportsFeedApp
 import com.alexvanyo.sportsfeed.api.Competition
+import com.alexvanyo.sportsfeed.api.Competitor
+import com.alexvanyo.sportsfeed.api.Status
 import com.alexvanyo.sportsfeed.util.mock
 import com.alexvanyo.sportsfeed.viewmodel.FeedViewModel
+import kotlinx.android.synthetic.main.competition_item.view.*
 import kotlinx.android.synthetic.main.feed_fragment.*
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -31,6 +35,21 @@ class FeedFragmentTest {
     private lateinit var feedFragmentScenario: FragmentScenario<FeedFragment>
 
     private val competitions = MutableLiveData<List<Competition>>()
+
+    private val testDisplayingCompetition = TestUtil.createDefaultCompetition(
+        listOf(
+            TestUtil.createDefaultCompetitor(
+                Competitor.HomeAway.HOME,
+                "1",
+                TestUtil.createTeam("H", "Home Long Display Name", "Home Name")
+            ),
+            TestUtil.createDefaultCompetitor(
+                Competitor.HomeAway.AWAY,
+                "2",
+                TestUtil.createTeam("A", "Home Long Display Name", "Home Name")
+            )
+        ), status = TestUtil.createStatus(TestUtil.createStatusType(shortDetail = "Short Detail"))
+    )
 
     @Before
     fun setUp() {
@@ -58,6 +77,102 @@ class FeedFragmentTest {
 
         feedFragmentScenario.onFragment {
             assertEquals(1, it.recyclerView.adapter!!.itemCount)
+        }
+    }
+
+    @Test
+    fun `left abbreviation is correct`() {
+        competitions.postValue(listOf(testDisplayingCompetition))
+
+        feedFragmentScenario.onFragment {
+            assertEquals(testDisplayingCompetition.getLeftTeam().team.abbreviation, it.recyclerView[0].leftAbbr.text)
+        }
+    }
+
+    @Test
+    fun `left score is correct`() {
+        competitions.postValue(listOf(testDisplayingCompetition))
+
+        feedFragmentScenario.onFragment {
+            assertEquals(testDisplayingCompetition.getLeftTeam().score, it.recyclerView[0].leftScore.text)
+        }
+    }
+
+    @Test
+    fun `right abbreviation is correct`() {
+        competitions.postValue(listOf(testDisplayingCompetition))
+
+        feedFragmentScenario.onFragment {
+            assertEquals(testDisplayingCompetition.getRightTeam().team.abbreviation, it.recyclerView[0].rightAbbr.text)
+        }
+    }
+
+    @Test
+    fun `right score is correct`() {
+        competitions.postValue(listOf(testDisplayingCompetition))
+
+        feedFragmentScenario.onFragment {
+            assertEquals(testDisplayingCompetition.getRightTeam().score, it.recyclerView[0].rightScore.text)
+        }
+    }
+
+    @Test
+    fun `status is correct`() {
+        competitions.postValue(listOf(testDisplayingCompetition))
+
+        feedFragmentScenario.onFragment {
+            assertEquals(testDisplayingCompetition.status.type.shortDetail, it.recyclerView[0].status.text)
+        }
+    }
+
+    @Test
+    fun `multiple events are both displayed`() {
+        competitions.postValue(
+            listOf(
+                TestUtil.createDefaultCompetition(uid = "1"),
+                TestUtil.createDefaultCompetition(uid = "2")
+            )
+        )
+
+        feedFragmentScenario.onFragment {
+            assertEquals(2, it.recyclerView.adapter!!.itemCount)
+        }
+    }
+
+    @Test
+    fun `multiple events displayed in order`() {
+
+        val inCompetition = TestUtil.createDefaultCompetition(
+            status = TestUtil.createStatus(
+                TestUtil.createStatusType(
+                    shortDetail = "IN",
+                    state = Status.Type.State.IN
+                )
+            )
+        )
+        val postCompetition = TestUtil.createDefaultCompetition(
+            status = TestUtil.createStatus(
+                TestUtil.createStatusType(
+                    shortDetail = "POST",
+                    state = Status.Type.State.POST
+                )
+            )
+        )
+        val preCompetition = TestUtil.createDefaultCompetition(
+            status = TestUtil.createStatus(
+                TestUtil.createStatusType(
+                    shortDetail = "PRE",
+                    state = Status.Type.State.PRE
+                )
+            )
+        )
+
+        competitions.postValue(listOf(inCompetition, postCompetition, preCompetition))
+
+        feedFragmentScenario.onFragment {
+            assertEquals(postCompetition.status.type.shortDetail, it.recyclerView[0].status.text)
+            assertEquals(inCompetition.status.type.shortDetail, it.recyclerView[1].status.text)
+            assertEquals(preCompetition.status.type.shortDetail, it.recyclerView[2].status.text)
         }
     }
 }
