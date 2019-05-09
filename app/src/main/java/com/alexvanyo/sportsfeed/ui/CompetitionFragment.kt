@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -63,8 +62,10 @@ class CompetitionFragment : DaggerFragment() {
 
                 for (inning in it.getBoxScore()) {
                     BaseballBoxScoreTextViewBinding.inflate(layoutInflater, inningRow, true).value = inning.inningLabel
-                    BaseballBoxScoreTextViewBinding.inflate(layoutInflater, awayTeamRow, true).value = inning.awayTeamRuns
-                    BaseballBoxScoreTextViewBinding.inflate(layoutInflater, homeTeamRow, true).value = inning.homeTeamRuns
+                    BaseballBoxScoreTextViewBinding.inflate(layoutInflater, awayTeamRow, true).value =
+                        inning.awayTeamRuns
+                    BaseballBoxScoreTextViewBinding.inflate(layoutInflater, homeTeamRow, true).value =
+                        inning.homeTeamRuns
                 }
             }
         })

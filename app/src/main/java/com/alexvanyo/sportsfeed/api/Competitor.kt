@@ -24,4 +24,4 @@ data class DefaultCompetitor(
 
     @SerializedName("team")
     override val team: Team
-): Competitor
+) : Competitor

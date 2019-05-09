@@ -26,7 +26,7 @@ data class BaseballCompetition(
 
     @SerializedName("uid")
     override val uid: String
-): Competition {
+) : Competition {
 
     data class Inning(
         val inningLabel: String,

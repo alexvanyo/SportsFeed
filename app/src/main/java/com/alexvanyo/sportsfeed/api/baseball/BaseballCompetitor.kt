@@ -22,7 +22,7 @@ data class BaseballCompetitor(
 
     @SerializedName("team")
     override val team: Team
-): Competitor {
+) : Competitor {
     data class LineScoreValue(
         @SerializedName("value")
         val value: Int

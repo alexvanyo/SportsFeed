@@ -6,7 +6,7 @@ import java.util.*
 /**
  * Interface that corresponds to a single competition, which is a game played between two teams.
  */
-interface Competition: Comparable<Competition> {
+interface Competition : Comparable<Competition> {
     val competitors: List<Competitor>
     val startDate: Date
     val status: Status

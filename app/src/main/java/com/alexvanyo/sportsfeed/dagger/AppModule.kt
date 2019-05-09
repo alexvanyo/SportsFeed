@@ -3,7 +3,6 @@ package com.alexvanyo.sportsfeed.dagger
 import com.alexvanyo.sportsfeed.BuildConfig
 import com.alexvanyo.sportsfeed.api.ESPNService
 import com.alexvanyo.sportsfeed.dagger.viewmodel.ViewModelModule
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

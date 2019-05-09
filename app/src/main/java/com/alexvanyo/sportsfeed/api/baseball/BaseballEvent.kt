@@ -12,4 +12,4 @@ data class BaseballEvent(
 
     @SerializedName("name")
     override val name: String
-): Event
+) : Event

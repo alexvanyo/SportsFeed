@@ -19,4 +19,4 @@ data class DefaultEvent(
 
     @SerializedName("name")
     override val name: String
-): Event
+) : Event

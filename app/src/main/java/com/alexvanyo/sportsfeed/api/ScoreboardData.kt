@@ -15,4 +15,4 @@ interface ScoreboardData {
 data class DefaultScoreboardData(
     @SerializedName("events")
     override val events: List<DefaultEvent>
-): ScoreboardData
+) : ScoreboardData

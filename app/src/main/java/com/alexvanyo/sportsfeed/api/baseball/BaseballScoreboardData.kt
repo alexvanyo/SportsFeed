@@ -9,4 +9,4 @@ import com.google.gson.annotations.SerializedName
 data class BaseballScoreboardData(
     @SerializedName("events")
     override val events: List<BaseballEvent>
-): ScoreboardData
+) : ScoreboardData
