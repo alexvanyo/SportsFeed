@@ -124,7 +124,8 @@
             app:competition="@{competition}"
             app:layout_constraintEnd_toEndOf="@+id/rightName"
             app:layout_constraintStart_toStartOf="@+id/leftName"
-            app:layout_constraintTop_toBottomOf="@+id/rightName" />
+            app:layout_constraintTop_toBottomOf="@+id/rightName"
+            tools:visibility="visible"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
