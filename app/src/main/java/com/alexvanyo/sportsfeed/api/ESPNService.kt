@@ -13,4 +13,10 @@ interface ESPNService {
 
     @GET("sports/soccer/usa.1/scoreboard")
     fun getMLSGames(): Observable<DefaultScoreboardData>
+
+    @GET("sports/hockey/nhl/scoreboard")
+    fun getNHLGames(): Observable<DefaultScoreboardData>
+
+    @GET("sports/basketball/nba/scoreboard")
+    fun getNBAGames(): Observable<DefaultScoreboardData>
 }

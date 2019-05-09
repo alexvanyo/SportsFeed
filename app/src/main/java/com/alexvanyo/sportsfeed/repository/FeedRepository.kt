@@ -12,7 +12,9 @@ class FeedRepository @Inject constructor(private val espnService: ESPNService) {
     fun getScoreboardData(): Observable<ScoreboardData> {
         return Observable.merge(
             espnService.getMLBGames().onErrorResumeNext(Observable.empty()),
-            espnService.getMLSGames().onErrorResumeNext(Observable.empty())
+            espnService.getMLSGames().onErrorResumeNext(Observable.empty()),
+            espnService.getNHLGames().onErrorResumeNext(Observable.empty()),
+            espnService.getNBAGames().onErrorResumeNext(Observable.empty())
         )
     }
 }
