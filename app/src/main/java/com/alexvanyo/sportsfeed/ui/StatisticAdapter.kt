@@ -3,16 +3,15 @@ package com.alexvanyo.sportsfeed.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.alexvanyo.sportsfeed.R
 import com.alexvanyo.sportsfeed.api.Competition
 import com.alexvanyo.sportsfeed.databinding.StatisticItemBinding
+import com.alexvanyo.sportsfeed.util.DataBoundViewHolder
 
 class StatisticAdapter :
-    ListAdapter<Competition.PairedStatistic, StatisticAdapter.DataBoundViewHolder<StatisticItemBinding>>(
+    ListAdapter<Competition.PairedStatistic, DataBoundViewHolder<StatisticItemBinding>>(
         object : DiffUtil.ItemCallback<Competition.PairedStatistic>() {
             override fun areItemsTheSame(
                 oldItem: Competition.PairedStatistic,
@@ -42,7 +41,4 @@ class StatisticAdapter :
         holder.binding.pairedStatistic = getItem(position)
         holder.binding.executePendingBindings()
     }
-
-    class DataBoundViewHolder<out T : ViewDataBinding> constructor(val binding: T) :
-        RecyclerView.ViewHolder(binding.root)
 }
