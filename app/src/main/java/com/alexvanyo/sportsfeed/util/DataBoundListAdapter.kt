@@ -11,8 +11,7 @@ import androidx.recyclerview.widget.ListAdapter
 abstract class DataBoundListAdapter<T, B : ViewDataBinding>(
     @LayoutRes val itemLayout: Int,
     itemCallback: DiffUtil.ItemCallback<T>
-) :
-    ListAdapter<T, DataBoundViewHolder<B>>(itemCallback) {
+) : ListAdapter<T, DataBoundViewHolder<B>>(itemCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataBoundViewHolder<B> {
         return DataBoundViewHolder(

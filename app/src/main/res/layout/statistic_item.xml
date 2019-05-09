@@ -43,7 +43,7 @@
             app:layout_constraintEnd_toStartOf="@+id/centerGuideline"
             app:layout_constraintStart_toStartOf="@+id/centerGuideline"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="SHAST"/>
+            tools:text="SHAST" />
 
         <TextView
             android:id="@+id/rightValue"

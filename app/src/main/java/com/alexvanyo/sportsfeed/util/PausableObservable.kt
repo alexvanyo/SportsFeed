@@ -3,7 +3,7 @@ package com.alexvanyo.sportsfeed.util
 import io.reactivex.Observable
 
 /**
- * An that can be paused and
+ * An observable that can be paused and resumed.
  */
 interface PausableObservable<T> {
 
