@@ -1,11 +1,8 @@
 package com.alexvanyo.sportsfeed.api
 
-import com.google.gson.annotations.SerializedName
-
 /**
- * Data class that is the main object returned by an ESPN scoreboard API request
+ * Interface for the main object returned by an ESPN scoreboard API request
  */
-data class ScoreboardData(
-    @SerializedName("events")
+interface ScoreboardData {
     val events: List<Event>
-)
+}

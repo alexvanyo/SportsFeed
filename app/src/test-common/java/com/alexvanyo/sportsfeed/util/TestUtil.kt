@@ -1,30 +1,60 @@
 import com.alexvanyo.sportsfeed.api.*
+import com.alexvanyo.sportsfeed.api.Competition
+import com.alexvanyo.sportsfeed.api.Competitor
+import com.alexvanyo.sportsfeed.api.Event
+import com.alexvanyo.sportsfeed.api.ScoreboardData
+import com.alexvanyo.sportsfeed.api.baseball.BaseballCompetition
+import com.alexvanyo.sportsfeed.api.baseball.BaseballCompetitor
+import com.alexvanyo.sportsfeed.api.baseball.BaseballScoreboardData
+import com.alexvanyo.sportsfeed.api.defaultimpl.DefaultCompetition
+import com.alexvanyo.sportsfeed.api.defaultimpl.DefaultCompetitor
 import java.util.*
 
 object TestUtil {
-    fun createScoreboardData(
-        events: List<Event> = emptyList()
-    ) = ScoreboardData(events)
+    fun createDefaultScoreboardData(
+        events: List<DefaultEvent> = emptyList()
+    ) = DefaultScoreboardData(events)
 
-    fun createEvent(
-        competitions: List<Competition> = listOf(createCompetition()),
+    fun createBaseballScoreboardData(
+        events: List<BaseballEvent> = emptyList()
+    ) = BaseballScoreboardData(events)
+
+    fun createDefaultEvent(
+        competitions: List<DefaultCompetition> = listOf(createDefaultCompetition()),
         name: String = "Test Event"
-    ) = Event(competitions, name)
+    ) = DefaultEvent(competitions, name)
 
-    fun createCompetition(
-        competitors: List<Competitor> = listOf(createCompetitor(), createCompetitor()),
+    fun createBaseballEvent(
+        competitions: List<BaseballCompetition> = listOf(createBaseballCompetition()),
+        name: String = "Test Event"
+    ) = BaseballEvent(competitions, name)
+
+    fun createDefaultCompetition(
+        competitors: List<DefaultCompetitor> = listOf(createDefaultCompetitor(), createDefaultCompetitor()),
         startDate: Date = Date(),
         status: Status = createStatus(),
         uid: String = "abc"
-    ) = Competition(competitors, startDate, status, uid)
+    ) = DefaultCompetition(competitors, startDate, status, uid)
 
-    fun createCompetitor(
-        errors: Int = 0,
-        hits: Int = 0,
-        linescores: List<Competitor.LineScoreValue>? = null,
+    fun createBaseballCompetition(
+        competitors: List<BaseballCompetitor> = listOf(createBaseballCompetitor(), createBaseballCompetitor()),
+        startDate: Date = Date(),
+        status: Status = createStatus(),
+        uid: String = "abc"
+    ) = BaseballCompetition(competitors, startDate, status, uid)
+
+    fun createDefaultCompetitor(
         score: String = "0",
         team: Team = createTeam()
-    ) = Competitor(errors, hits, linescores, score, team)
+    ) = DefaultCompetitor(score, team)
+
+    fun createBaseballCompetitor(
+        errors: Int = 0,
+        hits: Int = 0,
+        linescores: List<BaseballCompetitor.LineScoreValue>? = null,
+        score: String = "0",
+        team: Team = createTeam()
+    ) = BaseballCompetitor(errors, hits, linescores, score, team)
 
     fun createTeam(
         abbreviation: String = "ABC",

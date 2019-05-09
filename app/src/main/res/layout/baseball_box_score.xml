@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.alexvanyo.sportsfeed.api.baseball.BaseballCompetition" />
+
+        <variable
+            name="competition"
+            type="com.alexvanyo.sportsfeed.api.baseball.BaseballCompetition" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Space
+            android:id="@+id/space"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/errorsLabel"
+            app:layout_constraintEnd_toStartOf="@+id/boxScoresLayout"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/errorsLabel" />
+
+        <TextView
+            android:id="@+id/awayTeamAbbr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{competition.competitors[1].team.abbreviation}"
+            app:layout_constraintEnd_toEndOf="@+id/space"
+            app:layout_constraintStart_toStartOf="@+id/space"
+            app:layout_constraintTop_toTopOf="@+id/awayTeamRuns"
+            tools:text="@sample/teams.json/data/abbreviation" />
+
+        <TextView
+            android:id="@+id/homeTeamAbbr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{competition.competitors[0].team.abbreviation}"
+            app:layout_constraintEnd_toEndOf="@+id/awayTeamAbbr"
+            app:layout_constraintStart_toStartOf="@+id/awayTeamAbbr"
+            app:layout_constraintTop_toTopOf="@+id/homeTeamRuns"
+            tools:text="@sample/teams.json/data/abbreviation" />
+
+        <HorizontalScrollView
+            android:id="@+id/boxScoresLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
+            android:fillViewport="true"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/homeTeamErrors"
+            app:layout_constraintEnd_toStartOf="@+id/runsLabel"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="14"
+            app:layout_constraintStart_toEndOf="@+id/space"
+            app:layout_constraintTop_toTopOf="@+id/runsLabel">
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TableRow
+                    android:id="@+id/inningRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="8dp">
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/awayTeamRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="8dp">
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/homeTeamRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </TableRow>
+
+            </TableLayout>
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/runsLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:text="@string/runsLabel"
+            app:layout_constraintEnd_toStartOf="@+id/hitsLabel"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/boxScoresLayout"
+            app:layout_constraintTop_toTopOf="@+id/hitsLabel" />
+
+        <TextView
+            android:id="@+id/hitsLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:text="@string/hitsLabel"
+            app:layout_constraintEnd_toStartOf="@+id/errorsLabel"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/runsLabel"
+            app:layout_constraintTop_toTopOf="@+id/errorsLabel" />
+
+        <TextView
+            android:id="@+id/errorsLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:text="@string/errorsLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/hitsLabel"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/awayTeamRuns"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{competition.competitors[1].score}"
+            app:layout_constraintEnd_toEndOf="@+id/runsLabel"
+            app:layout_constraintStart_toStartOf="@+id/runsLabel"
+            app:layout_constraintTop_toTopOf="@+id/awayTeamHits"
+            tools:text="@sample/competitions.json/data/score2" />
+
+        <TextView
+            android:id="@+id/awayTeamHits"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{Integer.toString(((BaseballCompetition) competition).competitors[1].hits)}"
+            app:layout_constraintEnd_toEndOf="@+id/hitsLabel"
+            app:layout_constraintStart_toStartOf="@+id/hitsLabel"
+            app:layout_constraintTop_toTopOf="@+id/awayTeamErrors"
+            tools:text="0" />
+
+        <TextView
+            android:id="@+id/awayTeamErrors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@{Integer.toString(((BaseballCompetition) competition).competitors[1].errors)}"
+            app:layout_constraintEnd_toEndOf="@+id/errorsLabel"
+            app:layout_constraintStart_toStartOf="@+id/errorsLabel"
+            app:layout_constraintTop_toBottomOf="@+id/errorsLabel"
+            tools:text="0" />
+
+        <TextView
+            android:id="@+id/homeTeamRuns"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{competition.competitors[0].score}"
+            app:layout_constraintEnd_toEndOf="@+id/awayTeamRuns"
+            app:layout_constraintStart_toStartOf="@+id/awayTeamRuns"
+            app:layout_constraintTop_toTopOf="@+id/homeTeamHits"
+            tools:text="@sample/competitions.json/data/score1" />
+
+        <TextView
+            android:id="@+id/homeTeamHits"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{Integer.toString(((BaseballCompetition) competition).competitors[0].hits)}"
+            app:layout_constraintEnd_toEndOf="@+id/awayTeamHits"
+            app:layout_constraintStart_toStartOf="@+id/awayTeamHits"
+            app:layout_constraintTop_toTopOf="@+id/homeTeamErrors"
+            tools:text="0" />
+
+        <TextView
+            android:id="@+id/homeTeamErrors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@{Integer.toString(((BaseballCompetition) competition).competitors[0].errors)}"
+            app:layout_constraintEnd_toEndOf="@+id/awayTeamErrors"
+            app:layout_constraintStart_toStartOf="@+id/awayTeamErrors"
+            app:layout_constraintTop_toBottomOf="@+id/awayTeamErrors"
+            tools:text="0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

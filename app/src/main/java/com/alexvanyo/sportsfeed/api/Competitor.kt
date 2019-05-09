@@ -1,25 +1,8 @@
 package com.alexvanyo.sportsfeed.api
 
-import com.google.gson.annotations.SerializedName
+import com.alexvanyo.sportsfeed.api.Team
 
-data class Competitor(
-    @SerializedName("errors")
-    val errors: Int,
-
-    @SerializedName("hits")
-    val hits: Int,
-
-    @SerializedName("linescores")
-    val linescores: List<LineScoreValue>?,
-
-    @SerializedName("score")
-    val score: String,
-
-    @SerializedName("team")
+interface Competitor {
+    val score: String
     val team: Team
-) {
-    data class LineScoreValue(
-        @SerializedName("value")
-        val value: Int
-    )
 }

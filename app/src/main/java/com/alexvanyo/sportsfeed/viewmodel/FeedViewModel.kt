@@ -4,10 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alexvanyo.sportsfeed.api.Competition
-import com.alexvanyo.sportsfeed.api.ESPNService
 import com.alexvanyo.sportsfeed.api.ScoreboardData
+import com.alexvanyo.sportsfeed.repository.FeedRepository
 import com.alexvanyo.sportsfeed.util.PausableObservable
-import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -16,17 +15,17 @@ import javax.inject.Inject
  * Main view model for the feed.
  */
 class FeedViewModel @Inject constructor(
-    private val espnService: ESPNService,
+    private val feedRepository: FeedRepository,
     private val pausableObservable: PausableObservable<*>
 ) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
-    private var competitionMap: Map<String, Competition> = emptyMap()
+    private var competitionMap: HashMap<String, Competition> = HashMap()
 
     init {
         compositeDisposable.add(pausableObservable.observable
-            .flatMap { espnService.getMLBGames().onErrorResumeNext(Observable.empty()) }
+            .flatMap { feedRepository.getScoreboardData() }
             .subscribeOn(Schedulers.io())
             .subscribe(::handleScoreboardData))
     }
@@ -41,11 +40,9 @@ class FeedViewModel @Inject constructor(
      * Helper function for handling new scoreboard data
      */
     private fun handleScoreboardData(scoreboardData: ScoreboardData) {
-        val competitionList = scoreboardData.events.flatMap { it.competitions }
+        scoreboardData.events.flatMap { it.competitions }.forEach { competitionMap[it.uid] = it }
 
-        competitionMap = competitionList.toHashSet().associateBy { it.uid }
-
-        _competitions.postValue(competitionList)
+        _competitions.postValue(competitionMap.values.toList())
 
         if (competitionMap.containsKey(_selectedCompetition.value?.uid)) {
             _selectedCompetition.postValue(competitionMap[selectedCompetition.value?.uid])

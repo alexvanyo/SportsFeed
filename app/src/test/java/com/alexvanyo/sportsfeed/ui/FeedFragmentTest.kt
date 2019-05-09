@@ -54,7 +54,7 @@ class FeedFragmentTest {
 
     @Test
     fun `recyclerView is populated when data is available`() {
-        competitions.postValue(listOf(TestUtil.createCompetition()))
+        competitions.postValue(listOf(TestUtil.createDefaultCompetition()))
 
         feedFragmentScenario.onFragment {
             assertEquals(1, it.recyclerView.adapter!!.itemCount)
