@@ -27,6 +27,32 @@ interface Competition: Comparable<Competition> {
         // Competitions in the same state should be order by start time
         return this.startDate.compareTo(other.startDate)
     }
+
+    /**
+     * Returns the home team.
+     */
+    fun getHomeTeam(): Competitor {
+        return competitors.first { it.homeAway == Competitor.HomeAway.HOME }
+    }
+
+    /**
+     * Returns the away team.
+     */
+    fun getAwayTeam(): Competitor {
+        return competitors.first { it.homeAway == Competitor.HomeAway.AWAY }
+    }
+
+    /**
+     * Returns the team that should be displayed on the left visually.
+     * For most American sports, this is the away team, which is the default implementation.
+     */
+    fun getLeftTeam() = getAwayTeam()
+
+    /**
+     * Returns the team that should be displayed on the right visually.
+     * For most American sports, this is the home team, which is the default implementation.
+     */
+    fun getRightTeam() = getHomeTeam()
 }
 
 /**

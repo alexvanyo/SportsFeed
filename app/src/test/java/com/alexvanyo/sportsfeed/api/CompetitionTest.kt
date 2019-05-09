@@ -11,6 +11,28 @@ import org.junit.runners.Parameterized
 import java.util.*
 import kotlin.math.sign
 
+class CompetitionTest {
+    @Test
+    fun `home team is correct`() {
+        val homeCompetitor = TestUtil.createDefaultCompetitor(homeAway = Competitor.HomeAway.HOME)
+        val awayCompetitor = TestUtil.createDefaultCompetitor(homeAway = Competitor.HomeAway.AWAY)
+
+        val competition = TestUtil.createDefaultCompetition(listOf(homeCompetitor, awayCompetitor))
+
+        assertEquals(homeCompetitor, competition.getHomeTeam())
+    }
+
+    @Test
+    fun `away team is correct`() {
+        val homeCompetitor = TestUtil.createDefaultCompetitor(homeAway = Competitor.HomeAway.HOME)
+        val awayCompetitor = TestUtil.createDefaultCompetitor(homeAway = Competitor.HomeAway.AWAY)
+
+        val competition = TestUtil.createDefaultCompetition(listOf(homeCompetitor, awayCompetitor))
+
+        assertEquals(awayCompetitor, competition.getAwayTeam())
+    }
+}
+
 @RunWith(Parameterized::class)
 class ParameterizedCompetitionTest(
     private val firstCompetition: Competition,

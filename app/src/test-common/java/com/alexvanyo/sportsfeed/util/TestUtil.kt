@@ -2,8 +2,6 @@ import com.alexvanyo.sportsfeed.api.*
 import com.alexvanyo.sportsfeed.api.baseball.BaseballCompetition
 import com.alexvanyo.sportsfeed.api.baseball.BaseballCompetitor
 import com.alexvanyo.sportsfeed.api.baseball.BaseballScoreboardData
-import com.alexvanyo.sportsfeed.api.DefaultCompetition
-import com.alexvanyo.sportsfeed.api.DefaultCompetitor
 import java.util.*
 
 object TestUtil {
@@ -26,31 +24,39 @@ object TestUtil {
     ) = BaseballEvent(competitions, name)
 
     fun createDefaultCompetition(
-        competitors: List<DefaultCompetitor> = listOf(createDefaultCompetitor(), createDefaultCompetitor()),
+        competitors: List<DefaultCompetitor> = listOf(
+            createDefaultCompetitor(homeAway = Competitor.HomeAway.HOME),
+            createDefaultCompetitor(homeAway = Competitor.HomeAway.AWAY)
+        ),
         startDate: Date = Date(),
         status: Status = createStatus(),
         uid: String = "abc"
     ) = DefaultCompetition(competitors, startDate, status, uid)
 
     fun createBaseballCompetition(
-        competitors: List<BaseballCompetitor> = listOf(createBaseballCompetitor(), createBaseballCompetitor()),
+        competitors: List<BaseballCompetitor> = listOf(
+            createBaseballCompetitor(homeAway = Competitor.HomeAway.HOME),
+            createBaseballCompetitor(homeAway = Competitor.HomeAway.AWAY)
+        ),
         startDate: Date = Date(),
         status: Status = createStatus(),
         uid: String = "abc"
     ) = BaseballCompetition(competitors, startDate, status, uid)
 
     fun createDefaultCompetitor(
+        homeAway: Competitor.HomeAway = Competitor.HomeAway.HOME,
         score: String = "0",
         team: Team = createTeam()
-    ) = DefaultCompetitor(score, team)
+    ) = DefaultCompetitor(homeAway, score, team)
 
     fun createBaseballCompetitor(
         errors: Int = 0,
         hits: Int = 0,
+        homeAway: Competitor.HomeAway = Competitor.HomeAway.HOME,
         linescores: List<BaseballCompetitor.LineScoreValue>? = null,
         score: String = "0",
         team: Team = createTeam()
-    ) = BaseballCompetitor(errors, hits, linescores, score, team)
+    ) = BaseballCompetitor(errors, hits, homeAway, linescores, score, team)
 
     fun createTeam(
         abbreviation: String = "ABC",

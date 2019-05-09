@@ -7,6 +7,8 @@
 
         <import type="com.alexvanyo.sportsfeed.api.baseball.BaseballCompetition" />
 
+        <import type="com.alexvanyo.sportsfeed.api.baseball.BaseballCompetitor" />
+
         <variable
             name="competition"
             type="com.alexvanyo.sportsfeed.api.baseball.BaseballCompetition" />
@@ -33,7 +35,7 @@
             android:id="@+id/awayTeamAbbr"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{competition.competitors[1].team.abbreviation}"
+            android:text="@{competition.awayTeam.team.abbreviation}"
             app:layout_constraintEnd_toEndOf="@+id/space"
             app:layout_constraintStart_toStartOf="@+id/space"
             app:layout_constraintTop_toTopOf="@+id/awayTeamRuns"
@@ -43,7 +45,7 @@
             android:id="@+id/homeTeamAbbr"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{competition.competitors[0].team.abbreviation}"
+            android:text="@{competition.homeTeam.team.abbreviation}"
             app:layout_constraintEnd_toEndOf="@+id/awayTeamAbbr"
             app:layout_constraintStart_toStartOf="@+id/awayTeamAbbr"
             app:layout_constraintTop_toTopOf="@+id/homeTeamRuns"
@@ -136,7 +138,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@{competition.competitors[1].score}"
+            android:text="@{competition.awayTeam.score}"
             app:layout_constraintEnd_toEndOf="@+id/runsLabel"
             app:layout_constraintStart_toStartOf="@+id/runsLabel"
             app:layout_constraintTop_toTopOf="@+id/awayTeamHits"
@@ -147,7 +149,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@{Integer.toString(((BaseballCompetition) competition).competitors[1].hits)}"
+            android:text="@{Integer.toString(((BaseballCompetitor) ((BaseballCompetition) competition).awayTeam).hits)}"
             app:layout_constraintEnd_toEndOf="@+id/hitsLabel"
             app:layout_constraintStart_toStartOf="@+id/hitsLabel"
             app:layout_constraintTop_toTopOf="@+id/awayTeamErrors"
@@ -159,7 +161,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:text="@{Integer.toString(((BaseballCompetition) competition).competitors[1].errors)}"
+            android:text="@{Integer.toString(((BaseballCompetitor) ((BaseballCompetition) competition).awayTeam).errors)}"
             app:layout_constraintEnd_toEndOf="@+id/errorsLabel"
             app:layout_constraintStart_toStartOf="@+id/errorsLabel"
             app:layout_constraintTop_toBottomOf="@+id/errorsLabel"
@@ -170,7 +172,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@{competition.competitors[0].score}"
+            android:text="@{competition.homeTeam.score}"
             app:layout_constraintEnd_toEndOf="@+id/awayTeamRuns"
             app:layout_constraintStart_toStartOf="@+id/awayTeamRuns"
             app:layout_constraintTop_toTopOf="@+id/homeTeamHits"
@@ -181,7 +183,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@{Integer.toString(((BaseballCompetition) competition).competitors[0].hits)}"
+            android:text="@{Integer.toString(((BaseballCompetitor) ((BaseballCompetition) competition).homeTeam).hits)}"
             app:layout_constraintEnd_toEndOf="@+id/awayTeamHits"
             app:layout_constraintStart_toStartOf="@+id/awayTeamHits"
             app:layout_constraintTop_toTopOf="@+id/homeTeamErrors"
@@ -193,7 +195,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:text="@{Integer.toString(((BaseballCompetition) competition).competitors[0].errors)}"
+            android:text="@{Integer.toString(((BaseballCompetitor) ((BaseballCompetition) competition).homeTeam).errors)}"
             app:layout_constraintEnd_toEndOf="@+id/awayTeamErrors"
             app:layout_constraintStart_toStartOf="@+id/awayTeamErrors"
             app:layout_constraintTop_toBottomOf="@+id/awayTeamErrors"

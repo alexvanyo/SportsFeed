@@ -11,6 +11,9 @@ data class BaseballCompetitor(
     @SerializedName("hits")
     val hits: Int,
 
+    @SerializedName("homeAway")
+    override val homeAway: Competitor.HomeAway,
+
     @SerializedName("linescores")
     val linescores: List<LineScoreValue>?,
 
