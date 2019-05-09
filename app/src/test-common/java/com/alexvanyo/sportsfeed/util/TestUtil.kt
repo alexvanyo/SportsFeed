@@ -19,9 +19,12 @@ object TestUtil {
     ) = Competition(competitors, startDate, status, uid)
 
     fun createCompetitor(
+        errors: Int = 0,
+        hits: Int = 0,
+        linescores: List<Competitor.LineScoreValue>? = null,
         score: String = "0",
         team: Team = createTeam()
-    ) = Competitor(score, team)
+    ) = Competitor(errors, hits, linescores, score, team)
 
     fun createTeam(
         abbreviation: String = "ABC",

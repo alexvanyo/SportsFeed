@@ -9,13 +9,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.alexvanyo.sportsfeed.R
-import com.alexvanyo.sportsfeed.api.Competition
+import com.alexvanyo.sportsfeed.databinding.BoxScoreTextViewBinding
 import com.alexvanyo.sportsfeed.databinding.CompetitionFragmentBinding
 import com.alexvanyo.sportsfeed.viewmodel.FeedViewModel
 import com.bumptech.glide.Glide
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.competition_fragment.*
-import kotlinx.android.synthetic.main.competition_item.view.*
 import javax.inject.Inject
 
 /**
@@ -49,6 +48,17 @@ class CompetitionFragment : DaggerFragment() {
             binding.competition = it
             Glide.with(this).load(it.competitors[1].team.logo).into(leftLogo)
             Glide.with(this).load(it.competitors[0].team.logo).into(rightLogo)
+
+            // Update the box score
+            inningRow.removeAllViews()
+            awayTeamRow.removeAllViews()
+            homeTeamRow.removeAllViews()
+
+            for (inning in it.getBoxScore()) {
+                BoxScoreTextViewBinding.inflate(layoutInflater, inningRow, true).value = inning.inningLabel
+                BoxScoreTextViewBinding.inflate(layoutInflater, awayTeamRow, true).value = inning.awayTeamRuns
+                BoxScoreTextViewBinding.inflate(layoutInflater, homeTeamRow, true).value = inning.homeTeamRuns
+            }
         })
     }
 }
