@@ -72,7 +72,7 @@ object TestUtil {
     fun createDefaultCompetitor(
         homeAway: Competitor.HomeAway = Competitor.HomeAway.HOME,
         score: String = "0",
-        statistics: List<Statistic> = emptyList(),
+        statistics: List<Statistic>? = null,
         team: Team = createTeam()
     ) = DefaultCompetitor(homeAway, score, statistics, team)
 
@@ -82,7 +82,7 @@ object TestUtil {
         homeAway: Competitor.HomeAway = Competitor.HomeAway.HOME,
         linescores: List<BaseballCompetitor.LineScoreValue>? = null,
         score: String = "0",
-        statistics: List<Statistic> = emptyList(),
+        statistics: List<Statistic>? = null,
         team: Team = createTeam()
     ) = BaseballCompetitor(errors, hits, homeAway, linescores, score, statistics, team)
 

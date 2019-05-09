@@ -22,7 +22,7 @@ data class BaseballCompetitor(
     override val score: String,
 
     @SerializedName("statistics")
-    override val statistics: List<Statistic>,
+    override val statistics: List<Statistic>?,
 
     @SerializedName("team")
     override val team: Team

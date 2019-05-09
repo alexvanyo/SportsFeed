@@ -1,10 +1,7 @@
 package com.alexvanyo.sportsfeed.api
 
 import TestUtil
-import com.alexvanyo.sportsfeed.api.baseball.BaseballCompetition
-import com.alexvanyo.sportsfeed.api.baseball.NUMBER_INNINGS
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
@@ -30,6 +27,79 @@ class CompetitionTest {
         val competition = TestUtil.createDefaultCompetition(listOf(homeCompetitor, awayCompetitor))
 
         assertEquals(awayCompetitor, competition.getAwayTeam())
+    }
+
+    @Test
+    fun `null home statistics results in an empty list`() {
+        val homeCompetitor = TestUtil.createDefaultCompetitor(
+            homeAway = Competitor.HomeAway.HOME,
+            statistics = null
+        )
+        val awayCompetitor = TestUtil.createDefaultCompetitor(
+            homeAway = Competitor.HomeAway.AWAY,
+            statistics = listOf(Statistic("t", "test", "0"))
+        )
+
+        val competition = TestUtil.createDefaultCompetition(listOf(homeCompetitor, awayCompetitor))
+
+        assertEquals(emptyList<Competition.PairedStatistic>(), competition.getPairedStatistics())
+    }
+
+    @Test
+    fun `null away statistics results in an empty list`() {
+        val homeCompetitor = TestUtil.createDefaultCompetitor(
+            homeAway = Competitor.HomeAway.HOME,
+            statistics = listOf(Statistic("t", "test", "0"))
+        )
+        val awayCompetitor = TestUtil.createDefaultCompetitor(
+            homeAway = Competitor.HomeAway.AWAY,
+            statistics = null
+        )
+
+        val competition = TestUtil.createDefaultCompetition(listOf(homeCompetitor, awayCompetitor))
+
+        assertEquals(emptyList<Competition.PairedStatistic>(), competition.getPairedStatistics())
+    }
+
+    @Test
+    fun `null statistics for both results in an empty list`() {
+        val homeCompetitor = TestUtil.createDefaultCompetitor(
+            homeAway = Competitor.HomeAway.HOME,
+            statistics = null
+        )
+        val awayCompetitor = TestUtil.createDefaultCompetitor(
+            homeAway = Competitor.HomeAway.AWAY,
+            statistics = null
+        )
+
+        val competition = TestUtil.createDefaultCompetition(listOf(homeCompetitor, awayCompetitor))
+
+        assertEquals(emptyList<Competition.PairedStatistic>(), competition.getPairedStatistics())
+    }
+
+    @Test
+    fun `paired statistics only contain statistics that both competitors have`() {
+        val homeCompetitor = TestUtil.createDefaultCompetitor(
+            homeAway = Competitor.HomeAway.HOME,
+            statistics = listOf(
+                Statistic("shared", "sharedStatistic", "right1"),
+                Statistic("right", "rightOnlyStatistic", "right2")
+            )
+        )
+        val awayCompetitor = TestUtil.createDefaultCompetitor(
+            homeAway = Competitor.HomeAway.AWAY,
+            statistics = listOf(
+                Statistic("shared", "sharedStatistic", "left1"),
+                Statistic("left", "leftOnlyStatistic", "left2")
+            )
+        )
+
+        val competition = TestUtil.createDefaultCompetition(listOf(homeCompetitor, awayCompetitor))
+
+        assertEquals(
+            listOf(Competition.PairedStatistic("left1", "shared", "right1")),
+            competition.getPairedStatistics()
+        )
     }
 }
 
