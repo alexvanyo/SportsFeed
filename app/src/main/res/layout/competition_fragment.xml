@@ -114,19 +114,6 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
 
-        <TextView
-            android:id="@+id/runsLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:gravity="center"
-            android:text="R"
-            app:layout_constraintEnd_toStartOf="@+id/hitsLabel"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@+id/boxScoresLayout"
-            app:layout_constraintTop_toTopOf="@+id/hitsLabel" />
-
         <Space
             android:id="@+id/space"
             android:layout_width="0dp"
@@ -140,33 +127,6 @@
             app:layout_constraintHorizontal_weight="2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/errorsLabel" />
-
-        <TextView
-            android:id="@+id/hitsLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:gravity="center"
-            android:text="H"
-            app:layout_constraintEnd_toStartOf="@+id/errorsLabel"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@+id/runsLabel"
-            app:layout_constraintTop_toTopOf="@+id/errorsLabel" />
-
-        <TextView
-            android:id="@+id/errorsLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:gravity="center"
-            android:text="E"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@+id/hitsLabel"
-            app:layout_constraintTop_toBottomOf="@+id/rightName" />
 
         <TextView
             android:id="@+id/awayTeamAbbr"
@@ -231,6 +191,46 @@
 
             </TableLayout>
         </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/runsLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:text="@string/runsLabel"
+            app:layout_constraintEnd_toStartOf="@+id/hitsLabel"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/boxScoresLayout"
+            app:layout_constraintTop_toTopOf="@+id/hitsLabel" />
+
+        <TextView
+            android:id="@+id/hitsLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:text="@string/hitsLabel"
+            app:layout_constraintEnd_toStartOf="@+id/errorsLabel"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/runsLabel"
+            app:layout_constraintTop_toTopOf="@+id/errorsLabel" />
+
+        <TextView
+            android:id="@+id/errorsLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:text="@string/errorsLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/hitsLabel"
+            app:layout_constraintTop_toBottomOf="@+id/rightName" />
 
         <TextView
             android:id="@+id/awayTeamRuns"
