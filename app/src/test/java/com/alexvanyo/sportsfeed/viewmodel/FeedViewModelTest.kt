@@ -15,6 +15,7 @@ import org.junit.Test
 import org.mockito.Mockito.*
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import org.junit.rules.TestRule
+import org.mockito.Mockito
 
 class FeedViewModelTest {
 
@@ -142,6 +143,28 @@ class FeedViewModelTest {
         testSchedulerRule.testScheduler.triggerActions()
 
         feedViewModel.selectCompetition(testScoreboardData.events[0].competitions[0].uid)
+
+        verify(mockSelectedCompetitionObserver).onChanged(testScoreboardData.events[0].competitions[0])
+    }
+
+    @Test
+    fun `selected competition is updated with new data`() {
+
+        `when`(mockFeedRepository.getScoreboardData()).thenReturn(Observable.just(testScoreboardData))
+
+        feedViewModel.selectedCompetition.observeForever(mockSelectedCompetitionObserver)
+
+        testSchedulerRule.testScheduler.triggerActions()
+        testNotifier.onNext(Unit)
+        testSchedulerRule.testScheduler.triggerActions()
+
+        feedViewModel.selectCompetition(testScoreboardData.events[0].competitions[0].uid)
+
+        reset(mockSelectedCompetitionObserver)
+
+        testSchedulerRule.testScheduler.triggerActions()
+        testNotifier.onNext(Unit)
+        testSchedulerRule.testScheduler.triggerActions()
 
         verify(mockSelectedCompetitionObserver).onChanged(testScoreboardData.events[0].competitions[0])
     }
