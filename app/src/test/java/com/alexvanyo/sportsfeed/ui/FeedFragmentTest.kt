@@ -6,9 +6,13 @@ import androidx.core.view.get
 import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -17,6 +21,8 @@ import com.alexvanyo.sportsfeed.TestSportsFeedApp
 import com.alexvanyo.sportsfeed.api.Competition
 import com.alexvanyo.sportsfeed.api.Competitor
 import com.alexvanyo.sportsfeed.api.Status
+import com.alexvanyo.sportsfeed.databinding.CompetitionItemBinding
+import com.alexvanyo.sportsfeed.util.DataBoundViewHolder
 import com.alexvanyo.sportsfeed.util.mock
 import com.alexvanyo.sportsfeed.viewmodel.FeedViewModel
 import kotlinx.android.synthetic.main.competition_item.view.*
@@ -26,12 +32,14 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.`when`
+import org.mockito.Mockito.verify
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
 @Config(application = TestSportsFeedApp::class)
 class FeedFragmentTest {
     private val mockFeedViewModel: FeedViewModel = mock()
+    private val mockNavController: NavController = mock()
 
     private lateinit var feedFragmentScenario: FragmentScenario<FeedFragment>
 
@@ -58,6 +66,10 @@ class FeedFragmentTest {
         `when`(app.viewModelFactory.create(FeedViewModel::class.java)).thenReturn(mockFeedViewModel)
         `when`(mockFeedViewModel.competitions).thenReturn(competitions)
         feedFragmentScenario = launchFragmentInContainer<FeedFragment>()
+
+        feedFragmentScenario.onFragment {
+            Navigation.setViewNavController(it.requireView(), mockNavController)
+        }
     }
 
     @Test
@@ -141,7 +153,7 @@ class FeedFragmentTest {
     }
 
     @Test
-    fun `multiple events are both displayed`() {
+    fun `multiple competitions are both displayed`() {
         competitions.postValue(
             listOf(
                 TestUtil.createDefaultCompetition(uid = "1"),
@@ -155,7 +167,32 @@ class FeedFragmentTest {
     }
 
     @Test
-    fun `multiple events displayed in order`() {
+    fun `multiple posts with the same id result in only one displayed`() {
+        val competition = TestUtil.createDefaultCompetition(uid = "1")
+
+        competitions.postValue(listOf(competition))
+        competitions.postValue(listOf(competition))
+
+        feedFragmentScenario.onFragment {
+            assertEquals(1, it.recyclerView.adapter!!.itemCount)
+        }
+    }
+
+    @Test
+    fun `multiple posts with the different id result in both displayed`() {
+        val firstCompetition = TestUtil.createDefaultCompetition(uid = "1")
+        val secondCompetition = TestUtil.createDefaultCompetition(uid = "2")
+
+        competitions.postValue(listOf(firstCompetition))
+        competitions.postValue(listOf(firstCompetition, secondCompetition))
+
+        feedFragmentScenario.onFragment {
+            assertEquals(2, it.recyclerView.adapter!!.itemCount)
+        }
+    }
+
+    @Test
+    fun `multiple competitions displayed in order`() {
 
         val inCompetition = TestUtil.createDefaultCompetition(
             status = TestUtil.createStatus(
@@ -192,7 +229,7 @@ class FeedFragmentTest {
     }
 
     @Test
-    fun `scheduled events hide the score views`() {
+    fun `scheduled competitions hide the score views`() {
         val postCompetition = TestUtil.createDefaultCompetition(
             status = TestUtil.createStatus(
                 TestUtil.createStatusType(
@@ -208,5 +245,46 @@ class FeedFragmentTest {
             assertEquals(View.INVISIBLE, it.recyclerView[0].divider.visibility)
             assertEquals(View.INVISIBLE, it.recyclerView[0].rightScore.visibility)
         }
+    }
+
+    @Test
+    fun `single competition triggers on click`() {
+        competitions.postValue(listOf(TestUtil.createDefaultCompetition(uid = "1")))
+
+        onView(withId(R.id.recyclerView)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<DataBoundViewHolder<CompetitionItemBinding>>(
+                0,
+                click()
+            )
+        )
+
+        verify(mockFeedViewModel).selectCompetition("1")
+        verify(mockNavController).navigate(FeedFragmentDirections.actionFeedFragmentToCompetitionFragment())
+    }
+
+    @Test
+    fun `new competition bumping another one out doesn't trigger wrong click on old competition`() {
+
+        val preCompetition = TestUtil.createDefaultCompetition(
+            uid = "1",
+            status = TestUtil.createStatus(TestUtil.createStatusType(state = Status.Type.State.PRE))
+        )
+
+        val postCompetition = TestUtil.createDefaultCompetition(
+            uid = "2",
+            status = TestUtil.createStatus(TestUtil.createStatusType(state = Status.Type.State.POST))
+        )
+
+        competitions.postValue(listOf(preCompetition))
+        competitions.postValue(listOf(preCompetition, postCompetition))
+
+        onView(withId(R.id.recyclerView)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<DataBoundViewHolder<CompetitionItemBinding>>(
+                1,
+                click()
+            )
+        )
+
+        verify(mockFeedViewModel).selectCompetition("1")
     }
 }
