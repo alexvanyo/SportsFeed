@@ -19,7 +19,7 @@ interface Competition : Comparable<Competition> {
      */
     override fun compareTo(other: Competition): Int {
         // Finished competitions should come before in progress competitions,
-        // which should come before schedule competitions
+        // which should come before scheduled competitions
         val stateComparison = this.status.type.state.compareTo(other.status.type.state)
         if (stateComparison != 0) {
             return stateComparison
