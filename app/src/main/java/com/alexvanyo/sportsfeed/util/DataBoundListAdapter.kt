@@ -8,6 +8,11 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 
+/**
+ * An abstract list adapter for use with a simple RecyclerView where each item has the same layout and is databound to
+ * an item in the list.
+ * @see <a href="https://github.com/googlesamples/android-architecture-components/blob/master/GithubBrowserSample/app/src/main/java/com/android/example/github/ui/common/DataBoundListAdapter.kt">based on (Apache license)</a>
+ */
 abstract class DataBoundListAdapter<T, B : ViewDataBinding>(
     @LayoutRes val itemLayout: Int,
     itemCallback: DiffUtil.ItemCallback<T>

@@ -7,6 +7,9 @@ public underlying API (no API key needed).
 
 This Kotlin app mostly follows the MVVM architecture as outlined in
 [the Android Jetpack architecture guide](https://developer.android.com/jetpack/docs/guide).
+Additionally, inspiration was gathered from
+[the GithubBrowserSample example application](https://github.com/googlesamples/android-architecture-components/tree/master/GithubBrowserSample)
+for overall project layout and structure.
 API requests are made to
 [`ESPNService`](app/src/main/java/com/alexvanyo/sportsfeed/api/ESPNService.kt)
 from the

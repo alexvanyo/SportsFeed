@@ -8,6 +8,10 @@ import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
 
+/**
+ * Rule which sets up a manually controllable [TestScheduler] that overrides the default RxJava scheduler handlers.
+ * @see <a href="https://medium.com/@fabioCollini/testing-asynchronous-rxjava-code-using-mockito-8ad831a16877">Based on</a>
+ */
 class TestSchedulerRule : TestRule {
 
     val testScheduler = TestScheduler()
