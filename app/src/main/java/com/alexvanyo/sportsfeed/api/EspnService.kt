@@ -8,7 +8,7 @@ import retrofit2.http.GET
 /**
  * Retrofit builder for the ESPN API
  */
-interface ESPNService {
+interface EspnService {
     @GET("sports/baseball/mlb/scoreboard")
     fun getMLBGames(): Observable<BaseballScoreboardData>
 

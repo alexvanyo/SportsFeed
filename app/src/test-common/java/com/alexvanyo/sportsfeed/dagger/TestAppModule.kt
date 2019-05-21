@@ -1,6 +1,6 @@
 package com.alexvanyo.sportsfeed.dagger
 
-import com.alexvanyo.sportsfeed.api.ESPNService
+import com.alexvanyo.sportsfeed.api.EspnService
 import dagger.Module
 import dagger.Provides
 import org.mockito.Mockito
@@ -10,7 +10,7 @@ import javax.inject.Singleton
 class TestAppModule {
     @Singleton
     @Provides
-    fun provideSportsService(): ESPNService {
-        return Mockito.mock(ESPNService::class.java)
+    fun provideSportsService(): EspnService {
+        return Mockito.mock(EspnService::class.java)
     }
 }

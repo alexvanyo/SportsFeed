@@ -1,7 +1,7 @@
 package com.alexvanyo.sportsfeed.dagger
 
 import com.alexvanyo.sportsfeed.BuildConfig
-import com.alexvanyo.sportsfeed.api.ESPNService
+import com.alexvanyo.sportsfeed.api.EspnService
 import com.alexvanyo.sportsfeed.dagger.viewmodel.ViewModelModule
 import dagger.Module
 import dagger.Provides
@@ -32,13 +32,13 @@ class AppModule {
     @Provides
     fun provideSportsService(
         httpClient: OkHttpClient
-    ): ESPNService {
+    ): EspnService {
         return Retrofit.Builder()
             .baseUrl("https://site.api.espn.com/apis/site/v2/")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(httpClient)
             .build()
-            .create(ESPNService::class.java)
+            .create(EspnService::class.java)
     }
 }

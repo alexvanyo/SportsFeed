@@ -11,7 +11,7 @@ Additionally, inspiration was gathered from
 [the GithubBrowserSample example application](https://github.com/googlesamples/android-architecture-components/tree/master/GithubBrowserSample)
 for overall project layout and structure.
 API requests are made to
-[`ESPNService`](app/src/main/java/com/alexvanyo/sportsfeed/api/ESPNService.kt)
+[`EspnService`](app/src/main/java/com/alexvanyo/sportsfeed/api/EspnService.kt)
 from the
 [`FeedRepository`](app/src/main/java/com/alexvanyo/sportsfeed/repository/FeedRepository.kt),
 and the results of the API requests (as specified in
@@ -28,7 +28,7 @@ views accordingly.
 This approach greatly simplifies state management with regards to the Android lifecycle, and also cleanly creates a
 separation of concerns.
 The power of RxJava can be used to set up smart, lifecycle-based polling to the
-[`ESPNService`](app/src/main/java/com/alexvanyo/sportsfeed/api/ESPNService.kt),
+[`EspnService`](app/src/main/java/com/alexvanyo/sportsfeed/api/EspnService.kt),
 while the fragments simply need to display a complete list of competitions.
 Additionally, the databinding makes polymorphic layouts relatively easy, and overall tests can be much simpler.
 
