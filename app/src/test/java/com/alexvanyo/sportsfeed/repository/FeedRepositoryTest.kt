@@ -2,6 +2,9 @@ package com.alexvanyo.sportsfeed.repository
 
 import com.alexvanyo.sportsfeed.api.EspnService
 import com.alexvanyo.sportsfeed.util.mock
+import createBaseballScoreboardData
+import createDefaultScoreboardData
+import createSoccerScoreboardData
 import io.reactivex.Observable
 import org.junit.Before
 import org.junit.Test
@@ -16,10 +19,10 @@ class FeedRepositoryTest {
 
     @Before
     fun setUp() {
-        `when`(mockEspnService.getMLBGames()).thenReturn(Observable.just(TestUtil.createBaseballScoreboardData()))
-        `when`(mockEspnService.getMLSGames()).thenReturn(Observable.just(TestUtil.createSoccerScoreboardData()))
-        `when`(mockEspnService.getNHLGames()).thenReturn(Observable.just(TestUtil.createDefaultScoreboardData()))
-        `when`(mockEspnService.getNBAGames()).thenReturn(Observable.just(TestUtil.createDefaultScoreboardData()))
+        `when`(mockEspnService.getMLBGames()).thenReturn(Observable.just(createBaseballScoreboardData()))
+        `when`(mockEspnService.getMLSGames()).thenReturn(Observable.just(createSoccerScoreboardData()))
+        `when`(mockEspnService.getNHLGames()).thenReturn(Observable.just(createDefaultScoreboardData()))
+        `when`(mockEspnService.getNBAGames()).thenReturn(Observable.just(createDefaultScoreboardData()))
     }
 
     @Test

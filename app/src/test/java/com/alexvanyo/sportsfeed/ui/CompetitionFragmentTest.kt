@@ -1,6 +1,5 @@
 package com.alexvanyo.sportsfeed.ui
 
-import TestUtil
 import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.MutableLiveData
@@ -17,6 +16,13 @@ import com.alexvanyo.sportsfeed.api.Status
 import com.alexvanyo.sportsfeed.api.baseball.BaseballCompetitor
 import com.alexvanyo.sportsfeed.util.mock
 import com.alexvanyo.sportsfeed.viewmodel.FeedViewModel
+import createBaseballCompetition
+import createBaseballCompetitor
+import createDefaultCompetition
+import createDefaultCompetitor
+import createStatus
+import createStatusType
+import createTeam
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -33,19 +39,19 @@ class CompetitionFragmentTest {
 
     private val competition = MutableLiveData<Competition>()
 
-    private val testDisplayingCompetition = TestUtil.createDefaultCompetition(
+    private val testDisplayingCompetition = createDefaultCompetition(
         listOf(
-            TestUtil.createDefaultCompetitor(
+            createDefaultCompetitor(
                 homeAway = Competitor.HomeAway.HOME,
                 score = "1",
-                team = TestUtil.createTeam(abbreviation = "H", shortDisplayName = "Home Name")
+                team = createTeam(abbreviation = "H", shortDisplayName = "Home Name")
             ),
-            TestUtil.createDefaultCompetitor(
+            createDefaultCompetitor(
                 homeAway = Competitor.HomeAway.AWAY,
                 score = "2",
-                team = TestUtil.createTeam(abbreviation = "A", shortDisplayName = "Away Name")
+                team = createTeam(abbreviation = "A", shortDisplayName = "Away Name")
             )
-        ), status = TestUtil.createStatus(TestUtil.createStatusType(detail = "Very Long Detail"))
+        ), status = createStatus(createStatusType(detail = "Very Long Detail"))
     )
 
     @Before
@@ -105,9 +111,9 @@ class CompetitionFragmentTest {
 
     @Test
     fun `scheduled events hide the score views`() {
-        val postCompetition = TestUtil.createDefaultCompetition(
-            status = TestUtil.createStatus(
-                TestUtil.createStatusType(
+        val postCompetition = createDefaultCompetition(
+            status = createStatus(
+                createStatusType(
                     state = Status.Type.State.PRE
                 )
             )
@@ -122,9 +128,9 @@ class CompetitionFragmentTest {
 
     @Test
     fun `baseball competition displays box score`() {
-        val baseballCompetition = TestUtil.createBaseballCompetition(
+        val baseballCompetition = createBaseballCompetition(
             competitors = listOf(
-                TestUtil.createBaseballCompetitor(
+                createBaseballCompetitor(
                     errors = 10,
                     hits = 11,
                     homeAway = Competitor.HomeAway.HOME,
@@ -134,9 +140,9 @@ class CompetitionFragmentTest {
                         BaseballCompetitor.LineScoreValue(3)
                     ),
                     score = "12",
-                    team = TestUtil.createTeam(abbreviation = "HOME")
+                    team = createTeam(abbreviation = "HOME")
                 ),
-                TestUtil.createBaseballCompetitor(
+                createBaseballCompetitor(
                     errors = 13,
                     hits = 14,
                     homeAway = Competitor.HomeAway.AWAY,
@@ -146,7 +152,7 @@ class CompetitionFragmentTest {
                         BaseballCompetitor.LineScoreValue(3)
                     ),
                     score = "15",
-                    team = TestUtil.createTeam(abbreviation = "AWAY")
+                    team = createTeam(abbreviation = "AWAY")
                 )
             )
         )
@@ -186,9 +192,9 @@ class CompetitionFragmentTest {
 
     @Test
     fun `extra inning baseball competition has more innings`() {
-        val baseballCompetition = TestUtil.createBaseballCompetition(
+        val baseballCompetition = createBaseballCompetition(
             competitors = listOf(
-                TestUtil.createBaseballCompetitor(
+                createBaseballCompetitor(
                     errors = 10,
                     hits = 11,
                     homeAway = Competitor.HomeAway.HOME,
@@ -207,9 +213,9 @@ class CompetitionFragmentTest {
                         BaseballCompetitor.LineScoreValue(12)
                     ),
                     score = "12",
-                    team = TestUtil.createTeam(abbreviation = "HOME")
+                    team = createTeam(abbreviation = "HOME")
                 ),
-                TestUtil.createBaseballCompetitor(
+                createBaseballCompetitor(
                     errors = 13,
                     hits = 14,
                     homeAway = Competitor.HomeAway.AWAY,
@@ -228,7 +234,7 @@ class CompetitionFragmentTest {
                         BaseballCompetitor.LineScoreValue(12)
                     ),
                     score = "15",
-                    team = TestUtil.createTeam(abbreviation = "AWAY")
+                    team = createTeam(abbreviation = "AWAY")
                 )
             )
         )

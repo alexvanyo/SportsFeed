@@ -1,6 +1,5 @@
 package com.alexvanyo.sportsfeed.ui
 
-import TestUtil
 import android.view.View
 import androidx.core.view.get
 import androidx.fragment.app.testing.FragmentScenario
@@ -25,6 +24,11 @@ import com.alexvanyo.sportsfeed.databinding.CompetitionItemBinding
 import com.alexvanyo.sportsfeed.util.DataBoundViewHolder
 import com.alexvanyo.sportsfeed.util.mock
 import com.alexvanyo.sportsfeed.viewmodel.FeedViewModel
+import createDefaultCompetition
+import createDefaultCompetitor
+import createStatus
+import createStatusType
+import createTeam
 import kotlinx.android.synthetic.main.competition_item.view.*
 import kotlinx.android.synthetic.main.feed_fragment.*
 import org.junit.Assert.assertEquals
@@ -45,19 +49,19 @@ class FeedFragmentTest {
 
     private val competitions = MutableLiveData<List<Competition>>()
 
-    private val testDisplayingCompetition = TestUtil.createDefaultCompetition(
+    private val testDisplayingCompetition = createDefaultCompetition(
         listOf(
-            TestUtil.createDefaultCompetitor(
+            createDefaultCompetitor(
                 homeAway = Competitor.HomeAway.HOME,
                 score = "1",
-                team = TestUtil.createTeam("H", "Home Long Display Name", "Home Name")
+                team = createTeam("H", "Home Long Display Name", "Home Name")
             ),
-            TestUtil.createDefaultCompetitor(
+            createDefaultCompetitor(
                 homeAway = Competitor.HomeAway.AWAY,
                 score = "2",
-                team = TestUtil.createTeam("A", "Home Long Display Name", "Home Name")
+                team = createTeam("A", "Home Long Display Name", "Home Name")
             )
-        ), status = TestUtil.createStatus(TestUtil.createStatusType(shortDetail = "Short Detail"))
+        ), status = createStatus(createStatusType(shortDetail = "Short Detail"))
     )
 
     @Before
@@ -86,7 +90,7 @@ class FeedFragmentTest {
 
     @Test
     fun `recyclerView is populated when data is available`() {
-        competitions.postValue(listOf(TestUtil.createDefaultCompetition()))
+        competitions.postValue(listOf(createDefaultCompetition()))
 
         feedFragmentScenario.onFragment {
             assertEquals(1, it.recyclerView.adapter!!.itemCount)
@@ -156,8 +160,8 @@ class FeedFragmentTest {
     fun `multiple competitions are both displayed`() {
         competitions.postValue(
             listOf(
-                TestUtil.createDefaultCompetition(uid = "1"),
-                TestUtil.createDefaultCompetition(uid = "2")
+                createDefaultCompetition(uid = "1"),
+                createDefaultCompetition(uid = "2")
             )
         )
 
@@ -168,7 +172,7 @@ class FeedFragmentTest {
 
     @Test
     fun `multiple posts with the same id result in only one displayed`() {
-        val competition = TestUtil.createDefaultCompetition(uid = "1")
+        val competition = createDefaultCompetition(uid = "1")
 
         competitions.postValue(listOf(competition))
         competitions.postValue(listOf(competition))
@@ -180,8 +184,8 @@ class FeedFragmentTest {
 
     @Test
     fun `multiple posts with the different id result in both displayed`() {
-        val firstCompetition = TestUtil.createDefaultCompetition(uid = "1")
-        val secondCompetition = TestUtil.createDefaultCompetition(uid = "2")
+        val firstCompetition = createDefaultCompetition(uid = "1")
+        val secondCompetition = createDefaultCompetition(uid = "2")
 
         competitions.postValue(listOf(firstCompetition))
         competitions.postValue(listOf(firstCompetition, secondCompetition))
@@ -194,25 +198,25 @@ class FeedFragmentTest {
     @Test
     fun `multiple competitions displayed in order`() {
 
-        val inCompetition = TestUtil.createDefaultCompetition(
-            status = TestUtil.createStatus(
-                TestUtil.createStatusType(
+        val inCompetition = createDefaultCompetition(
+            status = createStatus(
+                createStatusType(
                     shortDetail = "IN",
                     state = Status.Type.State.IN
                 )
             )
         )
-        val postCompetition = TestUtil.createDefaultCompetition(
-            status = TestUtil.createStatus(
-                TestUtil.createStatusType(
+        val postCompetition = createDefaultCompetition(
+            status = createStatus(
+                createStatusType(
                     shortDetail = "POST",
                     state = Status.Type.State.POST
                 )
             )
         )
-        val preCompetition = TestUtil.createDefaultCompetition(
-            status = TestUtil.createStatus(
-                TestUtil.createStatusType(
+        val preCompetition = createDefaultCompetition(
+            status = createStatus(
+                createStatusType(
                     shortDetail = "PRE",
                     state = Status.Type.State.PRE
                 )
@@ -230,9 +234,9 @@ class FeedFragmentTest {
 
     @Test
     fun `scheduled competitions hide the score views`() {
-        val postCompetition = TestUtil.createDefaultCompetition(
-            status = TestUtil.createStatus(
-                TestUtil.createStatusType(
+        val postCompetition = createDefaultCompetition(
+            status = createStatus(
+                createStatusType(
                     state = Status.Type.State.PRE
                 )
             )
@@ -249,7 +253,7 @@ class FeedFragmentTest {
 
     @Test
     fun `single competition triggers on click`() {
-        competitions.postValue(listOf(TestUtil.createDefaultCompetition(uid = "1")))
+        competitions.postValue(listOf(createDefaultCompetition(uid = "1")))
 
         onView(withId(R.id.recyclerView)).perform(
             RecyclerViewActions.actionOnItemAtPosition<DataBoundViewHolder<CompetitionItemBinding>>(
@@ -265,14 +269,14 @@ class FeedFragmentTest {
     @Test
     fun `new competition bumping another one out doesn't trigger wrong click on old competition`() {
 
-        val preCompetition = TestUtil.createDefaultCompetition(
+        val preCompetition = createDefaultCompetition(
             uid = "1",
-            status = TestUtil.createStatus(TestUtil.createStatusType(state = Status.Type.State.PRE))
+            status = createStatus(createStatusType(state = Status.Type.State.PRE))
         )
 
-        val postCompetition = TestUtil.createDefaultCompetition(
+        val postCompetition = createDefaultCompetition(
             uid = "2",
-            status = TestUtil.createStatus(TestUtil.createStatusType(state = Status.Type.State.POST))
+            status = createStatus(createStatusType(state = Status.Type.State.POST))
         )
 
         competitions.postValue(listOf(preCompetition))

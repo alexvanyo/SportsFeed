@@ -1,6 +1,5 @@
 package com.alexvanyo.sportsfeed.viewmodel
 
-import TestUtil
 import androidx.lifecycle.Observer
 import com.alexvanyo.sportsfeed.api.Competition
 import com.alexvanyo.sportsfeed.repository.FeedRepository
@@ -14,6 +13,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito.*
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import createDefaultEvent
+import createDefaultScoreboardData
 import org.junit.rules.TestRule
 import org.mockito.Mockito
 
@@ -31,7 +32,7 @@ class FeedViewModelTest {
     private val mockSelectedCompetitionObserver: Observer<Competition> = mock()
 
     private val testNotifier = PublishSubject.create<Unit>()
-    private val testScoreboardData = TestUtil.createDefaultScoreboardData(listOf(TestUtil.createDefaultEvent()))
+    private val testScoreboardData = createDefaultScoreboardData(listOf(createDefaultEvent()))
 
     private lateinit var feedViewModel: FeedViewModel
 

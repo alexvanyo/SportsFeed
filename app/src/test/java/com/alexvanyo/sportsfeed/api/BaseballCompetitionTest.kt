@@ -3,6 +3,8 @@ package com.alexvanyo.sportsfeed.api
 import com.alexvanyo.sportsfeed.api.baseball.BaseballCompetition
 import com.alexvanyo.sportsfeed.api.baseball.BaseballCompetitor
 import com.alexvanyo.sportsfeed.api.baseball.NUMBER_INNINGS
+import createBaseballCompetition
+import createBaseballCompetitor
 import org.junit.Assert
 import org.junit.Test
 
@@ -40,10 +42,10 @@ class BaseballCompetitionTest {
 
     @Test
     fun `null linescores for first competitor doesn't crash`() {
-        val competition = TestUtil.createBaseballCompetition(
+        val competition = createBaseballCompetition(
             competitors = listOf(
-                TestUtil.createBaseballCompetitor(linescores = null),
-                TestUtil.createBaseballCompetitor(linescores = listOf(BaseballCompetitor.LineScoreValue(0)))
+                createBaseballCompetitor(linescores = null),
+                createBaseballCompetitor(linescores = listOf(BaseballCompetitor.LineScoreValue(0)))
             )
         )
 
@@ -56,10 +58,10 @@ class BaseballCompetitionTest {
 
     @Test
     fun `null linescores for second competitor doesn't crash`() {
-        val competition = TestUtil.createBaseballCompetition(
+        val competition = createBaseballCompetition(
             competitors = listOf(
-                TestUtil.createBaseballCompetitor(linescores = listOf(BaseballCompetitor.LineScoreValue(0))),
-                TestUtil.createBaseballCompetitor(linescores = null)
+                createBaseballCompetitor(linescores = listOf(BaseballCompetitor.LineScoreValue(0))),
+                createBaseballCompetitor(linescores = null)
             )
         )
 
@@ -72,10 +74,10 @@ class BaseballCompetitionTest {
 
     @Test
     fun `null linescores for both competitors doesn't crash`() {
-        val competition = TestUtil.createBaseballCompetition(
+        val competition = createBaseballCompetition(
             competitors = listOf(
-                TestUtil.createBaseballCompetitor(linescores = null),
-                TestUtil.createBaseballCompetitor(linescores = null)
+                createBaseballCompetitor(linescores = null),
+                createBaseballCompetitor(linescores = null)
             )
         )
 
@@ -88,15 +90,15 @@ class BaseballCompetitionTest {
 
     @Test
     fun `linescores for a partial game`() {
-        val competition = TestUtil.createBaseballCompetition(
+        val competition = createBaseballCompetition(
             competitors = listOf(
-                TestUtil.createBaseballCompetitor(linescores = listOf(
+                createBaseballCompetitor(linescores = listOf(
                     BaseballCompetitor.LineScoreValue(1),
                     BaseballCompetitor.LineScoreValue(3),
                     BaseballCompetitor.LineScoreValue(5),
                     BaseballCompetitor.LineScoreValue(7)
                 )),
-                TestUtil.createBaseballCompetitor(linescores = listOf(
+                createBaseballCompetitor(linescores = listOf(
                     BaseballCompetitor.LineScoreValue(2),
                     BaseballCompetitor.LineScoreValue(4),
                     BaseballCompetitor.LineScoreValue(6),
@@ -115,9 +117,9 @@ class BaseballCompetitionTest {
 
     @Test
     fun `linescores for a full game`() {
-        val competition = TestUtil.createBaseballCompetition(
+        val competition = createBaseballCompetition(
             competitors = listOf(
-                TestUtil.createBaseballCompetitor(linescores = listOf(
+                createBaseballCompetitor(linescores = listOf(
                     BaseballCompetitor.LineScoreValue(1),
                     BaseballCompetitor.LineScoreValue(3),
                     BaseballCompetitor.LineScoreValue(5),
@@ -128,7 +130,7 @@ class BaseballCompetitionTest {
                     BaseballCompetitor.LineScoreValue(15),
                     BaseballCompetitor.LineScoreValue(17)
                 )),
-                TestUtil.createBaseballCompetitor(linescores = listOf(
+                createBaseballCompetitor(linescores = listOf(
                     BaseballCompetitor.LineScoreValue(2),
                     BaseballCompetitor.LineScoreValue(4),
                     BaseballCompetitor.LineScoreValue(6),
@@ -151,9 +153,9 @@ class BaseballCompetitionTest {
 
     @Test
     fun `linescores for an extra innings game`() {
-        val competition = TestUtil.createBaseballCompetition(
+        val competition = createBaseballCompetition(
             competitors = listOf(
-                TestUtil.createBaseballCompetitor(linescores = listOf(
+                createBaseballCompetitor(linescores = listOf(
                     BaseballCompetitor.LineScoreValue(1),
                     BaseballCompetitor.LineScoreValue(3),
                     BaseballCompetitor.LineScoreValue(5),
@@ -166,7 +168,7 @@ class BaseballCompetitionTest {
                     BaseballCompetitor.LineScoreValue(19),
                     BaseballCompetitor.LineScoreValue(21)
                 )),
-                TestUtil.createBaseballCompetitor(linescores = listOf(
+                createBaseballCompetitor(linescores = listOf(
                     BaseballCompetitor.LineScoreValue(2),
                     BaseballCompetitor.LineScoreValue(4),
                     BaseballCompetitor.LineScoreValue(6),
