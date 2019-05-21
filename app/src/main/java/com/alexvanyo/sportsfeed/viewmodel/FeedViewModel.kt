@@ -23,39 +23,6 @@ class FeedViewModel @Inject constructor(
 
     private var competitionMap: HashMap<String, Competition> = HashMap()
 
-    init {
-        compositeDisposable.add(pausableObservable.observable
-            .flatMap { feedRepository.getScoreboardData() }
-            .subscribeOn(Schedulers.io())
-            .subscribe(::handleScoreboardData))
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-
-        compositeDisposable.clear()
-    }
-
-    /**
-     * Helper function for handling new scoreboard data
-     */
-    private fun handleScoreboardData(scoreboardData: ScoreboardData) {
-        scoreboardData.events.flatMap { it.competitions }.forEach { competitionMap[it.uid] = it }
-
-        _competitions.postValue(competitionMap.values.toList())
-
-        if (competitionMap.containsKey(_selectedCompetition.value?.uid)) {
-            _selectedCompetition.postValue(competitionMap[selectedCompetition.value?.uid])
-        }
-    }
-
-    /**
-     * Selects a specific competition from the full list.
-     *
-     * @param uid the unique string identifier corresponding to the competition
-     */
-    fun selectCompetition(uid: String) = _selectedCompetition.postValue(competitionMap[uid])
-
     // Override inactive/active callbacks to pause/resume network polling
     private val _competitions: MutableLiveData<List<Competition>> = object : MutableLiveData<List<Competition>>() {
         override fun onInactive() {
@@ -93,4 +60,37 @@ class FeedViewModel @Inject constructor(
     val selectedCompetition: LiveData<Competition>
         get() = _selectedCompetition
 
+
+    init {
+        compositeDisposable.add(pausableObservable.observable
+            .flatMap { feedRepository.getScoreboardData() }
+            .subscribeOn(Schedulers.io())
+            .subscribe(::handleScoreboardData))
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+
+        compositeDisposable.clear()
+    }
+
+    /**
+     * Helper function for handling new scoreboard data
+     */
+    private fun handleScoreboardData(scoreboardData: ScoreboardData) {
+        scoreboardData.events.flatMap { it.competitions }.forEach { competitionMap[it.uid] = it }
+
+        _competitions.postValue(competitionMap.values.toList())
+
+        if (competitionMap.containsKey(_selectedCompetition.value?.uid)) {
+            _selectedCompetition.postValue(competitionMap[selectedCompetition.value?.uid])
+        }
+    }
+
+    /**
+     * Selects a specific competition from the full list.
+     *
+     * @param uid the unique string identifier corresponding to the competition
+     */
+    fun selectCompetition(uid: String) = _selectedCompetition.postValue(competitionMap[uid])
 }
