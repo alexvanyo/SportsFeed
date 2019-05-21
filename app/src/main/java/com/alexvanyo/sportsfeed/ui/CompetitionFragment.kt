@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +16,8 @@ import com.alexvanyo.sportsfeed.databinding.CompetitionFragmentBinding
 import com.alexvanyo.sportsfeed.viewmodel.FeedViewModel
 import com.bumptech.glide.Glide
 import dagger.android.support.DaggerFragment
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.baseball_box_score.*
 import kotlinx.android.synthetic.main.competition_fragment.*
 import javax.inject.Inject
@@ -30,6 +33,8 @@ class CompetitionFragment : DaggerFragment() {
     private lateinit var model: FeedViewModel
 
     private lateinit var binding: CompetitionFragmentBinding
+
+    private val compositeDisposable = CompositeDisposable()
 
     private val statisticAdapter = StatisticAdapter()
     private val headlineAdapter = HeadlineAdapter()
@@ -82,5 +87,19 @@ class CompetitionFragment : DaggerFragment() {
                 }
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        compositeDisposable.add(model.dataFetchErrorObservable.observeOn(AndroidSchedulers.mainThread()).subscribe {
+            Toast.makeText(activity, R.string.data_fetch_error, Toast.LENGTH_SHORT).show()
+        })
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        compositeDisposable.clear()
     }
 }

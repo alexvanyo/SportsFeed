@@ -3,6 +3,7 @@ package com.alexvanyo.sportsfeed.repository
 import com.alexvanyo.sportsfeed.api.EspnService
 import com.alexvanyo.sportsfeed.api.ScoreboardData
 import io.reactivex.Observable
+import io.reactivex.Single
 import javax.inject.Inject
 
 /**
@@ -10,11 +11,11 @@ import javax.inject.Inject
  */
 class FeedRepository @Inject constructor(private val espnService: EspnService) {
     fun getScoreboardData(): Observable<ScoreboardData> {
-        return Observable.merge(
-            espnService.getMLBGames().onErrorResumeNext(Observable.empty()),
-            espnService.getMLSGames().onErrorResumeNext(Observable.empty()),
-            espnService.getNHLGames().onErrorResumeNext(Observable.empty()),
-            espnService.getNBAGames().onErrorResumeNext(Observable.empty())
-        )
+        return Single.mergeDelayError(
+            espnService.getMLBGames(),
+            espnService.getMLSGames(),
+            espnService.getNHLGames(),
+            espnService.getNBAGames()
+        ).toObservable()
     }
 }

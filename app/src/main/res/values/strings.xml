@@ -3,4 +3,5 @@
     <string name="errorsLabel">E</string>
     <string name="hitsLabel">H</string>
     <string name="runsLabel">R</string>
+    <string name="data_fetch_error">Could not fetch data</string>
 </resources>

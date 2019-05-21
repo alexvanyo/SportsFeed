@@ -1,5 +1,6 @@
 package com.alexvanyo.sportsfeed.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,9 +8,13 @@ import com.alexvanyo.sportsfeed.api.Competition
 import com.alexvanyo.sportsfeed.api.ScoreboardData
 import com.alexvanyo.sportsfeed.repository.FeedRepository
 import com.alexvanyo.sportsfeed.util.PausableObservable
+import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
+
+private const val LOG_TAG = "FeedViewModel"
 
 /**
  * Main view model for the feed.
@@ -61,11 +66,22 @@ class FeedViewModel @Inject constructor(
         get() = _selectedCompetition
 
 
+    private val dataFetchErrorNotifier = PublishSubject.create<Unit>()
+
+    /**
+     * Unit observable that will notify that a network request failed.
+     */
+    val dataFetchErrorObservable: Observable<Unit> = dataFetchErrorNotifier
+
     init {
-        compositeDisposable.add(pausableObservable.observable
-            .flatMap { feedRepository.getScoreboardData() }
-            .subscribeOn(Schedulers.io())
-            .subscribe(::handleScoreboardData))
+        compositeDisposable.add(pausableObservable.observable.subscribe {
+            compositeDisposable.add(
+                feedRepository.getScoreboardData()
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(::handleScoreboardData, ::handleScoreboardDataError)
+            )
+        }
+        )
     }
 
     override fun onCleared() {
@@ -85,6 +101,14 @@ class FeedViewModel @Inject constructor(
         if (competitionMap.containsKey(_selectedCompetition.value?.uid)) {
             _selectedCompetition.postValue(competitionMap[selectedCompetition.value?.uid])
         }
+    }
+
+    /**
+     * Helper function for handling a scoreboard error
+     */
+    private fun handleScoreboardDataError(error: Throwable) {
+        Log.d(LOG_TAG, "Error fetching scoreboard data", error)
+        dataFetchErrorNotifier.onNext(Unit)
     }
 
     /**

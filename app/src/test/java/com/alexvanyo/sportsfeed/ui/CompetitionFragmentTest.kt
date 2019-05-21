@@ -23,21 +23,27 @@ import createDefaultCompetitor
 import createStatus
 import createStatusType
 import createTeam
+import io.reactivex.observers.TestObserver
+import io.reactivex.subjects.PublishSubject
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.`when`
 import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowLooper
+import org.robolectric.shadows.ShadowToast
 
 @RunWith(AndroidJUnit4::class)
 @Config(application = TestSportsFeedApp::class)
 class CompetitionFragmentTest {
     private val mockFeedViewModel: FeedViewModel = mock()
 
+    private val app = ApplicationProvider.getApplicationContext<TestSportsFeedApp>()
     private lateinit var competitionFragmentScenario: FragmentScenario<CompetitionFragment>
 
     private val competition = MutableLiveData<Competition>()
+    private val testDataFetchErrorObservable = PublishSubject.create<Unit>()
 
     private val testDisplayingCompetition = createDefaultCompetition(
         listOf(
@@ -56,9 +62,10 @@ class CompetitionFragmentTest {
 
     @Before
     fun setUp() {
-        val app = ApplicationProvider.getApplicationContext<TestSportsFeedApp>()
+
         `when`(app.viewModelFactory.create(FeedViewModel::class.java)).thenReturn(mockFeedViewModel)
         `when`(mockFeedViewModel.selectedCompetition).thenReturn(competition)
+        `when`(mockFeedViewModel.dataFetchErrorObservable).thenReturn(testDataFetchErrorObservable)
         competitionFragmentScenario = launchFragmentInContainer<CompetitionFragment>()
     }
 
@@ -244,5 +251,14 @@ class CompetitionFragmentTest {
         onView(withId(R.id.inningRow)).check(matches(hasChildCount(12)))
         onView(withId(R.id.awayTeamRow)).check(matches(hasChildCount(12)))
         onView(withId(R.id.homeTeamRow)).check(matches(hasChildCount(12)))
+    }
+
+    @Test
+    fun `a toast is shown when the data fetch is unsuccessful`() {
+        ShadowToast.reset()
+
+        testDataFetchErrorObservable.onNext(Unit)
+
+        Assert.assertTrue(ShadowToast.showedToast(app.getString(R.string.data_fetch_error)))
     }
 }

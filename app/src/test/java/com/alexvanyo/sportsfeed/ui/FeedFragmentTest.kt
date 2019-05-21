@@ -16,6 +16,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.alexvanyo.sportsfeed.R
+import com.alexvanyo.sportsfeed.SportsFeedApp
 import com.alexvanyo.sportsfeed.TestSportsFeedApp
 import com.alexvanyo.sportsfeed.api.Competition
 import com.alexvanyo.sportsfeed.api.Competitor
@@ -29,15 +30,19 @@ import createDefaultCompetitor
 import createStatus
 import createStatusType
 import createTeam
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.competition_item.view.*
 import kotlinx.android.synthetic.main.feed_fragment.*
+import org.hamcrest.CoreMatchers.not
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
 import org.robolectric.annotation.Config
+import org.robolectric.shadows.ShadowToast
 
 @RunWith(AndroidJUnit4::class)
 @Config(application = TestSportsFeedApp::class)
@@ -45,9 +50,11 @@ class FeedFragmentTest {
     private val mockFeedViewModel: FeedViewModel = mock()
     private val mockNavController: NavController = mock()
 
+    private val app = ApplicationProvider.getApplicationContext<TestSportsFeedApp>()
     private lateinit var feedFragmentScenario: FragmentScenario<FeedFragment>
 
     private val competitions = MutableLiveData<List<Competition>>()
+    private val testDataFetchErrorObservable = PublishSubject.create<Unit>()
 
     private val testDisplayingCompetition = createDefaultCompetition(
         listOf(
@@ -66,9 +73,9 @@ class FeedFragmentTest {
 
     @Before
     fun setUp() {
-        val app = ApplicationProvider.getApplicationContext<TestSportsFeedApp>()
         `when`(app.viewModelFactory.create(FeedViewModel::class.java)).thenReturn(mockFeedViewModel)
         `when`(mockFeedViewModel.competitions).thenReturn(competitions)
+        `when`(mockFeedViewModel.dataFetchErrorObservable).thenReturn(testDataFetchErrorObservable)
         feedFragmentScenario = launchFragmentInContainer<FeedFragment>()
 
         feedFragmentScenario.onFragment {
@@ -89,12 +96,33 @@ class FeedFragmentTest {
     }
 
     @Test
+    fun `the loading view is initially visible`() {
+        onView(withId(R.id.loading)).check(matches(isDisplayed()))
+    }
+
+    @Test
     fun `recyclerView is populated when data is available`() {
         competitions.postValue(listOf(createDefaultCompetition()))
 
         feedFragmentScenario.onFragment {
             assertEquals(1, it.recyclerView.adapter!!.itemCount)
         }
+    }
+
+    @Test
+    fun `after data is populated the loading view is not visible`() {
+        competitions.postValue(listOf(createDefaultCompetition()))
+
+        onView(withId(R.id.loading)).check(matches(not(isDisplayed())))
+    }
+
+    @Test
+    fun `a toast is shown when the data fetch is unsuccessful`() {
+        ShadowToast.reset()
+
+        testDataFetchErrorObservable.onNext(Unit)
+
+        assertTrue(ShadowToast.showedToast(app.getString(R.string.data_fetch_error)))
     }
 
     @Test
