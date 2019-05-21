@@ -1,7 +1,5 @@
 package com.alexvanyo.sportsfeed.api
 
-import com.alexvanyo.sportsfeed.api.baseball.BaseballScoreboardData
-import com.alexvanyo.sportsfeed.api.soccer.SoccerScoreboardData
 import io.reactivex.Single
 import retrofit2.http.GET
 

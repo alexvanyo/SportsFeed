@@ -5,13 +5,13 @@
 
     <data>
 
-        <import type="com.alexvanyo.sportsfeed.api.baseball.BaseballCompetition" />
+        <import type="com.alexvanyo.sportsfeed.api.BaseballCompetition" />
 
-        <import type="com.alexvanyo.sportsfeed.api.baseball.BaseballCompetitor" />
+        <import type="com.alexvanyo.sportsfeed.api.BaseballCompetitor" />
 
         <variable
             name="competition"
-            type="com.alexvanyo.sportsfeed.api.baseball.BaseballCompetition" />
+            type="com.alexvanyo.sportsfeed.api.BaseballCompetition" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

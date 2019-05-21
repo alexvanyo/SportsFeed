@@ -1,8 +1,5 @@
 package com.alexvanyo.sportsfeed.api
 
-import com.alexvanyo.sportsfeed.api.baseball.BaseballCompetition
-import com.alexvanyo.sportsfeed.api.baseball.BaseballCompetitor
-import com.alexvanyo.sportsfeed.api.baseball.NUMBER_INNINGS
 import createBaseballCompetition
 import createBaseballCompetitor
 import org.junit.Assert

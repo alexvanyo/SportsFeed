@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.alexvanyo.sportsfeed.R
-import com.alexvanyo.sportsfeed.api.baseball.BaseballCompetition
+import com.alexvanyo.sportsfeed.api.BaseballCompetition
 import com.alexvanyo.sportsfeed.databinding.BaseballBoxScoreTextViewBinding
 import com.alexvanyo.sportsfeed.databinding.CompetitionFragmentBinding
 import com.alexvanyo.sportsfeed.viewmodel.FeedViewModel
@@ -69,21 +69,23 @@ class CompetitionFragment : DaggerFragment() {
             headlineAdapter.submitList(it.headlines.orEmpty())
             statisticAdapter.submitList(it.getPairedStatistics())
 
-            if (it is BaseballCompetition) {
+            when (it) {
+                is BaseballCompetition -> {
+                    baseballBoxScoreStub?.inflate()
 
-                baseballBoxScoreStub?.inflate()
+                    // Update the box score
+                    inningRow.removeAllViews()
+                    awayTeamRow.removeAllViews()
+                    homeTeamRow.removeAllViews()
 
-                // Update the box score
-                inningRow.removeAllViews()
-                awayTeamRow.removeAllViews()
-                homeTeamRow.removeAllViews()
-
-                for (inning in it.getBoxScore()) {
-                    BaseballBoxScoreTextViewBinding.inflate(layoutInflater, inningRow, true).value = inning.inningLabel
-                    BaseballBoxScoreTextViewBinding.inflate(layoutInflater, awayTeamRow, true).value =
-                        inning.awayTeamRuns
-                    BaseballBoxScoreTextViewBinding.inflate(layoutInflater, homeTeamRow, true).value =
-                        inning.homeTeamRuns
+                    for (inning in it.getBoxScore()) {
+                        BaseballBoxScoreTextViewBinding.inflate(layoutInflater, inningRow, true).value =
+                            inning.inningLabel
+                        BaseballBoxScoreTextViewBinding.inflate(layoutInflater, awayTeamRow, true).value =
+                            inning.awayTeamRuns
+                        BaseballBoxScoreTextViewBinding.inflate(layoutInflater, homeTeamRow, true).value =
+                            inning.homeTeamRuns
+                    }
                 }
             }
         })

@@ -1,11 +1,8 @@
 import com.alexvanyo.sportsfeed.api.*
-import com.alexvanyo.sportsfeed.api.baseball.BaseballCompetition
-import com.alexvanyo.sportsfeed.api.baseball.BaseballCompetitor
-import com.alexvanyo.sportsfeed.api.baseball.BaseballEvent
-import com.alexvanyo.sportsfeed.api.baseball.BaseballScoreboardData
-import com.alexvanyo.sportsfeed.api.soccer.SoccerCompetition
-import com.alexvanyo.sportsfeed.api.soccer.SoccerEvent
-import com.alexvanyo.sportsfeed.api.soccer.SoccerScoreboardData
+import com.alexvanyo.sportsfeed.api.BaseballCompetition
+import com.alexvanyo.sportsfeed.api.BaseballEvent
+import com.alexvanyo.sportsfeed.api.SoccerCompetition
+import com.alexvanyo.sportsfeed.api.SoccerEvent
 import java.util.*
 
 fun createDefaultScoreboardData(

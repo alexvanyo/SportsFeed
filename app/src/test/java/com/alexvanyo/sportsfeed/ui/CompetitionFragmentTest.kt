@@ -10,10 +10,10 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.alexvanyo.sportsfeed.R
 import com.alexvanyo.sportsfeed.TestSportsFeedApp
+import com.alexvanyo.sportsfeed.api.BaseballCompetitor
 import com.alexvanyo.sportsfeed.api.Competition
 import com.alexvanyo.sportsfeed.api.Competitor
 import com.alexvanyo.sportsfeed.api.Status
-import com.alexvanyo.sportsfeed.api.baseball.BaseballCompetitor
 import com.alexvanyo.sportsfeed.util.mock
 import com.alexvanyo.sportsfeed.viewmodel.FeedViewModel
 import createBaseballCompetition
