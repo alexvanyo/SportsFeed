@@ -45,9 +45,9 @@ class CompetitionFragment : DaggerFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        model = activity?.run {
+        model = activity!!.run {
             ViewModelProviders.of(this, viewModelFactory).get(FeedViewModel::class.java)
-        } ?: throw Exception("Invalid Activity")
+        }
 
         headlinesRecyclerView.apply {
             adapter = headlineAdapter
