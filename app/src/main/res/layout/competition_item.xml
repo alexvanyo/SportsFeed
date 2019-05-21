@@ -31,7 +31,7 @@
             android:padding="10dp">
 
             <ImageView
-                android:id="@+id/leftLogo"
+                android:id="@+id/firstLogo"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -39,24 +39,24 @@
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
-                android:id="@+id/leftAbbr"
+                android:id="@+id/firstAbbr"
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{competition.leftTeam.team.abbreviation}"
+                android:text="@{competition.firstTeam.team.abbreviation}"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@+id/leftLogo"
-                app:layout_constraintStart_toEndOf="@+id/leftLogo"
-                app:layout_constraintTop_toTopOf="@+id/leftLogo"
+                app:layout_constraintBottom_toBottomOf="@+id/firstLogo"
+                app:layout_constraintStart_toEndOf="@+id/firstLogo"
+                app:layout_constraintTop_toTopOf="@+id/firstLogo"
                 tools:text="@sample/teams.json/data/abbreviation" />
 
             <TextView
-                android:id="@+id/leftScore"
+                android:id="@+id/firstScore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
                 android:gravity="center"
-                android:text="@{competition.leftTeam.score}"
+                android:text="@{competition.firstTeam.score}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:visibility="@{competition.status.type.state == State.PRE ? View.INVISIBLE : View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="@+id/divider"
@@ -78,12 +78,12 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/rightScore"
+                android:id="@+id/secondScore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:gravity="center"
-                android:text="@{competition.rightTeam.score}"
+                android:text="@{competition.secondTeam.score}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:visibility="@{competition.status.type.state == State.PRE ? View.INVISIBLE : View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="@+id/divider"
@@ -91,19 +91,19 @@
                 tools:text="@sample/competitions.json/data/score1" />
 
             <TextView
-                android:id="@+id/rightAbbr"
+                android:id="@+id/secondAbbr"
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{competition.rightTeam.team.abbreviation}"
+                android:text="@{competition.secondTeam.team.abbreviation}"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@+id/rightLogo"
-                app:layout_constraintEnd_toStartOf="@+id/rightLogo"
-                app:layout_constraintTop_toTopOf="@+id/rightLogo"
+                app:layout_constraintBottom_toBottomOf="@+id/secondLogo"
+                app:layout_constraintEnd_toStartOf="@+id/secondLogo"
+                app:layout_constraintTop_toTopOf="@+id/secondLogo"
                 tools:text="@sample/teams.json/data/abbreviation" />
 
             <ImageView
-                android:id="@+id/rightLogo"
+                android:id="@+id/secondLogo"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 app:layout_constraintEnd_toEndOf="parent"

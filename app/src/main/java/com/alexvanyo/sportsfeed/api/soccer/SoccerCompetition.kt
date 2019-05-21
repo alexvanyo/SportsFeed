@@ -24,12 +24,12 @@ data class SoccerCompetition(
     override val uid: String
 ) : Competition {
     /**
-     * For soccer games, the left team displayed is the home team.
+     * For soccer games, the first team displayed is the home team.
      */
-    override fun getLeftTeam(): Competitor = getHomeTeam()
+    override fun getFirstTeam(): Competitor = getHomeTeam()
 
     /**
-     * For soccer games, the right team displayed is the away team.
+     * For soccer games, the second team displayed is the away team.
      */
-    override fun getRightTeam(): Competitor = getAwayTeam()
+    override fun getSecondTeam(): Competitor = getAwayTeam()
 }

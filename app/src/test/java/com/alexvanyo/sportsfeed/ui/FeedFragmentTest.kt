@@ -16,7 +16,6 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.alexvanyo.sportsfeed.R
-import com.alexvanyo.sportsfeed.SportsFeedApp
 import com.alexvanyo.sportsfeed.TestSportsFeedApp
 import com.alexvanyo.sportsfeed.api.Competition
 import com.alexvanyo.sportsfeed.api.Competitor
@@ -66,7 +65,7 @@ class FeedFragmentTest {
             createDefaultCompetitor(
                 homeAway = Competitor.HomeAway.AWAY,
                 score = "2",
-                team = createTeam("A", "Home Long Display Name", "Home Name")
+                team = createTeam("A", "Away Long Display Name", "Away Name")
             )
         ), status = createStatus(createStatusType(shortDetail = "Short Detail"))
     )
@@ -130,8 +129,8 @@ class FeedFragmentTest {
         competitions.postValue(listOf(testDisplayingCompetition))
 
         feedFragmentScenario.onFragment {
-            assertEquals(View.VISIBLE, it.recyclerView[0].leftAbbr.visibility)
-            assertEquals(testDisplayingCompetition.getLeftTeam().team.abbreviation, it.recyclerView[0].leftAbbr.text)
+            assertEquals(View.VISIBLE, it.recyclerView[0].firstAbbr.visibility)
+            assertEquals(testDisplayingCompetition.getFirstTeam().team.abbreviation, it.recyclerView[0].firstAbbr.text)
         }
     }
 
@@ -140,8 +139,8 @@ class FeedFragmentTest {
         competitions.postValue(listOf(testDisplayingCompetition))
 
         feedFragmentScenario.onFragment {
-            assertEquals(View.VISIBLE, it.recyclerView[0].leftScore.visibility)
-            assertEquals(testDisplayingCompetition.getLeftTeam().score, it.recyclerView[0].leftScore.text)
+            assertEquals(View.VISIBLE, it.recyclerView[0].firstScore.visibility)
+            assertEquals(testDisplayingCompetition.getFirstTeam().score, it.recyclerView[0].firstScore.text)
         }
     }
 
@@ -159,8 +158,8 @@ class FeedFragmentTest {
         competitions.postValue(listOf(testDisplayingCompetition))
 
         feedFragmentScenario.onFragment {
-            assertEquals(View.VISIBLE, it.recyclerView[0].rightAbbr.visibility)
-            assertEquals(testDisplayingCompetition.getRightTeam().team.abbreviation, it.recyclerView[0].rightAbbr.text)
+            assertEquals(View.VISIBLE, it.recyclerView[0].secondAbbr.visibility)
+            assertEquals(testDisplayingCompetition.getSecondTeam().team.abbreviation, it.recyclerView[0].secondAbbr.text)
         }
     }
 
@@ -169,8 +168,8 @@ class FeedFragmentTest {
         competitions.postValue(listOf(testDisplayingCompetition))
 
         feedFragmentScenario.onFragment {
-            assertEquals(View.VISIBLE, it.recyclerView[0].rightScore.visibility)
-            assertEquals(testDisplayingCompetition.getRightTeam().score, it.recyclerView[0].rightScore.text)
+            assertEquals(View.VISIBLE, it.recyclerView[0].secondScore.visibility)
+            assertEquals(testDisplayingCompetition.getSecondTeam().score, it.recyclerView[0].secondScore.text)
         }
     }
 
@@ -273,9 +272,9 @@ class FeedFragmentTest {
         competitions.postValue(listOf(postCompetition))
 
         feedFragmentScenario.onFragment {
-            assertEquals(View.INVISIBLE, it.recyclerView[0].leftScore.visibility)
+            assertEquals(View.INVISIBLE, it.recyclerView[0].firstScore.visibility)
             assertEquals(View.INVISIBLE, it.recyclerView[0].divider.visibility)
-            assertEquals(View.INVISIBLE, it.recyclerView[0].rightScore.visibility)
+            assertEquals(View.INVISIBLE, it.recyclerView[0].secondScore.visibility)
         }
     }
 

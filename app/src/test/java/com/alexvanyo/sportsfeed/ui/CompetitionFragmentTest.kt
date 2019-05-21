@@ -23,7 +23,6 @@ import createDefaultCompetitor
 import createStatus
 import createStatusType
 import createTeam
-import io.reactivex.observers.TestObserver
 import io.reactivex.subjects.PublishSubject
 import org.junit.Assert
 import org.junit.Before
@@ -73,16 +72,16 @@ class CompetitionFragmentTest {
     fun `left name is correct`() {
         competition.postValue(testDisplayingCompetition)
 
-        onView(withId(R.id.leftName)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
-        onView(withId(R.id.leftName)).check(matches(withText("Away Name")))
+        onView(withId(R.id.firstName)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
+        onView(withId(R.id.firstName)).check(matches(withText("Away Name")))
     }
 
     @Test
     fun `left score is correct`() {
         competition.postValue(testDisplayingCompetition)
 
-        onView(withId(R.id.leftScore)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
-        onView(withId(R.id.leftScore)).check(matches(withText("2")))
+        onView(withId(R.id.firstScore)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
+        onView(withId(R.id.firstScore)).check(matches(withText("2")))
     }
 
     @Test
@@ -96,16 +95,16 @@ class CompetitionFragmentTest {
     fun `right name is correct`() {
         competition.postValue(testDisplayingCompetition)
 
-        onView(withId(R.id.rightName)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
-        onView(withId(R.id.rightName)).check(matches(withText("Home Name")))
+        onView(withId(R.id.secondName)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
+        onView(withId(R.id.secondName)).check(matches(withText("Home Name")))
     }
 
     @Test
     fun `right score is correct`() {
         competition.postValue(testDisplayingCompetition)
 
-        onView(withId(R.id.rightScore)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
-        onView(withId(R.id.rightScore)).check(matches(withText("1")))
+        onView(withId(R.id.secondScore)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
+        onView(withId(R.id.secondScore)).check(matches(withText("1")))
     }
 
     @Test
@@ -128,9 +127,9 @@ class CompetitionFragmentTest {
 
         competition.postValue(postCompetition)
 
-        onView(withId(R.id.leftScore)).check(matches(withEffectiveVisibility(Visibility.INVISIBLE)))
+        onView(withId(R.id.firstScore)).check(matches(withEffectiveVisibility(Visibility.INVISIBLE)))
         onView(withId(R.id.divider)).check(matches(withEffectiveVisibility(Visibility.INVISIBLE)))
-        onView(withId(R.id.rightScore)).check(matches(withEffectiveVisibility(Visibility.INVISIBLE)))
+        onView(withId(R.id.secondScore)).check(matches(withEffectiveVisibility(Visibility.INVISIBLE)))
     }
 
     @Test

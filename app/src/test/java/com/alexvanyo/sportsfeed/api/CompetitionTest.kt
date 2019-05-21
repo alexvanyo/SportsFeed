@@ -85,22 +85,22 @@ class CompetitionTest {
         val homeCompetitor = createDefaultCompetitor(
             homeAway = Competitor.HomeAway.HOME,
             statistics = listOf(
-                Statistic("shared", "sharedStatistic", "right1"),
-                Statistic("right", "rightOnlyStatistic", "right2")
+                Statistic("shared", "sharedStatistic", "second1"),
+                Statistic("right", "secondOnlyStatistic", "second2")
             )
         )
         val awayCompetitor = createDefaultCompetitor(
             homeAway = Competitor.HomeAway.AWAY,
             statistics = listOf(
-                Statistic("shared", "sharedStatistic", "left1"),
-                Statistic("left", "leftOnlyStatistic", "left2")
+                Statistic("shared", "sharedStatistic", "first1"),
+                Statistic("left", "firstOnlyStatistic", "first2")
             )
         )
 
         val competition = createDefaultCompetition(listOf(homeCompetitor, awayCompetitor))
 
         assertEquals(
-            listOf(Competition.PairedStatistic("left1", "shared", "right1")),
+            listOf(Competition.PairedStatistic("shared", "first1", "second1")),
             competition.getPairedStatistics()
         )
     }

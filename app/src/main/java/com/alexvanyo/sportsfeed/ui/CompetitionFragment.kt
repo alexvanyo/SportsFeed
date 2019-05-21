@@ -63,8 +63,8 @@ class CompetitionFragment : DaggerFragment() {
 
         model.selectedCompetition.observe(this, Observer {
             binding.competition = it
-            Glide.with(this).load(it.getLeftTeam().team.logo).into(leftLogo)
-            Glide.with(this).load(it.getRightTeam().team.logo).into(rightLogo)
+            Glide.with(this).load(it.getFirstTeam().team.logo).into(firstLogo)
+            Glide.with(this).load(it.getSecondTeam().team.logo).into(secondLogo)
 
             headlineAdapter.submitList(it.headlines.orEmpty())
             statisticAdapter.submitList(it.getPairedStatistics())

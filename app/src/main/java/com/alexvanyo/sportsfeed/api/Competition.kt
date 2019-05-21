@@ -44,28 +44,28 @@ interface Competition : Comparable<Competition> {
     }
 
     /**
-     * Returns the team that should be displayed on the left visually.
+     * Returns the team that should be displayed first visually.
      * For most American sports, this is the away team, which is the default implementation.
      */
-    fun getLeftTeam() = getAwayTeam()
+    fun getFirstTeam() = getAwayTeam()
 
     /**
-     * Returns the team that should be displayed on the right visually.
+     * Returns the team that should be displayed second visually.
      * For most American sports, this is the home team, which is the default implementation.
      */
-    fun getRightTeam() = getHomeTeam()
+    fun getSecondTeam() = getHomeTeam()
 
     /**
      * Returns a list of paired statistics for the competition.
      */
     fun getPairedStatistics(): List<PairedStatistic> {
-        return getLeftTeam().statistics?.associateBy { it.name }.orEmpty().let { leftStatisticMap ->
-            getRightTeam().statistics.orEmpty()
-                .filter { leftStatisticMap.containsKey(it.name) }
+        return getFirstTeam().statistics?.associateBy { it.name }.orEmpty().let { firstStatisticMap ->
+            getSecondTeam().statistics.orEmpty()
+                .filter { firstStatisticMap.containsKey(it.name) }
                 .map {
                     PairedStatistic(
-                        leftStatisticMap.getValue(it.name).displayValue,
                         it.abbreviation,
+                        firstStatisticMap.getValue(it.name).displayValue,
                         it.displayValue
                     )
                 }
@@ -73,9 +73,9 @@ interface Competition : Comparable<Competition> {
     }
 
     data class PairedStatistic(
-        val leftDisplayValue: String,
         val name: String,
-        val rightDisplayValue: String
+        val firstDisplayValue: String,
+        val secondDisplayValue: String
     )
 }
 

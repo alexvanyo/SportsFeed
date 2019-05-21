@@ -20,11 +20,11 @@
         android:padding="4dp">
 
         <TextView
-            android:id="@+id/leftValue"
+            android:id="@+id/firstValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:text="@{pairedStatistic.leftDisplayValue}"
+            android:text="@{pairedStatistic.firstDisplayValue}"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/abbreviation"
             app:layout_constraintEnd_toStartOf="@+id/leftGuideline"
@@ -46,11 +46,11 @@
             tools:text="SHAST" />
 
         <TextView
-            android:id="@+id/rightValue"
+            android:id="@+id/secondValue"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="start"
-            android:text="@{pairedStatistic.rightDisplayValue}"
+            android:text="@{pairedStatistic.secondDisplayValue}"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/abbreviation"
             app:layout_constraintStart_toStartOf="@+id/rightGuideline"

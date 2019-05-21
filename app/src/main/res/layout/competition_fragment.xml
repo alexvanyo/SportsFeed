@@ -23,7 +23,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/leftLogo"
+                android:id="@+id/firstLogo"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_marginStart="16dp"
@@ -33,29 +33,29 @@
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
-                android:id="@+id/leftName"
+                android:id="@+id/firstName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:gravity="start"
-                android:text="@{competition.leftTeam.team.shortDisplayName}"
+                android:text="@{competition.firstTeam.team.shortDisplayName}"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toStartOf="@+id/centerGuideline"
-                app:layout_constraintStart_toStartOf="@+id/leftLogo"
-                app:layout_constraintTop_toBottomOf="@+id/leftLogo"
+                app:layout_constraintStart_toStartOf="@+id/firstLogo"
+                app:layout_constraintTop_toBottomOf="@+id/firstLogo"
                 tools:text="@sample/teams.json/data/shortDisplayName" />
 
             <TextView
-                android:id="@+id/leftScore"
+                android:id="@+id/firstScore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
                 android:gravity="center"
-                android:text="@{competition.leftTeam.score}"
+                android:text="@{competition.firstTeam.score}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:visibility="@{competition.status.type.state == State.PRE ? View.INVISIBLE : View.VISIBLE}"
-                app:layout_constraintBottom_toBottomOf="@+id/leftLogo"
+                app:layout_constraintBottom_toBottomOf="@+id/firstLogo"
                 app:layout_constraintEnd_toStartOf="@+id/divider"
                 tools:text="@sample/competitions.json/data/score1" />
 
@@ -67,17 +67,17 @@
                 android:text="-"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:visibility="@{competition.status.type.state == State.PRE ? View.INVISIBLE : View.VISIBLE}"
-                app:layout_constraintBottom_toBottomOf="@+id/leftScore"
+                app:layout_constraintBottom_toBottomOf="@+id/firstScore"
                 app:layout_constraintEnd_toStartOf="@+id/centerGuideline"
                 app:layout_constraintStart_toStartOf="@+id/centerGuideline" />
 
             <TextView
-                android:id="@+id/rightScore"
+                android:id="@+id/secondScore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:gravity="center"
-                android:text="@{competition.rightTeam.score}"
+                android:text="@{competition.secondTeam.score}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:visibility="@{competition.status.type.state == State.PRE ? View.INVISIBLE : View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="@+id/divider"
@@ -85,21 +85,21 @@
                 tools:text="@sample/competitions.json/data/score2" />
 
             <TextView
-                android:id="@+id/rightName"
+                android:id="@+id/secondName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:gravity="end"
-                android:text="@{competition.rightTeam.team.shortDisplayName}"
+                android:text="@{competition.secondTeam.team.shortDisplayName}"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="@+id/rightLogo"
+                app:layout_constraintEnd_toEndOf="@+id/secondLogo"
                 app:layout_constraintStart_toStartOf="@+id/centerGuideline"
-                app:layout_constraintTop_toBottomOf="@+id/rightLogo"
+                app:layout_constraintTop_toBottomOf="@+id/secondLogo"
                 tools:text="@sample/teams.json/data/shortDisplayName" />
 
             <ImageView
-                android:id="@+id/rightLogo"
+                android:id="@+id/secondLogo"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_marginEnd="16dp"
@@ -114,7 +114,7 @@
                 android:text="@{competition.status.type.detail}"
                 app:layout_constraintEnd_toStartOf="@+id/centerGuideline"
                 app:layout_constraintStart_toStartOf="@+id/centerGuideline"
-                app:layout_constraintTop_toTopOf="@+id/leftLogo"
+                app:layout_constraintTop_toTopOf="@+id/firstLogo"
                 tools:text="@sample/competitions.json/data/detail" />
 
             <androidx.constraintlayout.widget.Guideline
@@ -128,9 +128,9 @@
                 android:id="@+id/customDetailContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/rightName"
-                app:layout_constraintStart_toStartOf="@+id/leftName"
-                app:layout_constraintTop_toBottomOf="@+id/rightName">
+                app:layout_constraintEnd_toEndOf="@+id/secondName"
+                app:layout_constraintStart_toStartOf="@+id/firstName"
+                app:layout_constraintTop_toBottomOf="@+id/secondName">
 
                 <ViewStub
                     android:id="@+id/baseballBoxScoreStub"

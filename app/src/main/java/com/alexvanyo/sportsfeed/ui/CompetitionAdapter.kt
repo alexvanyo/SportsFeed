@@ -46,8 +46,8 @@ class CompetitionAdapter(val fragment: Fragment, val clickListener: (String) -> 
 
         holder.binding.competition = competition
         holder.itemView.clickable.setOnClickListener { clickListener(competition.uid) }
-        Glide.with(fragment).load(competition.getLeftTeam().team.logo).into(holder.itemView.leftLogo)
-        Glide.with(fragment).load(competition.getRightTeam().team.logo).into(holder.itemView.rightLogo)
+        Glide.with(fragment).load(competition.getFirstTeam().team.logo).into(holder.itemView.firstLogo)
+        Glide.with(fragment).load(competition.getSecondTeam().team.logo).into(holder.itemView.secondLogo)
         holder.binding.executePendingBindings()
     }
 }
