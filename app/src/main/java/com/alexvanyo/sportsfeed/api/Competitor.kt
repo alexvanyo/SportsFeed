@@ -1,8 +1,10 @@
 package com.alexvanyo.sportsfeed.api
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
-sealed class Competitor {
+sealed class Competitor : Parcelable {
     abstract val homeAway: HomeAway
     abstract val score: String
     abstract val statistics: List<Statistic>?
@@ -16,9 +18,10 @@ sealed class Competitor {
     }
 }
 
+@Parcelize
 data class DefaultCompetitor(
     @SerializedName("homeAway")
-    override val homeAway: Competitor.HomeAway,
+    override val homeAway: HomeAway,
 
     @SerializedName("score")
     override val score: String,
@@ -30,6 +33,7 @@ data class DefaultCompetitor(
     override val team: Team
 ) : Competitor()
 
+@Parcelize
 data class BaseballCompetitor(
     @SerializedName("errors")
     val errors: Int,
@@ -38,7 +42,7 @@ data class BaseballCompetitor(
     val hits: Int,
 
     @SerializedName("homeAway")
-    override val homeAway: Competitor.HomeAway,
+    override val homeAway: HomeAway,
 
     @SerializedName("linescores")
     val linescores: List<LineScoreValue>?,
@@ -52,8 +56,9 @@ data class BaseballCompetitor(
     @SerializedName("team")
     override val team: Team
 ) : Competitor() {
+    @Parcelize
     data class LineScoreValue(
         @SerializedName("value")
         val value: Int
-    )
+    ) : Parcelable
 }

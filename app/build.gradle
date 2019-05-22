@@ -43,6 +43,10 @@ android {
     }
 }
 
+androidExtensions {
+    experimental = true
+}
+
 tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
 }

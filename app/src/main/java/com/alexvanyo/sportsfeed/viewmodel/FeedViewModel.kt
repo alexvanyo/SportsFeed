@@ -1,5 +1,6 @@
 package com.alexvanyo.sportsfeed.viewmodel
 
+import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,6 +16,7 @@ import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 private const val LOG_TAG = "FeedViewModel"
+private const val SELECTED_COMPETITION_KEY = "selected_competition_key"
 
 /**
  * Main view model for the feed.
@@ -99,7 +101,7 @@ class FeedViewModel @Inject constructor(
         _competitions.postValue(competitionMap.values.toList())
 
         if (competitionMap.containsKey(_selectedCompetition.value?.uid)) {
-            _selectedCompetition.postValue(competitionMap[selectedCompetition.value?.uid])
+            _selectedCompetition.postValue(competitionMap[_selectedCompetition.value?.uid])
         }
     }
 
@@ -117,4 +119,24 @@ class FeedViewModel @Inject constructor(
      * @param uid the unique string identifier corresponding to the competition
      */
     fun selectCompetition(uid: String) = _selectedCompetition.postValue(competitionMap[uid])
+
+    /**
+     * Restores state from the given bundle.
+     *
+     * @param savedInstanceState the bundle to restore from.
+     */
+    fun restoreState(savedInstanceState: Bundle) {
+        if (savedInstanceState.containsKey(SELECTED_COMPETITION_KEY)) {
+            _selectedCompetition.postValue(savedInstanceState.getParcelable(SELECTED_COMPETITION_KEY))
+        }
+    }
+
+    /**
+     * Saves state into the given bundle.
+     *
+     * @param outState the bundle to save into
+     */
+    fun saveState(outState: Bundle) {
+        outState.putParcelable(SELECTED_COMPETITION_KEY, _selectedCompetition.value)
+    }
 }

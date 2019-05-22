@@ -1,13 +1,15 @@
 package com.alexvanyo.sportsfeed.api
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 import java.util.*
 import kotlin.math.max
 
 /**
  * Interface that corresponds to a single competition, which is a game played between two teams.
  */
-sealed class Competition : Comparable<Competition> {
+sealed class Competition : Comparable<Competition>, Parcelable {
     abstract val competitors: List<Competitor>
     abstract val headlines: List<Headline>?
     abstract val startDate: Date
@@ -83,12 +85,13 @@ sealed class Competition : Comparable<Competition> {
 /**
  * Default data class that can represent any competition
  */
+@Parcelize
 data class DefaultCompetition(
     @SerializedName("competitors")
     override val competitors: List<DefaultCompetitor>,
 
     @SerializedName("headlines")
-    override val headlines: List<Headline>,
+    override val headlines: List<Headline>?,
 
     @SerializedName("startDate")
     override val startDate: Date,
@@ -108,12 +111,13 @@ const val NUMBER_INNINGS = 9
 /**
  * Data class for a baseball game.
  */
+@Parcelize
 data class BaseballCompetition(
     @SerializedName("competitors")
     override val competitors: List<BaseballCompetitor>,
 
     @SerializedName("headlines")
-    override val headlines: List<Headline>,
+    override val headlines: List<Headline>?,
 
     @SerializedName("startDate")
     override val startDate: Date,
@@ -161,12 +165,13 @@ data class BaseballCompetition(
 /**
  * Data class for a soccer game.
  */
+@Parcelize
 data class SoccerCompetition(
     @SerializedName("competitors")
     override val competitors: List<DefaultCompetitor>,
 
     @SerializedName("headlines")
-    override val headlines: List<Headline>,
+    override val headlines: List<Headline>?,
 
     @SerializedName("startDate")
     override val startDate: Date,

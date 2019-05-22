@@ -1,7 +1,10 @@
 package com.alexvanyo.sportsfeed.api
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Statistic(
     @SerializedName("abbreviation")
     val abbreviation: String,
@@ -11,4 +14,4 @@ data class Statistic(
 
     @SerializedName("displayValue")
     val displayValue: String
-)
+) : Parcelable

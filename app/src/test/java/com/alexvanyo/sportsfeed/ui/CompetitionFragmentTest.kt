@@ -165,8 +165,6 @@ class CompetitionFragmentTest {
 
         competition.postValue(baseballCompetition)
 
-        ShadowLooper.runUiThreadTasks()
-
         onView(withId(R.id.awayTeamAbbr)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
         onView(withId(R.id.awayTeamAbbr)).check(matches(withText("AWAY")))
 

@@ -16,7 +16,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import createDefaultEvent
 import createDefaultScoreboardData
 import org.junit.rules.TestRule
-import org.mockito.Mockito
 
 class FeedViewModelTest {
 
