@@ -15,5 +15,5 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(FeedViewModel::class)
-    abstract fun bindFeedViewModel(feedViewModel: FeedViewModelFactory): ViewModelFactory
+    abstract fun bindFeedViewModelFactory(feedViewModelFactory: FeedViewModelFactory): ViewModelFactory
 }
