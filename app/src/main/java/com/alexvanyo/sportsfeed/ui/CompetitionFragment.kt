@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.alexvanyo.sportsfeed.R
 import com.alexvanyo.sportsfeed.api.BaseballCompetition
 import com.alexvanyo.sportsfeed.databinding.BaseballBoxScoreTextViewBinding
 import com.alexvanyo.sportsfeed.databinding.CompetitionFragmentBinding
 import com.alexvanyo.sportsfeed.viewmodel.FeedViewModel
+import com.alexvanyo.sportsfeed.viewmodel.InjectableSavedStateVMFactoryFactory
 import com.bumptech.glide.Glide
 import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -28,7 +28,7 @@ import javax.inject.Inject
 class CompetitionFragment : DaggerFragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var viewModelFactoryFactory: InjectableSavedStateVMFactoryFactory
 
     private lateinit var model: FeedViewModel
 
@@ -51,7 +51,7 @@ class CompetitionFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         model = activity!!.run {
-            ViewModelProviders.of(this, viewModelFactory).get(FeedViewModel::class.java)
+            ViewModelProviders.of(this, viewModelFactoryFactory.create(this, null)).get(FeedViewModel::class.java)
         }
 
         headlinesRecyclerView.apply {
