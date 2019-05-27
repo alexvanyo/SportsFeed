@@ -4,16 +4,18 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.alexvanyo.sportsfeed.api.Competition
 import com.alexvanyo.sportsfeed.api.ScoreboardData
 import com.alexvanyo.sportsfeed.repository.FeedRepository
 import com.alexvanyo.sportsfeed.util.PausableObservable
+import com.google.auto.factory.AutoFactory
+import com.google.auto.factory.Provided
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
-import javax.inject.Inject
 
 private const val LOG_TAG = "FeedViewModel"
 private const val SELECTED_COMPETITION_KEY = "selected_competition_key"
@@ -21,9 +23,11 @@ private const val SELECTED_COMPETITION_KEY = "selected_competition_key"
 /**
  * Main view model for the feed.
  */
-class FeedViewModel @Inject constructor(
-    private val feedRepository: FeedRepository,
-    private val pausableObservable: PausableObservable<*>
+@AutoFactory(implementing = [ViewModelFactory::class])
+class FeedViewModel constructor(
+    @Provided private val feedRepository: FeedRepository,
+    @Provided private val pausableObservable: PausableObservable<*>,
+    private val handle: SavedStateHandle
 ) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()

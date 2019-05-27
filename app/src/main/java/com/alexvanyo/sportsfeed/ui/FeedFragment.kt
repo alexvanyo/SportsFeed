@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.alexvanyo.sportsfeed.R
 import com.alexvanyo.sportsfeed.viewmodel.FeedViewModel
+import com.alexvanyo.sportsfeed.viewmodel.InjectableSavedStateVMFactoryFactory
 import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -24,7 +24,7 @@ import javax.inject.Inject
 class FeedFragment : DaggerFragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var viewModelFactoryFactory: InjectableSavedStateVMFactoryFactory
 
     private lateinit var model: FeedViewModel
 
@@ -39,7 +39,7 @@ class FeedFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         model = activity!!.run {
-            ViewModelProviders.of(this, viewModelFactory).get(FeedViewModel::class.java)
+            ViewModelProviders.of(this, viewModelFactoryFactory.create(this, null)).get(FeedViewModel::class.java)
         }
 
         model.competitions.observe(this, Observer {

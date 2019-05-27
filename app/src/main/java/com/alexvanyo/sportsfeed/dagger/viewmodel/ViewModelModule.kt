@@ -1,9 +1,6 @@
 package com.alexvanyo.sportsfeed.dagger.viewmodel
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.alexvanyo.sportsfeed.viewmodel.FeedViewModel
-import com.alexvanyo.sportsfeed.viewmodel.InjectableViewModelFactory
+import com.alexvanyo.sportsfeed.viewmodel.*
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -18,8 +15,5 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(FeedViewModel::class)
-    abstract fun bindFeedViewModel(feedViewModel: FeedViewModel): ViewModel
-
-    @Binds
-    abstract fun bindViewModelFactory(factory: InjectableViewModelFactory): ViewModelProvider.Factory
+    abstract fun bindFeedViewModel(feedViewModel: FeedViewModelFactory): ViewModelFactory
 }

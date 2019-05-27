@@ -9,13 +9,14 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.alexvanyo.sportsfeed.viewmodel.FeedViewModel
+import com.alexvanyo.sportsfeed.viewmodel.InjectableSavedStateVMFactoryFactory
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var viewModelFactoryFactory: InjectableSavedStateVMFactoryFactory
 
     private lateinit var model: FeedViewModel
 
@@ -29,7 +30,7 @@ class MainActivity : DaggerAppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        model = ViewModelProviders.of(this, viewModelFactory).get(FeedViewModel::class.java)
+        model = ViewModelProviders.of(this, viewModelFactoryFactory.create(this, null)).get(FeedViewModel::class.java)
         if (savedInstanceState != null) {
             model.restoreState(savedInstanceState)
         }
