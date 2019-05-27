@@ -18,7 +18,7 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(FeedViewModel::class)
-    abstract fun bindRepoViewModel(feedViewModel: FeedViewModel): ViewModel
+    abstract fun bindFeedViewModel(feedViewModel: FeedViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: InjectableViewModelFactory): ViewModelProvider.Factory
